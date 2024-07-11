@@ -1,0 +1,42 @@
+[
+  {
+    "method": "GET",
+    "route": "/catalog/getcatalog",
+    "handlerPath": "./handlers/catalog/get_catalog"
+  },
+  {
+    "method": "PUT",
+    "route": "/catalog/updatecategories/:parentId",
+    "handlerPath": "./handlers/catalog/update_categories",
+    "auth": true
+  },
+  {
+    "method": "GET",
+    "route": "/catalog/getallcategories",
+    "handlerPath": "./handlers/catalog/get_all_categories"
+  },
+  {
+    "method": "POST",
+    "route": "/catalog/getcategoriesbyparent",
+    "handlerPath": "./handlers/catalog/get_categories_by_parent",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/catalog/getlistofcategoriesbyparents",
+    "handlerPath": "./handlers/catalog/get_list_of_categories_by_parents",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/catalog/movecategory",
+    "handlerPath": "./handlers/catalog/move_category",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/catalog/migrateproducts",
+    "handlerPath": "./handlers/catalog/migrate_products",
+    "auth": true
+  }
+]

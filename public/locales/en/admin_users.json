@@ -1,0 +1,20 @@
+{
+  "profile_success_updated": "User profile has been updated successfully!",
+  "created": "Created",
+  "name": "Name",
+  "email": "Email",
+  "phone": "Phone",
+  "address": "Address",
+  "locale": "Locale",
+  "country": "Country",
+  "seller": "$ Seller",
+  "buyer": "$ Buyer",
+  "email_conf": "Email Conf.",
+  "notifications": "Notifications",
+  "status": "Status",
+  "roles": "Roles",
+  "user_settings": "User Settings",
+  "locked": "Locked Seller",
+  "user_detail": "User",
+  "warning_edit_yourself": "You cannot make changes to your profile, another admin must do this"
+}

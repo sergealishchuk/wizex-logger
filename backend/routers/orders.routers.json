@@ -1,0 +1,142 @@
+[
+  {
+    "method": "POST",
+    "route": "/orders/addorder/auth",
+    "handlerPath": "./handlers/orders/add_order",
+    "auth": true
+  },
+  {
+    "method": "GET",
+    "route": "/orders/getcustomerorders",
+    "handlerPath": "./handlers/orders/get_customer_orders",
+    "auth": true
+  },
+  {
+    "method": "GET",
+    "route": "/orders/getcustomerorderdetails/:orderUid",
+    "handlerPath": "./handlers/orders/get_customer_order_details",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/orders/getprocessingstages",
+    "handlerPath": "./handlers/orders/get_processing_stages",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/orders/addprocessingstage",
+    "handlerPath": "./handlers/orders/add_processing_stage",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/orders/updateoredercomplete",
+    "handlerPath": "./handlers/orders/update_order_complete",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/orders/addpayment",
+    "handlerPath": "./handlers/orders/add_payment",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/orders/getpayments",
+    "handlerPath": "./handlers/orders/get_payments",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/orders/removepayment",
+    "handlerPath": "./handlers/orders/remove_payment",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/orders/getorderupdates",
+    "handlerPath": "./handlers/orders/get_order_updates",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/orders/addtochat",
+    "handlerPath": "./handlers/orders/add_to_chat",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/orders/getchatmessages",
+    "handlerPath": "./handlers/orders/get_chat_messages",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/orders/removechatmessage",
+    "handlerPath": "./handlers/orders/remove_chat_message",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/orders/editchatmessage",
+    "handlerPath": "./handlers/orders/edit_chat_message",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/orders/getsellerorderslistupdates",
+    "handlerPath": "./handlers/orders/get_seller_orders_list_updates",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/orders/getbuyerorderslistupdates",
+    "handlerPath": "./handlers/orders/get_buyer_orders_list_updates",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/orders/updatesyncreadingstatus",
+    "handlerPath": "./handlers/orders/update_sync_reading_status",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/orders/getallsellerstatuses",
+    "handlerPath": "./handlers/orders/get_all_seller_statuses",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/orders/getallbuyerstatuses",
+    "handlerPath": "./handlers/orders/get_all_buyer_statuses",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/orders/getallupdatesstatuses",
+    "handlerPath": "./handlers/orders/get_all_updates_statuses",
+    "auth": true
+  },
+ 
+  {
+    "method": "POST",
+    "route": "/orders/cancelorder",
+    "handlerPath": "./handlers/orders/cancel_order",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/orders/undocancelationorder",
+    "handlerPath": "./handlers/orders/undo_cancelation",
+    "auth": true
+  },
+  
+  {
+    "method": "POST",
+    "route": "/orders/getsellerorderscount",
+    "handlerPath": "./handlers/orders/get_seller_orders_count",
+    "auth": true
+  }
+]

@@ -1,0 +1,5 @@
+{
+  "CONFIRM_REMOVE_ATTRIBUTE": "${count} products contain this attribute. Remove this atttribute with values from all products?",
+  "CONFIRM_REMOVE_ATTRIBUTE_VALUE": "${count} products contain this value. Remove this value from all products?",
+  "CONFIRM_REMOVE_TAG_VALUE": "Found ${count} article(s) using this tag. When the tag is removed, all links from the articles will also be removed. Remove tag?"
+}

@@ -1,0 +1,92 @@
+{
+  "size": "{{size}}",
+  "from": "{{from}}",
+  "query": {
+    "bool": {
+      "should": [
+         {
+            "wildcard": {
+              "name": {
+                "value": "{{splited_query_string}}",
+                "boost": 1,
+                "rewrite": "constant_score"
+              }
+            }
+         },
+        {
+          "match": {
+            "name": {
+              "query": "{{query_string}}",
+              "operator": "and",
+              "fuzziness": "AUTO"
+            }
+          }
+        }
+      ],
+      "filter": {{#toJson}}filter{{/toJson}}
+    }
+  },
+  "sort": {{#toJson}}sort{{/toJson}},
+  "aggs": {
+    "my_group": {
+      "terms": {
+        "field": "categoryId",
+        "size": 1000
+      }
+    },
+    "max_price": { "max": { "field": "priceUSD" } },
+    "min_price": { "min": { "field": "priceUSD" } },
+    "currencies": {
+      "terms": {
+        "field": "currencyCode"
+      }
+    },
+    "price_ranges": {
+      "range": {
+        "field": "priceUSD",
+        "ranges": {{#toJson}}price_ranges{{/toJson}}
+      }
+    }
+  }
+}
+
+
+
+
+"should": 
+        {{#empty_query_string}}
+          [{"match_all": {}}]
+        {{/empty_query_string}}
+        {{^empty_query_string}}
+        [{
+          "match_phrase": {
+            "name": {
+              "query": "{{query_string}}",
+              "boost": 12,
+              "_name": "phraseonname"
+            }
+          }
+        },
+        {
+          "match": {
+            "name": {
+              "query": "{{query_string}}",
+              "operator": "and",
+              "fuzziness": "AUTO",
+              "boost": 8,
+              "_name": "and"
+            }
+          }
+        },
+        {
+          "match": {
+            "name": {
+              "query": "{{query_string}}",
+              "operator": "or",
+              "fuzziness": "AUTO",
+              "boost": 7,
+              "_name": "or"
+            }
+          }
+        }
+      ]{{/empty_query_string}},

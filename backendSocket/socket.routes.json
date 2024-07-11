@@ -1,0 +1,26 @@
+[
+  {
+    "command": "getPushNotifications",
+    "handlerPath": "./commandHandlers/users/getPushNotifications"
+  },
+  {
+    "command": "getOnlineUsersMonitor",
+    "handlerPath": "./commandHandlers/users/monitoringOnlineUsers"
+  },
+  {
+    "command": "getOnlineOrdersUsers",
+    "handlerPath": "./commandHandlers/users/getOnlineOrdersUsers"
+  },
+  {
+    "command": "logoutUser",
+    "handlerPath": "./commandHandlers/system/logout"
+  },
+  {
+    "command": "visible",
+    "handlerPath": "./commandHandlers/users/visible"
+  },
+  {
+    "command": "http.buildHasUpdated",
+    "handlerPath": "./commandHandlers/cds/buildHasUpdates"
+  }
+]

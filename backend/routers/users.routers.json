@@ -1,0 +1,95 @@
+[
+  {
+    "method": "POST",
+    "route": "/users/login_next",
+    "handlerPath": "./handlers/users/login_next"
+  },
+  {
+    "method": "POST",
+    "route": "/users/logout",
+    "handlerPath": "./handlers/users/log_out",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/users/signup",
+    "handlerPath": "./handlers/users/signup"
+  },
+  {
+    "method": "POST",
+    "route": "/users/refreshuser",
+    "handlerPath": "./handlers/users/refreshuser"
+  },
+  {
+    "method": "PUT",
+    "route": "/users/updateaccount",
+    "handlerPath": "./handlers/users/updateaccount",
+    "auth": true
+  },
+  {
+    "method": "PUT",
+    "route": "/users/updateuserprofile",
+    "handlerPath": "./handlers/users/update_user_profile",
+    "auth": true
+  },
+  {
+    "method": "GET",
+    "route": "/users/getuserprofile",
+    "handlerPath": "./handlers/users/get_user_profile",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/users/forgotyourpassword",
+    "handlerPath": "./handlers/users/forgotyourpassword"
+  },
+  {
+    "method": "POST",
+    "route": "/users/confirmrecovercode",
+    "handlerPath": "./handlers/users/confirmrecovercode"
+  },
+  {
+    "method": "POST",
+    "route": "/users/recoverpassword",
+    "handlerPath": "./handlers/users/recoverpassword"
+  },
+  {
+    "method": "PUT",
+    "route": "/users/confirmemail",
+    "handlerPath": "./handlers/users/confirmemail"
+  },
+  {
+    "method": "GET",
+    "route": "/users/retryconfirmemail",
+    "handlerPath": "./handlers/users/retryconfirmemail",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/users/removeuseraccount",
+    "handlerPath": "./handlers/users/removeuseraccount",
+    "auth": true
+  },
+  {
+    "method": "GET",
+    "route": "/storage/:image",
+    "handlerPath": "./handlers/users/image_loader"
+  },
+  {
+    "method": "POST",
+    "route": "/users/updatenotifytoken",
+    "handlerPath": "./handlers/users/update_notify_token",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/users/readpush",
+    "handlerPath": "./handlers/users/read_push"
+  },
+  {
+    "method": "POST",
+    "route": "/users/checkauthuser",
+    "handlerPath": "./handlers/users/check_auth_user",
+    "auth": true
+  }
+]

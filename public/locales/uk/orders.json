@@ -1,0 +1,14 @@
+{
+  "my_order_list": "Мій список Замовлень",
+  "customer_order_list": "Замовлення Клієнтів",
+  "continue_shopping": "Продовжити покупки",
+  "from": "від",
+  "status": "Статус",
+  "price": "Ціна",
+  "qty": "К-сть",
+  "total": "Всього",
+  "empty_orders_list": "Список Замовлень порожній",
+  "empty_in_progress_orders_list": "Не знайдено нових або незавершених Замовлень",
+  "order_changed": "Маємо Оновлення",
+  "only_in_progress": "тільки Незавершені"
+}

@@ -1,0 +1,13 @@
+[
+  {
+    "method": "GET",
+    "route": "/slider/getslider",
+    "handlerPath": "./handlers/slider/get_slider"
+  },
+  {
+    "method": "PUT",
+    "route": "/googs/updateslider",
+    "handlerPath": "./handlers/slider/update_slider",
+    "auth": true
+  }
+]

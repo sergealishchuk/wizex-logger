@@ -1,0 +1,10 @@
+[
+  {
+    "command": "logout",
+    "handlerProcedureName": "logoutHandler"
+  },
+  {
+    "command": "buildsStatusesUpdated",
+    "handlerProcedureName": "buildsStatusesUpdated"
+  }
+]

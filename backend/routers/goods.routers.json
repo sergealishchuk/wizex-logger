@@ -1,0 +1,113 @@
+[
+  {
+    "method": "GET",
+    "route": "/goods/get/:categoryId",
+    "handlerPath": "./handlers/goods/get_goods"
+  },
+  {
+    "method": "GET",
+    "route": "/detail/:productId",
+    "handlerPath": "./handlers/goods/get_good_details"
+  },
+  {
+    "method": "GET",
+    "route": "/goods/getorders",
+    "handlerPath": "./handlers/goods/get_orders",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/goods/addorder",
+    "handlerPath": "./handlers/goods/add_order"
+  },
+  {
+    "method": "GET",
+    "route": "/goods/getallsellergoods",
+    "handlerPath": "./handlers/goods/get_all_seller_products",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/goods/addproduct",
+    "handlerPath": "./handlers/goods/add_product",
+    "auth": true
+  },
+  {
+    "method": "PUT",
+    "route": "/googs/updateproduct",
+    "handlerPath": "./handlers/goods/update_product",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/goods/publish",
+    "handlerPath": "./handlers/goods/publish",
+    "auth": true
+  },
+  {
+    "method": "DELETE",
+    "route": "/goods/delete",
+    "handlerPath": "./handlers/goods/delete",
+    "auth": true
+  },
+  {
+    "method": "GET",
+    "route": "/getuserproduct/:productId",
+    "handlerPath": "./handlers/goods/get_user_product",
+    "auth": true
+  },
+  {
+    "method": "GET",
+    "route": "/getproductinfo/:productId",
+    "handlerPath": "./handlers/goods/get_product_short_info"
+  },
+  {
+    "method": "GET",
+    "route": "/getproductstatuses/:productId",
+    "handlerPath": "./handlers/goods/get_product_statuses"
+  },
+  {
+    "method": "GET",
+    "route": "/getcntgoodsbycategory/:categoryId",
+    "handlerPath": "./handlers/goods/get_goods_cnt_by_category.js"
+  },
+  {
+    "method": "POST",
+    "route": "/goods/updatefavorite",
+    "handlerPath": "./handlers/goods/update_favorite",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/goods/removefavorites",
+    "handlerPath": "./handlers/goods/remove_favorites",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/goods/getgoodsbyids",
+    "handlerPath": "./handlers/goods/get_goods_by_ids"
+  },
+  {
+    "method": "POST",
+    "route": "/goods/getmultipleorders",
+    "handlerPath": "./handlers/goods/get_multiple_orders"
+  },
+  {
+    "method": "GET",
+    "route": "/goods/getallproducts",
+    "handlerPath": "./handlers/goods/get_all_products"
+  },
+  {
+    "method": "POST",
+    "route": "/goods/getproductsbyfilter",
+    "handlerPath": "./handlers/goods/get_products_by_filter"
+  },
+  
+  {
+    "method": "GET",
+    "route": "/goods/productsexist/:categoryId",
+    "handlerPath": "./handlers/goods/products_exist_in_category",
+    "auth": true
+  }
+]

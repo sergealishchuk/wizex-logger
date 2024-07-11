@@ -1,0 +1,15 @@
+{
+  "size": {{size}},
+  "from": {{from}},
+  "min_score": {{min_score}},
+  "track_total_hits": true,
+  "query": {
+    "bool": {
+      "should": {{#toJson}}should{{/toJson}},
+      "must": {{#toJson}}must{{/toJson}},
+      "filter": {{#toJson}}filter{{/toJson}}
+    }
+  },
+  "sort": {{#toJson}}sort{{/toJson}},
+  "aggs": {{#toJson}}aggs{{/toJson}}
+}

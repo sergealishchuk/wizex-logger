@@ -1,0 +1,11 @@
+{
+  "title": "Змінити Login Email",
+  "login_email": "Login Email",
+  "current_password": "Поточний пароль",
+  "enter_login_email": "Введіть Ваш Login Email",
+  "enter_valid_login_email": "Введіть корректний Login Email",
+  "login_email_is_required": "Login Email обов'язковий",
+  "enter_current_password": "Введіть Ваш поточний пароль",
+  "current_password_validate": "Пароль має бути не менше 6 символів",
+  "current_password_is_required": "Поточний пароль обов'язковий"
+}

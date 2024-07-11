@@ -1,0 +1,16 @@
+{
+  "category": "Category",
+  "select_category": "Select Category",
+  "status": "Status",
+  "all": "All",
+  "published": "Published",
+  "draft": "Draft",
+  "add": "ADD",
+  "not_found": "Not Found",
+  "edit_tooltip": "Edit Product",
+  "add_title": "Add new Product",
+  "view_on_admin_page": "View on the Admin Page",
+  "view_in_store": "View on the Shopping Page",
+  "view_draft": "View on the Draft Page",
+  "reset_the_filter": "Reset the Filter"
+}

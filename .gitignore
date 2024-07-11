@@ -1,0 +1,10 @@
+/node_modules
+/backend/node_modules
+/backendSocket/node_modules
+.next
+.env
+package-lock.json
+/backend/environments.config.js
+/backend/deprecated
+/public/host-sw.js
+/tools/random-generator/node_modules

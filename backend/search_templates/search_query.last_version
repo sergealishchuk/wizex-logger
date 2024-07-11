@@ -1,0 +1,30 @@
+{
+  "size": {{size}},
+  "from": {{from}},
+  "min_score": {{min_score}},
+  "track_total_hits": true,
+  "query": {
+    "bool": {
+      "should": {{#toJson}}should{{/toJson}},
+      "must": {{#toJson}}must{{/toJson}},
+      "filter": {{#toJson}}filter{{/toJson}}
+    }
+  },
+  "sort": {{#toJson}}sort{{/toJson}},
+  "aggs": {
+    "my_group": {
+      "terms": {
+        "field": "categoryId",
+        "size": 1000
+      }
+    },
+    "max_price": {"max": { "field": "priceUSD" }},
+    "min_price": {"min": { "field": "priceUSD" }},
+    "price_ranges": {
+      "range": {
+        "field": "priceUSD",
+        "ranges": {{#toJson}}price_ranges{{/toJson}}
+      }
+    }
+  }
+}

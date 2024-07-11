@@ -1,0 +1,27 @@
+{
+  "add_attribute": "Добаити Атрибут",
+  "edit_attribute": "Редагувати Атрибут",
+  "attribute_name_uk": "Назва атрибуту (UK)",
+  "attribute_name_uk_required": "Назва атрибуту (UK) обов'язкова",
+  "attribute_name_en": "Назва атрибуту (EN)",
+  "attribute_name_en_required": "Назва атрибуту (EN) обов'язкова",
+  "type": "Тип",
+  "desc": "Опис",
+  "desc_required": "Опис обов'язковий",
+  "confirm_remove_attribute": "Атрибут та всі значення в продуктах буде безповоротно видалено! Видалити атрибут та значення?",
+  "confirm_remove_attribute_value": "Всі значення в продуктах буде видалено назавжди! Вилучити всі значення?",
+
+  "attributes": "Атрибути",
+  "attribute_values": "Значення Атрибуту",
+  "attribute_min_length": "Очікується від 2 до 60 символів",
+  "add_attribute_title": "Додати Атрибут",
+  "edit_attribute_title": "Редагувати Атрибут",
+  "add_attribute_value": "Додати значення Атрибуту",
+  "edit_attribute_value": "Редагуват значення Атрибуту",
+  "attribute_value_uk": "Значення Атрибуту (UK)",
+  "attribute_value_en": "Значення Атрибуту (EN)",
+  "less": "меньше",
+  "and": "та ще на",
+  "more_values": "більше",
+  "category": "Категорія"
+}

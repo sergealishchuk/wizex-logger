@@ -1,0 +1,10 @@
+{
+  "title": "Remove My Account",
+  "current_password": "Current Password",
+  "enter_current_password": "Enter your current password",
+  "current_password_validate": "Password length sould be at least 6 characters",
+  "current_password_is_required": "Current password is required",
+  "warning_text": "After deletion, your Account will not be possible to restore!",
+  "popup_title": "Please Confirm",
+  "popup_message": "Are you sure you want to remove your account?"
+}

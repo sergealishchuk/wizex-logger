@@ -1,0 +1,170 @@
+GET /products/_search
+{
+  "size": 50,
+  "from": 0,
+  "min_score": 2,
+  "query": {
+    "bool": {
+ 
+      "should": [
+        {
+          "match_phrase": {
+            "name": {
+              //"query": "ancients confirmation",
+              "query": "ancie confirmat",
+              "boost": 12,
+              "_name": "phrase on name"
+            }
+          }
+        },
+        {
+          "match": {
+            "name": {
+              "query": "ancie confirmat",
+              "operator": "and",
+              "fuzziness": "AUTO",
+              "boost": 8,
+              "_name": "and"
+            }
+          }
+        },
+        {
+          "match": {
+            "name": {
+              "query": "ancie confirmat",
+              "operator": "or",
+              "fuzziness": "AUTO",
+              "boost": 7,
+              "_name": "or"
+            }
+          }
+        }
+      ],
+      "must": [
+        {
+          "range": {
+            "priceUSD": {
+              "gte": 18.22,
+              "lte": 500
+            }
+          }
+        }
+      ],
+      
+      "filter": [
+        {
+          "term": {
+            "categoryId": 26
+          }
+        },
+        {
+          "term": {
+            "currencyCode": "UAH"
+          }
+        }
+      ]
+    }
+  }
+}
+
+
+----------------
+
+
+GET /products/_search
+{
+  "size": 10,
+  "from": 0,
+  "min_score": 2,
+  "query": {
+    
+    "bool": {
+ 
+      "should": [
+        {"match_all": {}}
+      ],
+      "must": [
+        {
+          "range": {
+            "priceUSD": {
+              "gte": 0,
+              "lte": 50000
+            }
+          }
+        }
+      ],
+      
+      "filter": [
+        {
+          "term": {
+            "categoryId": 16
+          }
+        },
+        {
+          "term": {
+            "currencyCode": "UAH"
+          }
+        },
+        {
+          "term": {
+            "attributes.1": 3
+          }
+        },
+        {
+          "term": {
+            "attributes.2": 7
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {"term": {"attributes.3": 13}},
+              {"term": {"attributes.3": 14}}
+            ]
+          }
+        }
+        
+      ]
+    }
+  },
+  "aggs": {
+    "my_group": {
+      "terms": {
+        "field": "categoryId",
+        "size": 1000
+      }
+    },
+    "attributes.1": {
+      "terms":{
+        "field": "attributes.1"
+      }
+    },
+    "attributes.2": {
+      "terms":{
+        "field": "attributes.2"
+      }
+    },
+    "attributes.3": {
+      "terms":{
+        "field": "attributes.3"
+      }
+    },
+    "attributes.4": {
+      "terms":{
+        "field": "attributes.4"
+      }
+    },
+    "attributes.5": {
+      "terms":{
+        "field": "attributes.5"
+      }
+    },
+    "max_price": { "max": { "field": "priceUSD" } },
+    "min_price": { "min": { "field": "priceUSD" } },
+    "currencies": {
+      "terms": {
+        "field": "currencyCode"
+      }
+    }
+  }
+}

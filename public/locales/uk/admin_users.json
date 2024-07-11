@@ -1,0 +1,20 @@
+{
+  "profile_success_updated": "Профіль Корисувача було успішно оновлено!",
+  "created": "Створено",
+  "name": "Ім'я",
+  "email": "Пошта",
+  "phone": "Телефон",
+  "address": "Адреса",
+  "locale": "Локаль",
+  "country": "Країна",
+  "seller": "$ Seller",
+  "buyer": "$ Buyer",
+  "email_conf": "Пошта підтв.",
+  "notifications": "Сповіщення",
+  "status": "Статус",
+  "roles": "Ролі",
+  "user_settings": "Налаштування",
+  "locked": "Заблокувати Продавця",
+  "user_detail": "Користувач",
+  "warning_edit_yourself": "Ви не можете вносити зміни для свого профайла, це повинен зробити інший адмін"
+}

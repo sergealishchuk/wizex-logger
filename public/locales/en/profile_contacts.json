@@ -1,0 +1,9 @@
+{
+  "title": "Contacts",
+  "contact_email": "Contact email",
+  "contact_email_is_required": "Contact email is required",
+  "enter_contact_email": "Enter your contact email",
+  "contact_email_validate": "Enter a valid contact email",
+  "phone": "Phone number",
+  "phone_validate": "Invalid phone number"
+}

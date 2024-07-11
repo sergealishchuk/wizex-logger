@@ -1,0 +1,15 @@
+{
+  "my_order_list": "My Order List",
+  "customer_order_list": "Customer Orders",
+  "continue_shopping": "Continue Shopping",
+  "from": "from",
+  "status": "Status",
+  "price": "Price",
+  "qty": "Qty",
+  "total": "Total",
+  "empty_orders_list": "The list of Orders is empty",
+  "empty_in_progress_orders_list": "No New or Pending Orders found",
+  "order_changed": "We have Updates",
+  "only_in_progress": "only In Progress"
+
+}

@@ -1,0 +1,11 @@
+{
+  "title": "Change Login Email",
+  "login_email": "Login Email",
+  "current_password": "Current Password",
+  "enter_login_email": "Enter your Login Email",
+  "enter_valid_login_email": "Enter a valid Login Email",
+  "login_email_is_required": "Login Email is required",
+  "enter_current_password": "Enter your current password",
+  "current_password_validate": "Password length sould be at least 5 characters",
+  "current_password_is_required": "Current password is required"
+}

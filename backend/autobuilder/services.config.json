@@ -1,0 +1,36 @@
+{
+  "branch": "refs/heads/master",
+  "services": [
+    {
+      "name": "front",
+      "install": [
+        "package.json"
+      ],
+      "build": true,
+      "restart": [
+        "src/",
+        "public/",
+        "resources/",
+        "styles/"
+      ]
+    },
+    {
+      "name": "backend",
+      "install": [
+        "backend/package.json"
+      ],
+      "restart": [
+        "backend/"
+      ]
+    },
+    {
+      "name": "backendSocket",
+      "install": [
+        "backendSocket/package.json"
+      ],
+      "restart": [
+        "backendSocket/"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "title": "Контактні дані",
+  "contact_email": "Email для контактів",
+  "contact_email_is_required": "Email обовʼязковий",
+  "enter_contact_email": "Введіть Ваш email для контактів",
+  "contact_email_validate": "Не вірний формат для email",
+  "phone": "Номер телефону",
+  "phone_validate": "Невірний формат номеру телефону"
+}

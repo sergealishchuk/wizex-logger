@@ -1,0 +1,40 @@
+{
+  "size": "{{size}}",
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "match": {
+            "name": {
+              "query": "{{query_string}}",
+              "operator": "and",
+              "fuzziness": "AUTO"
+            }
+          }
+        }
+      ]
+    }
+  }{{#suggest}},
+  "suggest": {
+    "text": "{{query_string}}",
+    "simple_phrase": {
+      "phrase": {
+        "field": "name",
+        "size": 5,
+        "gram_size": 1,
+        "direct_generator": [
+          {
+            "field": "name",
+            "suggest_mode": "always"
+          }
+        ],
+        "highlight": {
+          "pre_tag": "<em>",
+          "post_tag": "</em>"
+        }
+      }
+    }
+  }
+  {{/suggest}}
+}
+

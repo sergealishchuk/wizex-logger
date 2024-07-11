@@ -1,0 +1,7 @@
+[
+  {
+    "method": "GET",
+    "route": "/home/gethomedata",
+    "handlerPath": "./handlers/home/get_home_data"
+  }
+]

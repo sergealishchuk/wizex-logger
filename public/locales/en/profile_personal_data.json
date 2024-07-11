@@ -1,0 +1,11 @@
+{
+  "title": "Personal Data",
+  "first_name": "First Name",
+  "first_name_is_required": "Name is required",
+  "enter_first_name": "Enter your name",
+  "first_name_validate": "Name should be of minimum 2 characters length",
+  "last_name": "Last Name",
+  "last_name_is_required": "Last Name is required",
+  "enter_last_name": "Enter your Last Name",
+  "last_name_validate": "Last Name should be of minimum 2 characters length"
+}

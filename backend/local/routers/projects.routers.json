@@ -1,0 +1,72 @@
+[
+  {
+    "method": "GET",
+    "route": "/projects/getprojects",
+    "handlerPath": "./local/handlers/projects/get_projects",
+    "auth": true
+  },
+  {
+    "method": "GET",
+    "route": "/projects/getactiveprojects",
+    "handlerPath": "./local/handlers/projects/get_active_projects",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/actions/getallactions",
+    "handlerPath": "./local/handlers/actions/get_all_actions",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/actions/getactiondetail",
+    "handlerPath": "./local/handlers/actions/get_action_detail",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/projects/setactiveproject",
+    "handlerPath": "./local/handlers/projects/set_active_project",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/projects/pushemptycommit",
+    "handlerPath": "./local/handlers/projects/push_empty_commit",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/projects/addproject",
+    "handlerPath": "./local/handlers/projects/add_project",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/projects/updateproject",
+    "handlerPath": "./local/handlers/projects/update_project",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/projects/deleteproject",
+    "handlerPath": "./local/handlers/projects/delete_project",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/projects/generateapikey",
+    "handlerPath": "./local/handlers/projects/generate_api_key",
+    "auth": true
+  },
+  {
+    "method": "GET",
+    "route": "/wxmanager",
+    "handlerPath": "./local/handlers/manager/get_script"
+  },
+  {
+    "method": "POST",
+    "route": "/loghook",
+    "handlerPath": "./local/handlers/manager/log_hook"
+  }
+]

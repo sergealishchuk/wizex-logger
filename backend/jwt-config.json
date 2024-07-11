@@ -1,0 +1,12 @@
+{
+  "tokens": {
+    "access": {
+      "type": "access",
+      "expiresIn": "604800s"
+    },
+    "refresh": {
+      "type": "refresh",
+      "expiresIn": "2592000s"
+    }
+  }
+}

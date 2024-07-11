@@ -1,0 +1,30 @@
+[
+  {
+    "method": "POST",
+    "route": "/search/query",
+    "handlerPath": "./handlers/search/query"
+  },
+  {
+    "method": "POST",
+    "route": "/search/getsearchsuggestions",
+    "handlerPath": "./handlers/search/get_search_suggestions"
+  },
+  {
+    "method": "POST",
+    "route": "/search/indexer",
+    "handlerPath": "./handlers/search/indexer",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/admin/refreshsearchtemplates",
+    "handlerPath": "./handlers/search/refresh_templates",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/admin/getalltemplates",
+    "handlerPath": "./handlers/search/get_all_templates",
+    "auth": true
+  }
+]

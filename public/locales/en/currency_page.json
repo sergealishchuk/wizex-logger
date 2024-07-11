@@ -1,0 +1,22 @@
+{
+  "currency_title": "The official exchange rate of the hryvnia against foreign currencies",
+  "code": "Code",
+  "digital": "Digital Code",
+  "view": "View",
+  "rate": "Rate",
+  "symbol": "Symbol",
+  "symbol_first": "Symbol First",
+  "updated": "Updated At",
+  "on": "on",
+  "add_currency" : "Add Currency & Rate",
+  "edit_currency": "Edit Currency & Rate",
+  "enterCode": "Code",
+  "enterDigitCode": "Digital Code",
+  "required": "Field Required",
+  "must_length_3": "Must be 3 chars",
+  "rate_gr_0": "Must be greater than 0",
+  "must_be_letters": "Only uppercase letters",
+  "must_be_digits": "Only digits",
+  "please_confirm": "Please Confirm",
+  "confirm_remove_text": "Remove currency?"
+}

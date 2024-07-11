@@ -1,0 +1,11 @@
+{
+  "title": "Персональні Дані",
+  "first_name": "Ім'я",
+  "first_name_is_required": "Ім'я обов'язкове",
+  "enter_first_name": "Введіть Ім'я",
+  "first_name_validate": "Довжина імені має бути мінімум 2 символи",
+  "last_name": "Прізвище",
+  "last_name_is_required": "Прізвище обов'язкове",
+  "enter_last_name": "Введіть своє Прізвище",
+  "last_name_validate": "Прізвище має бути мінімум 2 символи"
+}

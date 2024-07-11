@@ -1,0 +1,292 @@
+[
+  {
+    "method": "GET",
+    "route": "/admin/getcurrencies",
+    "handlerPath": "./handlers/admin/get_currencies"
+  },
+  {
+    "method": "POST",
+    "route": "/admin/addcurrency",
+    "handlerPath": "./handlers/admin/add_currency",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/admin/updatecurrency",
+    "handlerPath": "./handlers/admin/update_currency",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/admin/removecurrency",
+    "handlerPath": "./handlers/admin/remove_currency",
+    "auth": true
+  },
+  
+  {
+    "method": "POST",
+    "route": "/admin/getusers",
+    "handlerPath": "./handlers/admin/get_users",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/admin/updateuserstatus",
+    "handlerPath": "./handlers/admin/update_user_status",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/admin/populatedummydata",
+    "handlerPath": "./handlers/admin/populate_dummy_data",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/admin/getdatastatistics",
+    "handlerPath": "./handlers/admin/get_data_statistics",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/admin/removeallproducts",
+    "handlerPath": "./handlers/admin/remove_all_products",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/admin/refreshdatabase",
+    "handlerPath": "./handlers/admin/refresh_database",
+    "auth": true
+  },
+  {
+    "method": "GET",
+    "route": "/admin/getattributes",
+    "handlerPath": "./handlers/admin/attributes/get_attributes",
+    "auth": true
+  },
+  {
+    "method": "GET",
+    "route": "/admin/getattribute/:attributeId",
+    "handlerPath": "./handlers/admin/attributes/get_attribute",
+    "auth": true
+  },
+  {
+    "method": "GET",
+    "route": "/admin/getattributesbycategory/:categoryId",
+    "handlerPath": "./handlers/admin/attributes/get_attributes_by_category"
+  },
+  {
+    "method": "POST",
+    "route": "/admin/addattribute",
+    "handlerPath": "./handlers/admin/attributes/add_attribute",
+    "auth": true
+  },
+  {
+    "method": "PUT",
+    "route": "/admin/updateattribute",
+    "handlerPath": "./handlers/admin/attributes/update_attribute",
+    "auth": true
+  },
+  {
+    "method": "DELETE",
+    "route": "/admin/deleteattribute/:attributeId",
+    "handlerPath": "./handlers/admin/attributes/delete_attribute",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/admin/changeattributesorder",
+    "handlerPath": "./handlers/admin/attributes/change_attributes_order",
+    "auth": true
+  },
+  {
+    "method": "GET",
+    "route": "/admin/getattributestypes",
+    "handlerPath": "./handlers/admin/attributes/get_attributes_types",
+    "auth": true
+  },
+  {
+    "method": "GET",
+    "route": "/admin/getvaluesbyattribute/:attributeId",
+    "handlerPath": "./handlers/admin/attributes/get_values_by_attribute",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/admin/addattributevalue",
+    "handlerPath": "./handlers/admin/attributes/add_attribute_value",
+    "auth": true
+  },
+  {
+    "method": "GET",
+    "route": "/admin/getattributevalue/:valueId",
+    "handlerPath": "./handlers/admin/attributes/get_attribute_value",
+    "auth": true
+  },
+  {
+    "method": "PUT",
+    "route": "/admin/updateattributevalue",
+    "handlerPath": "./handlers/admin/attributes/update_attribute_value",
+    "auth": true
+  },
+  {
+    "method": "DELETE",
+    "route": "/admin/deleteattributevalue/:valueId",
+    "handlerPath": "./handlers/admin/attributes/delete_value",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/admin/checkattribute",
+    "handlerPath": "./handlers/admin/attributes/check_attribute",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/admin/arrangeattributes",
+    "handlerPath": "./handlers/admin/attributes/arrange_attributes",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/admin/arrangevalues",
+    "handlerPath": "./handlers/admin/attributes/arrange_values",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/admin/arrangestructure",
+    "handlerPath": "./handlers/admin/catalog/arrange_structure",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/admin/addcategory",
+    "handlerPath": "./handlers/admin/catalog/add_category",
+    "auth": true
+  },
+  {
+    "method": "PUT",
+    "route": "/admin/updatecategory",
+    "handlerPath": "./handlers/admin/catalog/edit_category",
+    "auth": true
+  },
+  {
+    "method": "DELETE",
+    "route": "/admin/deletecategory/:categoryId",
+    "handlerPath": "./handlers/admin/catalog/remove_category",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/admin/copycategory",
+    "handlerPath": "./handlers/admin/catalog/copy_category",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/admin/searchcategory",
+    "handlerPath": "./handlers/admin/catalog/search_category"
+  },
+  {
+    "method": "POST",
+    "route": "/admin/getarticles",
+    "handlerPath": "./handlers/admin/articles/get_articles",
+    "auth": true
+  },
+  {
+    "method": "GET",
+    "route": "/admin/getarticlestags",
+    "handlerPath": "./handlers/admin/articles/tags/get_tags",
+    "auth": true
+  },
+  {
+    "method": "GET",
+    "route": "/admin/getarticlestagvalue/:tagId",
+    "handlerPath": "./handlers/admin/articles/tags/get_tag_value",
+    "auth": true
+  },
+  {
+    "method": "PUT",
+    "route": "/admin/updatearticletagvalue",
+    "handlerPath": "./handlers/admin/articles/tags/update_tag_value",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/admin/addarticletagvalue",
+    "handlerPath": "./handlers/admin/articles/tags/add_tag_value",
+    "auth": true
+  },
+  {
+    "method": "DELETE",
+    "route": "/admin/deletearticletagvalue/:valueId",
+    "handlerPath": "./handlers/admin/articles/tags/delete_tag",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/admin/checkarticletag",
+    "handlerPath": "./handlers/admin/articles/tags/check_tag",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/admin/arrangearcticletagsvalues",
+    "handlerPath": "./handlers/admin/articles/tags/arrange_tags",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/admin/addarticle",
+    "handlerPath": "./handlers/admin/articles/add_article",
+    "auth": true
+  },
+  {
+    "method": "GET",
+    "route": "/admin/getarticle/:articleId",
+    "handlerPath": "./handlers/admin/articles/get_article"
+  },
+  {
+    "method": "PUT",
+    "route": "/admin/updatearticle",
+    "handlerPath": "./handlers/admin/articles/update_article",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/admin/publisharticle",
+    "handlerPath": "./handlers/admin/articles/publish_article",
+    "auth": true
+  },
+  {
+    "method": "DELETE",
+    "route": "/admin/deletearticle/:articleId",
+    "handlerPath": "./handlers/admin/articles/delete_article",
+    "auth": true
+  },
+  {
+    "method": "PUT",
+    "route": "/admin/refusearticlechanges",
+    "handlerPath": "./handlers/admin/articles/refuse_article_changes",
+    "auth": true
+  },
+  {
+    "method": "PUT",
+    "route": "/admin/makearticleactual",
+    "handlerPath": "./handlers/admin/articles/make_article_actual",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/admin/searcharticle",
+    "handlerPath": "./handlers/admin/articles/search_article"
+  },
+  {
+    "method": "POST",
+    "route": "/webhooks",
+    "handlerPath": "./autobuilder/auto-builder"
+  }
+
+]
