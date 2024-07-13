@@ -1,9 +1,13 @@
 const _ = require("lodash");
+const { v4: uuidv4 } = require('uuid');
+const jwt = require('jsonwebtoken');
 const { ROLES } = require("../../../constants");
 const { Users, Projects, sequelize } = require('../../../models');
 const {
   createErrorMessage,
 } = require('../../../utils');
+
+const { JWT_SECRET_KEY } = process.env;
 
 module.exports = async (req, res, tokenPayload) => {
   const UserID = tokenPayload.id;
@@ -60,8 +64,20 @@ module.exports = async (req, res, tokenPayload) => {
         return;
       }
 
+      const apiKey = uuidv4();
+      const token = jwt.sign(
+        {
+          id: UserID,
+          pi: projectId,
+          apiKey,
+        },
+        JWT_SECRET_KEY,
+        { expiresIn: "2592000s" }
+      );
+
       await Projects.update({
-        ...restFields,
+        apiKey,
+        token,
       }, {
         transaction,
         where: {

@@ -11,7 +11,9 @@ import { getLocalDate, confirmDialog, pushResponseMessages } from '~/utils';
 import { Button } from '@mui/material';
 import SubmitController from '~/components/formik/SubmitController';
 import { useTranslation } from 'next-i18next';
+import guiConfig from "~/gui-config";
 
+const { apiUrl } = guiConfig;
 
 const ProjectForm = (props) => {
   const { mode, data = {} } = props;
@@ -53,13 +55,14 @@ const ProjectForm = (props) => {
         description = "",
         publicLink = "",
         apiKey = "",
-        script = "",
       } = project;
+      const script = `<script async src="${apiUrl}/wxmanager?key=${apiKey}" />`
       setInitialValues({
         name,
         description,
         publicLink,
-        apiKey
+        apiKey,
+        script
       });
     }
   }, [project]);
@@ -70,8 +73,10 @@ const ProjectForm = (props) => {
     }
   }, [projectInput]);
 
-  const handleGenerateNewKey = () => {
-    console.log('handleGenerateNewKey');
+  const handleGenerateNewKey = async () => {
+    const generateKeyRequest = await projectsService.generateApiKeyForProject({
+      projectId: project.id,
+    });
   }
 
   const onSubmit = async (values) => {
@@ -199,7 +204,7 @@ const ProjectForm = (props) => {
                     <FlexContainer jc="space-between">
                       <div>
                         <Button disabled={!formChanged} type="submit" style={{ marginLeft: '16px', marginBottom: '48px', padding: '2px 12px', fontSize: '12px' }} variant="contained">Save</Button>
-                        {mode === EDIT_MODE ? <Button onClick={handleDeleteProject} style={{ marginLeft: '16px', marginBottom: '48px', padding: '2px 12px', fontSize: '12px' }} variant="contained" color="error">Remove</Button> : null}
+                        {mode === EDIT_MODE ? <Button onClick={handleDeleteProject} style={{ backgroundColor: '#801313', marginLeft: '16px', marginBottom: '48px', padding: '2px 12px', fontSize: '12px' }} variant="contained">Remove</Button> : null}
                       </div>
                       {
                         mode === EDIT_MODE

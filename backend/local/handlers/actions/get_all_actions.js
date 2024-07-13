@@ -1,5 +1,4 @@
 const _ = require("lodash");
-// const { ROLES } = require("../../../constants");
 const { Users, Projects, ProjectActions } = require('../../../models');
 const {
   createErrorMessage,
@@ -25,7 +24,7 @@ module.exports = async (req, res, tokenPayload) => {
 
   const { body = {} } = req;
 
-  const { projectId, includeBuilds = true } = body;
+  const { projectId, f, includeBuilds = true } = body;
 
   try {
 
@@ -51,12 +50,12 @@ module.exports = async (req, res, tokenPayload) => {
     };
 
     if (includeBuilds) {
-
+      const where = { projectId };
+      if (f) {
+        where.sessionId = f;
+      }
       const actionsRequest = await ProjectActions.findAll({
-        where: {
-          projectId,
-        },
-       // attributes: ['id', 'services', 'startedAt', 'commit', 'longTimeSec', 'status'],
+        where,
         order: [['id', 'DESC']],
         raw: true,
       });
@@ -70,7 +69,8 @@ module.exports = async (req, res, tokenPayload) => {
 
         return {
           ...action,
-          content,
+          body: content.body,
+          headers: content.headers,
         }
       });
 

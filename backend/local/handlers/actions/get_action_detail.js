@@ -1,6 +1,5 @@
 const _ = require("lodash");
-// const { ROLES } = require("../../../constants");
-const { Users, CICDProjects, CICDBuilds } = require('../../../models');
+const { Users, Projects, ProjectActions } = require('../../../models');
 const {
   createErrorMessage,
 } = require('../../../utils');
@@ -25,36 +24,34 @@ module.exports = async (req, res, tokenPayload) => {
 
   const { body = {} } = req;
 
-  const { buildId } = body;
+  const { actionId } = body;
 
   try {
 
-    const buildRequest = await CICDBuilds.findOne({
+    const actionRequest = await ProjectActions.findOne({
       where: {
-        id: buildId,
+        id: actionId,
       },
-      attributes: ['id', 'projectId', 'branch', 'services', 'startedAt', 'commit', 'log', 'longTimeSec', 'status'],
-      // order: [['id', 'DESC']],
       raw: true,
     });
 
-    if (!buildRequest) {
+    if (!actionRequest) {
       res.status(400).json(
         {
-          error: createErrorMessage("Build not found"),
-          ERROR_CODE: "BUILD_NOT_FOUND"
+          error: createErrorMessage("Action not found"),
+          ERROR_CODE: "ACTION_NOT_FOUND"
         }
       );
       return;
     }
 
-    const { projectId } = buildRequest;
+    const { projectId } = actionRequest;
 
-    const projectRequest = await CICDProjects.findOne({
+    const projectRequest = await Projects.findOne({
       where: {
         id: projectId,
       },
-      attributes: ['name', 'description', 'repoLink'],
+      attributes: ['name', 'description', 'publicLink'],
       raw: true,
     });
 
@@ -68,49 +65,23 @@ module.exports = async (req, res, tokenPayload) => {
       return;
     }
 
-    // const buildsRequest = await CICDBuilds.findAll({
-    //   where: {
-    //     projectId,
-    //   },
-    //   attributes: ['id', 'services', 'startedAt', 'commit', 'longTimeSec', 'status'],
-    //   order: [['id', 'DESC']],
-    //   raw: true,
-    // });
-
-
-    // const builds = _.map(buildsRequest, build => {
-    //   let commit = {};
-    //   try {
-    //     commit = JSON.parse(build.commit);
-    //   } catch (e) { console.log(e) };
-
-    //   return {
-    //     ...build,
-    //     commit,
-    //   }
-    // });
-
-
-    let commit = {};
+    let content = {};
     try {
-      commit = JSON.parse(buildRequest.commit);
+      content = JSON.parse(actionRequest.content);
     } catch (e) { console.log(e) };
 
-    const commitHash = commit.id ? commit.id.slice(0, 7) : '';
     const { name: projectName } = projectRequest;
 
 
     return {
       ok: true,
       data: {
-        // project: projectRequest,
-        // builds,
-        buildId,
+        actionId,
         projectId,
-        commitHash,
         projectName,
-        commit,
-        buildRecord: buildRequest,
+        body: content.body,
+        headers: content.headers,
+        actionRecord: actionRequest,
         project: projectRequest,
       },
     }

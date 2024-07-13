@@ -13,9 +13,48 @@ export const IconViewStyled = styled(VisibilityIcon)`
 
 export const SmallButton = styled(Button)`
 	text-transform: capitalize;
-	font-size: 14px;
+	white-space: nowrap;
+	font-size: 13px;
 	height: 21px;
+	margin: 2px 4px;
+	color: #204a96;
+	box-shadow: none;
+	border: 1px transparent solid;
+	&[btn="green"] {
+		color: white;
+		border: 1px transparent solid;
+		background-color: #0b660b;
+		&:hover {
+			background-color: #034903;
+			box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+		}
+	}
+	&[btn="blue"] {
+		color: white;
+		border: 1px transparent solid;
+		background-color: #204a96;
+		&:hover {
+			background-color: #143a7f;
+			box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+		}
+	}
+	&[btn="red"] {
+		color: white;
+		border: 1px transparent solid;
+		background-color: #5f0909;
+		&:hover {
+			background-color: #440000;
+			box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+		}
+	}
+	&[disabled] {
+		color: #9b9b9b;
+		background-color: white !important;
+		border: 1px #b5b5b5 solid;
+		box-shadow: none;
+	}
 `;
+
 
 export const SmallLabel = styled('span')`
 	font-size: 10px;

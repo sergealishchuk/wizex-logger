@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Grid } from "@mui/material";
-import { BlinkingDot } from "~/components/UI";
 import { projectsService } from '~/http/services';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -8,19 +7,25 @@ import Switch from '@mui/material/Switch';
 import Link from "~/components/Link";
 import { _, getLocalDate, getTimeBySec, getDiffWithcurrentStr, Observer } from "~/utils";
 import { FlexContainer } from "~/components/StyledComponents";
-import { Button } from "@mui/material";
+import { SmallButton } from "~/components/StyledComponents";
+import { useRouter } from "next/router";
 
 let ticks = [];
 
 const ProjectActions = (props) => {
-  console.log('ProjectActions props:', props);
-  const { project: projectInput, actions: actionsInput } = props.data;
+  const { project: projectInput, actions: actionsInput, query: { f: filterInput } } = props.data;
   const [project, setProject] = useState(projectInput || {});
   const [actions, setActions] = useState(actionsInput || []);
+  const [filter, setFilter] = useState(filterInput);
   const [tick, setTick] = useState();
   const [tickCounter, setTickCounter] = useState(1);
   const [active, setActive] = useState(projectInput?.active);
 
+  const router = useRouter();
+
+  useEffect(() => {
+    setFilter(filterInput);
+  }, [filterInput]);
 
   useEffect(() => {
     setProject(projectInput);
@@ -75,12 +80,9 @@ const ProjectActions = (props) => {
     setActive(!active);
   };
 
-  const handlePushEmptyCommit = async () => {
-    console.log('push empty commit');
-    const pushEmptyCommitRequest = await projectsService.pushEmptyCommit({
-      projectId: project.id,
-    });
-    console.log('pushEmptyCommitRequest', pushEmptyCommitRequest);
+
+  const handleClearFilter = () => {
+    router.push(`/projects/actions/${project.id}`);
   };
 
   return (
@@ -90,20 +92,28 @@ const ProjectActions = (props) => {
           <div style={{ fontSize: '12px', padding: '0 16px 16px 8px' }}>
             <div style={{ fontSize: '18px' }}>
               <FlexContainer jc="space-between">
-                <span>{project.name}</span>
+                <span style={{ marginLeft: '8px' }}>{project.name}</span>
                 <FormGroup style={{ marginRight: '4px' }}>
                   <FormControlLabel control={<Switch checked={active} onChange={handleChangeActive} size="small" />} label={<span className="unselect" style={{ marginLeft: '4px', fontSize: '14px' }}>Active</span>} />
                 </FormGroup>
               </FlexContainer>
             </div>
-            <div style={{ fontSize: '10px', lineHeight: '10px' }}><span>{project.description}</span></div>
-            <div style={{ marginBottom: '24px' }}>
-              <Link href={`/projects/edit/${project.id}`}>
-                <Button style={{ padding: '0 12px', margin: 0, fontSize: '9px' }} variant="contained" size="small">Edit Project</Button>
-              </Link>
+            <div style={{ marginLeft: '8px', fontSize: '10px', lineHeight: '10px' }}><span>{project.description}</span></div>
+            <div style={{ marginBottom: '16px', marginTop: '16px' }}>
+              <FlexContainer jc="space-between">
+                <Link href={`/projects/edit/${project.id}`}>
+                  <SmallButton btn="blue">Edit Project</SmallButton>
+                </Link>
+                {
+                  filter
+                    ? <SmallButton style={{ marginRight: '16px' }} btn="red" onClick={handleClearFilter}>Clear Filter</SmallButton>
+                    : <span></span>
+                }
+              </FlexContainer>
             </div>
-            <div><span><b>Resource Link:</b> </span><span><Link href={`${project.publicLink}`} style={{ color: '#0053f5', textDecoration: 'underline' }}>{project.publicLink}</Link></span></div>
+            <div><span style={{ marginLeft: '6px' }}><b>Resource Link:</b> </span><span><Link href={`${project.publicLink}`} style={{ color: '#0053f5', textDecoration: 'underline' }}>{project.publicLink}</Link></span></div>
           </div>
+
         </Grid>
         <Grid item xs={12} style={{ borderLeft: '1px #ededed solid' }}>
           <div style={{ padding: '16px 0 16px 0' }}>
@@ -119,12 +129,12 @@ const ProjectActions = (props) => {
                               <td><span style={{ fontSize: '11px', padding: '0 4px' }}>{row.id}</span></td>
                               <td>
                                 <div style={{ padding: '0 8px', textAlign: 'center' }}>
-                                  <BlinkingDot radius={5} color={row.status === 0 ? '#5e7ad3' : (row.status === 1 ? 'green' : (row.status === 2 ? 'red' : 'gray'))} blink={row.status === 0} />
+                                  <span style={{ whiteSpace: 'nowrap' }}>[ {row.level} ]</span>
                                 </div>
                               </td>
                               <td width="100%">
-                                <Link style={{ color: 'blue', textDecoration: 'underline' }} href={`/projects/build-detail/${row.id}`}>
-                                  <span style={{ padding: '0 4px' }}>{row.commit?.message ? row.commit.message.replace(/\\n\\n/g, ': ') : ''}</span>
+                                <Link style={{ color: 'blue', textDecoration: 'underline' }} href={`/projects/action-detail/${row.id}`}>
+                                  <span style={{ padding: '0 4px' }}>{row.message}</span>
                                 </Link>
                               </td>
                               <td><span style={{ whiteSpace: 'nowrap', padding: '0 8px', fontSize: '11px' }}>{getLocalDate(row.startedAt)}</span></td>

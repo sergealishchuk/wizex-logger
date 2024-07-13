@@ -34,8 +34,8 @@ const getProjectInfo = async (values = {}, options = {}) => {
     })
 };
 
-const getBuildDetail = async (values = {}, options = {}) => {
-  return post('/builds/getactiondetail', values, options)
+const getActionDetail = async (values = {}, options = {}) => {
+  return post('/actions/getactiondetail', values, options)
     .then((response) => {
       return response;
     })
@@ -116,7 +116,7 @@ export const projectsService = {
   getProjects,
   getActiveProjects,
   getProjectInfo,
-  getBuildDetail,
+  getActionDetail,
   setActiveProject,
   pushEmptyCommit,
   addProject,

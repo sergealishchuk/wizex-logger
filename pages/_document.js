@@ -10,12 +10,11 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link rel="shortcut icon" href="" />
           <link rel="manifest" href="/manifest.json" />
           <meta name="emotion-insertion-point" content="" />
-          <script async src="http://localhost:4223/rest/wxmanager?key=secure111" />
+          <script async src="http://192.168.0.108:4223/rest/wxmanager?key=5c4d52b7-24b7-49d4-aaf5-32924364238b" />
           {this.props.emotionStyleTags}
         </Head>
         <body>

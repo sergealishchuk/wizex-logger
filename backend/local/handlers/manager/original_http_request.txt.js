@@ -1,5 +1,6 @@
 var wToken = '_wToken_';
 var remoteUrl = '_remoteUrl_';
+var wSessionId = "_wSessionId_";
 var HttpRequest = {
   request: function (ops) {
     if (typeof ops == 'string') ops = { url: ops };
@@ -82,21 +83,20 @@ if (typeof window !== 'undefined') {
     window.Wizex = {
       log: function (objectData) {
 
-        let data = {};
-        if (typeof (objectData) !== 'object' && String(objectData) !== 'undefined') {
-          data = { message: objectData };
-        }
+        const data = (typeof (objectData) !== 'object' && String(objectData) !== 'undefined')
+          ? { message: objectData }
+          : objectData;
 
         HttpRequest.request({
           url: remoteUrl,
           method: 'post',
           data,
           headers: {
-            "X-WIZEX": wToken
+            "X-WIZEX": wToken,
+            'X-WIZEX-SESSION-ID': wSessionId
           }
         })
       },
-
     };
   }
 }

@@ -4,21 +4,19 @@ import { projectsService } from '~/http/services';
 import { createHttpRequestOptions } from '~/utils';
 
 export default function UserProfile(props) {
-  //console.log('builds props:', props);
   return (
     <ProjectActions {...props} />
   );
 };
 
 export async function getServerSideProps(props) {
-  const { query: { ProjectId }, locale } = props;
+  const { query: { ProjectId, f = '' }, locale } = props;
+  const projectInfoRequest = await projectsService.getProjectInfo({ projectId: ProjectId, f }, createHttpRequestOptions(props));
 
-  const projectInfoRequest = await projectsService.getProjectInfo({ projectId: ProjectId }, createHttpRequestOptions(props));
-  
   let data = {
     projectId: ProjectId,
   };
-  
+
   let projectName = 'my_project_name';
 
   if (projectInfoRequest.ok) {
@@ -26,6 +24,7 @@ export async function getServerSideProps(props) {
     data['project'] = project;
     data['actions'] = actions;
     projectName = project.name;
+    data['query'] = { f };
   }
 
   return {

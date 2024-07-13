@@ -162,10 +162,6 @@ export default function Layout({ children, error, ...rest }) {
     setOffSellerLocked(true);
   };
 
-  if (typeof Wizex !== 'undefined') {
-    Wizex.log('hello my frend');
-  }
-
   return readyToUse && ( // TODO: need to remove, ONLY FOR DEV MODE !!!!!!!!!!!!
     <>
       {!withoutHeader && <Header />}
@@ -203,7 +199,7 @@ export default function Layout({ children, error, ...rest }) {
             )
           }
           {!error && !withoutBreadcrumbs && (
-            <div style={{ zIndex: 9, marginLeft: '0', marginBottom: '16px', height: '25px', minHeight: '25px' }}>
+            <div style={{ zIndex: 9, marginLeft: '0', marginTop: '6px', marginBottom: '16px', height: '25px', minHeight: '25px' }}>
               <Breadcrumbs route={router.route} bcProps={bcProps} />
             </div>
           )}

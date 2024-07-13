@@ -4,37 +4,19 @@ import { projectsService } from '~/http/services';
 import { createHttpRequestOptions } from '~/utils';
 
 export default function BuildDetailPage(props = {}) {
-  //console.log('build detail props:', props);
-  //const { buildId, buildRecord, commit, commitHash, project, projectId, projectName } = props.data;
   return (
-    // <ProjectBuilds {...props} />
     <DetailPage {...props} />
   );
 };
 
 export async function getServerSideProps(props) {
-  const { query: { buildId }, locale } = props;
+  const { query: { actionId }, locale } = props;
 
-  const getBuildDetail = await projectsService.getBuildDetail({ buildId }, createHttpRequestOptions(props));
-  
+  const getActionDetail = await projectsService.getActionDetail({ actionId }, createHttpRequestOptions(props));
 
- 
-  const { data } = getBuildDetail;
+  const { data } = getActionDetail;
 
-  const { projectId, projectName, commitHash } = data;
-
-
-  
-  // let projectName = 'my_project_name';
-  // let commitHash = 'ad651fd1';
-  // let projectId = 2;
-
-  // if (projectInfoRequest.ok) {
-  //   const { project, builds } = projectInfoRequest.data;
-  //   data['project'] = project;
-  //   data['builds'] = builds;
-  //   projectName = project.name;
-  // }
+  const { projectId, projectName } = data;
 
   return {
     props: {
@@ -52,7 +34,7 @@ export async function getServerSideProps(props) {
         withoutFooter: true,
         bcProps: {
           projectName,
-          commitHash,
+          commitHash: actionId,
           projectId,
         },
       },

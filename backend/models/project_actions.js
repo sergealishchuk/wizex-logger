@@ -21,6 +21,10 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: '',
       allowNull: false,
     },
+    sessionId: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     content: { // full body
       type: DataTypes.TEXT,
       defaultValue: '{}',
