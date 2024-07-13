@@ -1,9 +1,13 @@
 const _ = require("lodash");
 const { ROLES } = require("../../../constants");
-const { Users, CICDProjects, sequelize } = require('../../../models');
+const { v4: uuidv4 } = require('uuid');
+const jwt = require('jsonwebtoken');
+const { Users, Projects, sequelize } = require('../../../models');
 const {
   createErrorMessage,
 } = require('../../../utils');
+
+const { JWT_SECRET_KEY } = process.env;
 
 module.exports = async (req, res, tokenPayload) => {
   const UserID = tokenPayload.id;
@@ -39,18 +43,11 @@ module.exports = async (req, res, tokenPayload) => {
     'name',
     'description',
     'publicLink',
-    'repoLink',
-    'repoHook',
-    'hookSecure',
-    'localProjectPath',
-    'branch',
-    'localScriptsPath',
-    'pm2name'
   ];
 
   const { body = {} } = req;
 
-  const { ...restFields } = body;
+  const { apiKey, script, ...restFields } = body;
 
   const fieldsValid = true;
   for (let index = 0; index < fields.length; ++index) {
@@ -72,14 +69,39 @@ module.exports = async (req, res, tokenPayload) => {
     return;
   }
 
+
   try {
     const result = await sequelize.transaction(async (transaction) => {
-      await CICDProjects.create({
+      const projectApiKey = uuidv4();
+      const newProject = await Projects.create({
         ...restFields,
+        apiKey: projectApiKey,
+        token: 'not ready yet',
         active: false,
       }, {
         transaction,
       });
+      const { id } = newProject;
+
+      const token = jwt.sign(
+        {
+          id: UserID,
+          pi: id,
+          apiKey: projectApiKey,
+        },
+        JWT_SECRET_KEY,
+        { expiresIn: "2592000s" }
+      );
+
+      await Projects.update({
+        token,
+      }, {
+        transaction,
+        where: {
+          id,
+        }
+      });
+
 
       return {
         ok: true,

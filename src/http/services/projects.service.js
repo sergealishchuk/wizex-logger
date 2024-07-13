@@ -101,6 +101,17 @@ const deleteProject = async (values = {}, options = {}) => {
     })
 };
 
+const removeAllLogs = async (values = {}, options = {}) => {
+  return post('/projects/removealllogs', values, options)
+    .then((response) => {
+      return response;
+    })
+    .catch(e => {
+      const error = _.get(e, 'XHRResponse.data', { error: { errors: [{ message: "Connection Error" }] } })
+      return error;
+    })
+};
+
 const generateApiKeyForProject = async (values = {}, options = {}) => {
   return post('/projects/generateapikey', values, options)
     .then((response) => {
@@ -123,4 +134,5 @@ export const projectsService = {
   updateProject,
   deleteProject,
   generateApiKeyForProject,
+  removeAllLogs,
 };

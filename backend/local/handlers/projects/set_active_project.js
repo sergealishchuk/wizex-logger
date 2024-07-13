@@ -1,6 +1,6 @@
 const _ = require("lodash");
 // const { ROLES } = require("../../../constants");
-const { Users, CICDProjects, sequelize } = require('../../../models');
+const { Users, Projects, sequelize } = require('../../../models');
 const {
   createErrorMessage,
 } = require('../../../utils');
@@ -30,7 +30,7 @@ module.exports = async (req, res, tokenPayload) => {
   try {
     const result = await sequelize.transaction(async (transaction) => {
 
-      const projectRequest = await CICDProjects.findOne({
+      const projectRequest = await Projects.findOne({
         transaction,
         where: {
           id: projectId,
@@ -48,7 +48,7 @@ module.exports = async (req, res, tokenPayload) => {
         return;
       }
 
-      await CICDProjects.update({
+      await Projects.update({
         active,
       }, {
         transaction,

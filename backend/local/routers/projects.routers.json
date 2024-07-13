@@ -55,6 +55,12 @@
   },
   {
     "method": "POST",
+    "route": "/projects/removealllogs",
+    "handlerPath": "./local/handlers/projects/remove_all_logs",
+    "auth": true
+  },
+  {
+    "method": "POST",
     "route": "/projects/generateapikey",
     "handlerPath": "./local/handlers/projects/generate_api_key",
     "auth": true

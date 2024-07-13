@@ -22,5 +22,9 @@
   {
     "command": "http.buildHasUpdated",
     "handlerPath": "./commandHandlers/cds/buildHasUpdates"
+  },
+  {
+    "command": "http.projectHasUpdated",
+    "handlerPath": "./commandHandlers/wizex/projectHasUpdates"
   }
 ]

@@ -1,6 +1,6 @@
 const _ = require("lodash");
 const { ROLES } = require("../../../constants");
-const { Users, Projects, sequelize } = require('../../../models');
+const { Users, Projects, ProjectActions, sequelize } = require('../../../models');
 const {
   createErrorMessage,
 } = require('../../../utils');
@@ -35,35 +35,9 @@ module.exports = async (req, res, tokenPayload) => {
     return;
   }
 
-  const fields = [
-    'name',
-    'description',
-    'publicLink',
-  ];
-
   const { body = {} } = req;
 
-  const { projectId, apiKey, script, ...restFields } = body;
-
-  const fieldsValid = true;
-  for (let index = 0; index < fields.length; ++index) {
-    if (restFields[fields[index]] && restFields[fields[index]].length > 2) {
-      continue;
-    } else {
-      fieldsValid = false;
-      break;
-    }
-  }
-
-  if (!fieldsValid || Object.keys(restFields).length !== fields.length) {
-    res.status(400).json(
-      {
-        error: createErrorMessage("Validation error"),
-        ERROR_CODE: "VALIDATION_ERROR"
-      }
-    );
-    return;
-  }
+  const { projectId } = body;
 
   try {
     const result = await sequelize.transaction(async (transaction) => {
@@ -86,14 +60,12 @@ module.exports = async (req, res, tokenPayload) => {
         return;
       }
 
-      await Projects.update({
-        ...restFields,
-      }, {
+      await ProjectActions.destroy({
         transaction,
         where: {
-          id: projectId,
+          projectId,
         }
-      });
+      })
 
       return {
         ok: true,
@@ -107,8 +79,8 @@ module.exports = async (req, res, tokenPayload) => {
     console.log(e);
     res.status(400).json(
       {
-        error: createErrorMessage("Error update project"),
-        ERROR_CODE: "ERROR_UPDATE_PROJECT"
+        error: createErrorMessage("Error remove project logs"),
+        ERROR_CODE: "ERROR_REMOVE_PROJECT_LOGS"
       }
     );
   }

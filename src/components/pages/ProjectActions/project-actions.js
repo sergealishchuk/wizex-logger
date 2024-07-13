@@ -5,10 +5,12 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Link from "~/components/Link";
-import { _, getLocalDate, getTimeBySec, getDiffWithcurrentStr, Observer } from "~/utils";
+import { _, confirmDialog, getLocalDate, getTimeBySec, getDiffWithcurrentStr, Observer } from "~/utils";
 import { FlexContainer } from "~/components/StyledComponents";
 import { SmallButton } from "~/components/StyledComponents";
 import { useRouter } from "next/router";
+import { DIALOG_ACTIONS } from '~/constants';
+
 
 let ticks = [];
 
@@ -32,23 +34,24 @@ const ProjectActions = (props) => {
     setActive(projectInput?.active);
   }, [projectInput]);
 
-  useEffect(() => {
-    setActions(actionsInput);
-    if (ticks.length > 0) {
-      ticks.map(tick => clearInterval(tick));
-      ticks = [];
-    }
-    const currentTick = setInterval(() => {
-      setTickCounter(Math.random());
-    }, 8000);
-    setTickCounter(Math.random());
+  // useEffect(() => {
+  //   setActions(actionsInput);
+  //   if (ticks.length > 0) {
+  //     ticks.map(tick => clearInterval(tick));
+  //     ticks = [];
+  //   }
+  //   const currentTick = setInterval(() => {
+  //     setTickCounter(Math.random());
+  //   }, 8000);
+  //   setTickCounter(Math.random());
 
-    ticks.push(currentTick);
-  }, [actionsInput]);
+  //   ticks.push(currentTick);
+  // }, [actionsInput]);
 
-  const getBuildInfoRequest = async () => {
+  const getProjectInfoRequest = async () => {
     const projectInfoRequest = await projectsService.getProjectInfo({
       projectId: project.id,
+      f: filter,
     });
     if (projectInfoRequest.ok) {
       const { actions } = projectInfoRequest.data;
@@ -57,17 +60,13 @@ const ProjectActions = (props) => {
   };
 
   useEffect(() => {
-    // const buildsStatatusesUpdated = Observer.addListener('onBuildsStatatusesUpdated', (params = {}, cb) => {
-    //   getBuildInfoRequest();
-    // });
+    const projectStatatusesUpdated = Observer.addListener('onProjectStatatusesUpdated', (params = {}, cb) => {
+      getProjectInfoRequest();
+    });
 
-    // return () => {
-    //   if (ticks.length > 0) {
-    //     ticks.map(tick => clearInterval(tick));
-    //     ticks = [];
-    //   }
-    //   Observer.removeListener(buildsStatatusesUpdated)
-    // }
+    return () => {
+      Observer.removeListener(projectStatatusesUpdated)
+    }
   }, []);
 
   const handleChangeActive = async (event) => {
@@ -83,6 +82,19 @@ const ProjectActions = (props) => {
 
   const handleClearFilter = () => {
     router.push(`/projects/actions/${project.id}`);
+  };
+
+  const handleRemoveLogs = async () => {
+    const confirm = await confirmDialog({
+      text: `Do you want to delete all logs for the "${project.name}" project?`,
+    });
+    if (confirm === DIALOG_ACTIONS.CONFIRM) {
+      console.log('handleRemoveLogs');
+      const setActiveProjectRequest = await projectsService.removeAllLogs({
+        projectId: project.id,
+      });
+      router.push(`/projects/actions/${project.id}`);
+    }
   };
 
   return (
@@ -101,9 +113,16 @@ const ProjectActions = (props) => {
             <div style={{ marginLeft: '8px', fontSize: '10px', lineHeight: '10px' }}><span>{project.description}</span></div>
             <div style={{ marginBottom: '16px', marginTop: '16px' }}>
               <FlexContainer jc="space-between">
-                <Link href={`/projects/edit/${project.id}`}>
-                  <SmallButton btn="blue">Edit Project</SmallButton>
-                </Link>
+                <div>
+                  <Link href={`/projects/edit/${project.id}`}>
+                    <SmallButton btn="blue">Edit Project</SmallButton>
+                  </Link>
+                  {
+                    actions.length > 0
+                      ? <SmallButton style={{ marginRight: '16px' }} btn="red" onClick={handleRemoveLogs}>Delete Logs</SmallButton>
+                      : <span></span>
+                  }
+                </div>
                 {
                   filter
                     ? <SmallButton style={{ marginRight: '16px' }} btn="red" onClick={handleClearFilter}>Clear Filter</SmallButton>

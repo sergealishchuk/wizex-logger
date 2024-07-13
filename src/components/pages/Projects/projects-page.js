@@ -1,5 +1,6 @@
 
 import { Button } from '@mui/material';
+import { SmallButton } from '~/components/StyledComponents';
 import Link from "~/components/Link";
 import ProjectList from './projectList';
 
@@ -8,9 +9,9 @@ const Projects = (props) => {
 
   return (
     <div>
-      <div style={{ textAlign: 'right', marginRight: '16px' }}>
+      <div style={{ textAlign: 'right', marginRight: '22px' }}>
         <Link href="/projects/new">
-          <Button style={{ padding: '0 12px', margin: 0, fontSize: '9px' }} variant="contained" size="small">New Project</Button>
+          <SmallButton btn="blue">New Project</SmallButton>
         </Link>
       </div>
       <ProjectList projectList={projects} />

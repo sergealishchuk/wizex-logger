@@ -140,8 +140,8 @@ VALUES
     'ALIOKS',
     'Alioks Project',
     'https://alioks.com',
-    '112233',
-    'token1',
+    '93ba9215-67eb-4f3e-b916-915571684d9c',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwicGkiOjEsImFwaUtleSI6IjkzYmE5MjE1LTY3ZWItNGYzZS1iOTE2LTkxNTU3MTY4NGQ5YyIsImlhdCI6MTcyMDg0OTQ0NiwiZXhwIjoxNzIzNDQxNDQ2fQ.MbWtr4aILCnmYEJocvIbAsgrXXIcTas-0kD5xuEXYdA',
     false
   ),
   (
@@ -149,8 +149,8 @@ VALUES
     'LM',
     'Leroy Merlin',
     'https://uat.leroymerlin.ua',
-    'secure111',
-    'token2',
+    '5c4d52b7-24b7-49d4-aaf5-32924364238b',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwicGkiOjIsImFwaUtleSI6IjVjNGQ1MmI3LTI0YjctNDlkNC1hYWY1LTMyOTI0MzY0MjM4YiIsImlhdCI6MTcyMDc5OTQ0MSwiZXhwIjoxNzIzMzkxNDQxfQ.Qc48O9Eek4JW0pkGB4QNEX_aacgNoH6E_QbzhAX9KDs',
     true
   );
 
@@ -168,7 +168,7 @@ VALUES
     1,
     'error',
     'Add/edit product: Error from backend side: "CODE 123, Problem load image"',
-    '{"message": "Add/edit product: Error from backend side"}'
+    '{body: {"message": "Add/edit product: Error from backend side"}, headers: {}}'
   );
 
 SELECT
@@ -184,22 +184,22 @@ SELECT
 
 SELECT
   setval (
-    '"cicd_projects_id_seq"',
+    '"projects_id_seq"',
     (
       SELECT
         max("id")
       FROM
-        public.cicd_projects
+        public.projects
     )
   );
 
   SELECT
   setval (
-    '"cicd_builds_id_seq"',
+    '"project_actions_id_seq"',
     (
       SELECT
         max("id")
       FROM
-        public.cicd_builds
+        public.project_actions
     )
   );

@@ -16,12 +16,15 @@ async function logoutHandler(values, callback) {
 async function buildsStatusesUpdated(values, callback) {
   console.log('buildStatusesUpdated');
   const path = Router.asPath;
-  //if (path.startsWith('/projects/builds/' || )) {
   Observer.send('onBuildsStatatusesUpdated');
-  //}
+}
+
+async function projectStatusesUpdated(values, callback) {
+  Observer.send('onProjectStatatusesUpdated');
 }
 
 export const changesBackendSocketService = {
   logoutHandler,
   buildsStatusesUpdated,
+  projectStatusesUpdated,
 };

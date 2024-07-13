@@ -7,10 +7,18 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import EditIcon from '@mui/icons-material/Edit';
 import { FlexContainer } from "~/components/StyledComponents";
 import { ProjectItemStyled } from './project-list.styled';
+import { SmallButton } from "~/components/StyledComponents";
+import { useRouter } from "next/router";
 
 const ProjectItem = (props) => {
   const { item, last } = props;
   const { t } = useTranslation(['buttons', 'articles']);
+
+  const router = useRouter();
+
+  const handleEditProject = (projectId) => {
+    router.push(`/projects/edit/${projectId}`);
+  };
 
   return (
     <ProjectItemStyled style={{ borderBottom: !last ? '1px #e2e2e2 solid' : 'none' }}>
@@ -18,7 +26,7 @@ const ProjectItem = (props) => {
         <Link style={{ paddingRight: '10px' }} href={`/projects/actions/${item.id}`}>
           {item.name}
         </Link>
-        <div style={{display: 'flex', alignItems: 'center'}}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
           <Link href={`${item.publicLink}`}>
             <Tooltip title={t('open_link', { ns: 'projects' })}>
               <span>
@@ -26,11 +34,14 @@ const ProjectItem = (props) => {
               </span>
             </Tooltip>
           </Link>
+          <div style={{ marginLeft: '16px' }}>
+            <SmallButton btn="blue" onClick={() => handleEditProject(item.id)}>Edit</SmallButton>
+          </div>
           <div style={{ minWidth: '40px', fontSize: '11px', textAlign: 'right', padding: '0 4px' }}>
             {
               item.active
-                ? <span style={{color: 'green'}}>active</span>
-                : <span style={{color: 'gray'}}>stop</span>
+                ? <span style={{ color: 'green' }}>active</span>
+                : <span style={{ color: 'gray' }}>stop</span>
             }
           </div>
         </div>

@@ -1,6 +1,6 @@
 const _ = require("lodash");
 // const { ROLES } = require("../../../constants");
-const { Users, CICDProjects } = require('../../../models');
+const { Users, Projects } = require('../../../models');
 const {
   createErrorMessage,
 } = require('../../../utils');
@@ -25,27 +25,15 @@ module.exports = async (req, res, tokenPayload) => {
 
   try {
 
-    const projectsListRequest = await CICDProjects.findAll({
+    const projectsListRequest = await Projects.findAll({
       order: [['name', 'ASC']],
       raw: true,
-    });
-
-    const projects = _.map(projectsListRequest, project => {
-      let config = {};
-      try {
-        config = JSON.parse(project.config);
-      } catch (e) { console.log(e) };
-
-      return {
-        ...project,
-        config,
-      }
     });
 
     return {
       ok: true,
       data: {
-        projects,
+        projects: projectsListRequest,
       },
     }
   } catch (e) {

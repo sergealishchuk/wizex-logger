@@ -1,6 +1,7 @@
 
 const { Projects, ProjectActions, sequelize } = require('../../../models');
 const jwt = require('jsonwebtoken');
+const { socketConnector } = require('../../../utils');
 
 module.exports = async (parameters, res) => {
   const { body, headers } = parameters;
@@ -55,11 +56,20 @@ module.exports = async (parameters, res) => {
 
         return {
           ok: true,
+          projectId: pi,
         }
       }
     });
 
     if (result) {
+      const { projectId } = result;
+      socketConnector.socketEmit({
+        command: 'http.projectHasUpdated',
+        params: {
+          projectId,
+        }
+      });
+      
       return {
         ...result,
       }

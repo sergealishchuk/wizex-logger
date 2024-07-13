@@ -77,6 +77,7 @@ const ProjectForm = (props) => {
     const generateKeyRequest = await projectsService.generateApiKeyForProject({
       projectId: project.id,
     });
+    router.push(`/projects/edit/${project.id}`);
   }
 
   const onSubmit = async (values) => {

@@ -11,7 +11,6 @@ module.exports = async (req, res) => {
   const {
     query: { key },
   } = req;
-  console.log('key:', req, key);
   try {
     const result = await Projects.findOne({
       where: {

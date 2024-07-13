@@ -4,6 +4,7 @@ import { useTranslation } from 'next-i18next';
 import { FlexContainer } from "~/components/StyledComponents";
 import { SmallButton } from "~/components/StyledComponents";
 import { useRouter } from "next/router";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const DetailPage = (props = {}) => {
   const { item, last } = props;
@@ -16,6 +17,10 @@ const DetailPage = (props = {}) => {
   const handleFilterBySession = () => {
     const sessionId = headers['x-wizex-session-id'];
     router.push(`/projects/actions/${projectId}/?f=${sessionId}`);
+  };
+
+  const handleBack = () => {
+    router.back();
   };
 
   return (
@@ -43,9 +48,10 @@ const DetailPage = (props = {}) => {
           </tr>
         </table>
       </div>
-      <div style={{ textAlign: 'right', marginTop: '12px' }}>
+      <FlexContainer jc="space-between" style={{ marginTop: '12px' }}>
+        <SmallButton startIcon={<ArrowBackIcon />} btn="gray" onClick={handleBack}>Back</SmallButton>
         <SmallButton btn="green" onClick={handleFilterBySession}>Filter by this session</SmallButton>
-      </div>
+      </FlexContainer>
 
       <div style={{ borderBottom: '1px #e2e2e2 solid', marginTop: '12px' }}>
         <table width="100%" style={{ fontSize: '12px' }}>

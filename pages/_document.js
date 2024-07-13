@@ -14,7 +14,7 @@ export default class MyDocument extends Document {
           <link rel="shortcut icon" href="" />
           <link rel="manifest" href="/manifest.json" />
           <meta name="emotion-insertion-point" content="" />
-          <script async src="http://192.168.0.108:4223/rest/wxmanager?key=5c4d52b7-24b7-49d4-aaf5-32924364238b" />
+          <script async src="http://192.168.0.108:4223/rest/wxmanager?key=27894bd6-2791-4871-ba31-5d1135ff5004" />
           {this.props.emotionStyleTags}
         </Head>
         <body>
