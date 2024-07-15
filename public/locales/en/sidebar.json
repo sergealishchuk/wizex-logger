@@ -66,7 +66,8 @@
       "back": "Back",
       "confirm": "Confirm",
       "resend_code_to_email": "Resend Code To Email",
-      "save": "Save"
+      "save": "Save",
+      "ask_access": "Ask Access"
     },
     "sign_in": "Sign In",
     "sign_up": "Sign Up",

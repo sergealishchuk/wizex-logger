@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       primaryKey: true,
     },
+    ownerId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -39,6 +43,11 @@ module.exports = (sequelize, DataTypes) => {
     token: {
       type: DataTypes.TEXT,
       allowNull: false,
+    },
+    AccessIsAllowed: {
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      allowNull: false,
+      defaultValue: [],
     },
     active: {
       type: DataTypes.BOOLEAN,

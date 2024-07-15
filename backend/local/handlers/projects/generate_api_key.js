@@ -29,15 +29,6 @@ module.exports = async (req, res, tokenPayload) => {
 
   const { roles } = user;
 
-  if (!roles.includes(ROLES.ADMIN)) {
-    res.status(400).json(
-      {
-        error: createErrorMessage("No permisions"),
-        ERROR_CODE: "NO_PERMISSIONS"
-      }
-    );
-    return;
-  }
 
   const { body = {} } = req;
 

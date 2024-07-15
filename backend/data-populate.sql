@@ -69,9 +69,7 @@ INSERT INTO
   public.sids ("userId")
 VALUES
   (1),
-  (2),
-  (3),
-  (4);
+  (2);
 
 INSERT INTO
   public.articles (
@@ -128,6 +126,7 @@ INSERT INTO
   public.projects (
     id,
     name,
+    "ownerId",
     description,
     "publicLink",
     "apiKey",
@@ -138,6 +137,7 @@ VALUES
   (
     1,
     'ALIOKS',
+    2,
     'Alioks Project',
     'https://alioks.com',
     '93ba9215-67eb-4f3e-b916-915571684d9c',
@@ -147,6 +147,7 @@ VALUES
   (
     2,
     'LM',
+    2,
     'Leroy Merlin',
     'https://uat.leroymerlin.ua',
     '5c4d52b7-24b7-49d4-aaf5-32924364238b',
@@ -168,7 +169,7 @@ VALUES
     1,
     'error',
     'Add/edit product: Error from backend side: "CODE 123, Problem load image"',
-    '{body: {"message": "Add/edit product: Error from backend side"}, headers: {}}'
+    '{"body": {"message": "Add/edit product: Error from backend side"}, "headers": {}}'
   );
 
 SELECT
@@ -179,6 +180,28 @@ SELECT
         max(id)
       FROM
         public.categories
+    )
+  );
+
+SELECT
+  setval (
+    '"users_id_seq"',
+    (
+      SELECT
+        max("id")
+      FROM
+        public.users
+    )
+  );
+
+SELECT
+  setval (
+    '"sids_id_seq"',
+    (
+      SELECT
+        max("id")
+      FROM
+        public.sids
     )
   );
 

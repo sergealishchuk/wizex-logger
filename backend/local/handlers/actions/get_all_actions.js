@@ -45,8 +45,23 @@ module.exports = async (req, res, tokenPayload) => {
       return;
     }
 
+   
+    const ownerRequest = await Users.findOne({
+      where: {
+        id: projectRequest.ownerId,
+      },
+      attributes: ['firstname', 'lastname'],
+      raw: true,
+    });
+    const { firstname, lastname } = ownerRequest;
+
+    const ownerName = `${firstname} ${lastname}`;
+
     const data = {
-      project: projectRequest,
+      project: {
+        ...projectRequest,
+        ownerName,
+      }
     };
 
     if (includeBuilds) {
@@ -59,7 +74,6 @@ module.exports = async (req, res, tokenPayload) => {
         order: [['id', 'DESC']],
         raw: true,
       });
-
 
       const actions = _.map(actionsRequest, action => {
         let content = {};

@@ -109,7 +109,6 @@ export default function LoginPage(props) {
 
   return User.isBrowser() && (User.userIsLoggedIn() === false) ? (
     <div style={{ width: '100%', display: 'flex', justifyContent: 'center', height: '100vh', alignItems: 'center' }}>
-      
       <div style={{ maxWidth: '350px' }}>
         <Formik
           initialValues={{ email, password: '' }}
@@ -122,14 +121,15 @@ export default function LoginPage(props) {
               <Form onChange={handleClearErrors}>
                 <Grid container spacing={{ xs: 2, md: 3 }} style={{ padding: '0 20px' }}>
                   <Grid item xs={12}>
-                    <div style={{ borderBottom: '1px #e7e7e7 dotted', textAlign: 'center' }}>
+                    <div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column', borderBottom: '1px #e7e7e7 dotted', textAlign: 'center' }}>
                       <Image
                         priority
-                        src="/img/cat-svgrepo-com.svg"
-                        height={32}
-                        width={32}
+                        src="/img/r2r2.svg"
+                        height={92}
+                        width={64}
                         alt=""
                       />
+                      <span style={{ fontSize: '18px', color: '#800000' }}>Wizex Log Recorder</span>
                     </div>
                     <ErrorMessages errors={errors} />
                   </Grid>

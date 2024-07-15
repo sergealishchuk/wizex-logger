@@ -75,6 +75,7 @@ module.exports = async (req, res, tokenPayload) => {
       const projectApiKey = uuidv4();
       const newProject = await Projects.create({
         ...restFields,
+        ownerId: UserID,
         apiKey: projectApiKey,
         token: 'not ready yet',
         active: false,

@@ -51,7 +51,16 @@ module.exports = async (parameters, res) => {
             message,
             sessionId,
             content,
-          })
+          },
+            {
+              transaction,
+            })
+        } else {
+          return {
+            ok: false,
+            error: "The project is not active",
+            ERROR_CODE: "PROJECT_NOT_ACTIVE"
+          };
         }
 
         return {
@@ -61,7 +70,7 @@ module.exports = async (parameters, res) => {
       }
     });
 
-    if (result) {
+    if (result && result.ok) {
       const { projectId } = result;
       socketConnector.socketEmit({
         command: 'http.projectHasUpdated',
@@ -69,12 +78,18 @@ module.exports = async (parameters, res) => {
           projectId,
         }
       });
-      
+
       return {
         ...result,
       }
+    } else if (result.error) {
+      res.status(400).json(
+        { ...result }
+      );
+      return
     }
   } catch (e) {
+    console.log(e)
     return {
       ok: false,
       error: e,

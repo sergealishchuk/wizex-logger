@@ -9,7 +9,8 @@ import { _, confirmDialog, getLocalDate, getTimeBySec, getDiffWithcurrentStr, Ob
 import { FlexContainer } from "~/components/StyledComponents";
 import { SmallButton } from "~/components/StyledComponents";
 import { useRouter } from "next/router";
-import { DIALOG_ACTIONS } from '~/constants';
+import { DIALOG_ACTIONS, ROLES } from '~/constants';
+import User from '~/components/User';
 
 
 let ticks = [];
@@ -19,9 +20,9 @@ const ProjectActions = (props) => {
   const [project, setProject] = useState(projectInput || {});
   const [actions, setActions] = useState(actionsInput || []);
   const [filter, setFilter] = useState(filterInput);
-  const [tick, setTick] = useState();
   const [tickCounter, setTickCounter] = useState(1);
   const [active, setActive] = useState(projectInput?.active);
+  const [adminRole, setAdminRole] = useState(false);
 
   const router = useRouter();
 
@@ -33,20 +34,6 @@ const ProjectActions = (props) => {
     setProject(projectInput);
     setActive(projectInput?.active);
   }, [projectInput]);
-
-  // useEffect(() => {
-  //   setActions(actionsInput);
-  //   if (ticks.length > 0) {
-  //     ticks.map(tick => clearInterval(tick));
-  //     ticks = [];
-  //   }
-  //   const currentTick = setInterval(() => {
-  //     setTickCounter(Math.random());
-  //   }, 8000);
-  //   setTickCounter(Math.random());
-
-  //   ticks.push(currentTick);
-  // }, [actionsInput]);
 
   const getProjectInfoRequest = async () => {
     const projectInfoRequest = await projectsService.getProjectInfo({
@@ -63,6 +50,13 @@ const ProjectActions = (props) => {
     const projectStatatusesUpdated = Observer.addListener('onProjectStatatusesUpdated', (params = {}, cb) => {
       getProjectInfoRequest();
     });
+
+    if (User.isLog()) {
+      const { roles } = User.read();
+      if (roles.includes(ROLES.ADMIN)) {
+        setAdminRole(true);
+      }
+    }
 
     return () => {
       Observer.removeListener(projectStatatusesUpdated)

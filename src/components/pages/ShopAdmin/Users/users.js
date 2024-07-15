@@ -14,6 +14,8 @@ import { FlexContainer } from '~/components/StyledComponents';
 import { GridRowStyled, TextFieldStyled } from './users.styled';
 import User from '~/components/User';
 import { ROLES } from '~/constants';
+import RegisterDialog from "~/components/Header/Sidebar/auth/registerDialog";
+import { SmallButton } from '~/components/StyledComponents';
 
 const setFilterParametersChange = _.debounce((params, cb = _.noop) => {
   cb(params);
@@ -29,6 +31,7 @@ export default function UsersPage() {
     id: '',
     email: '',
   });
+  const [openRegisterDialog, setOpenRegisterDialog] = useState(false);
 
   const { t } = useTranslation([
     'sidebar',
@@ -43,7 +46,7 @@ export default function UsersPage() {
   const refFormik = useRef(null);
 
   const getUserList = async (params = {}) => {
-    
+
     const { id, email } = params;
     const parameters = {};
     if (id && id.trim().length > 0) {
@@ -96,6 +99,15 @@ export default function UsersPage() {
     setFieldValue('id', '');
     setFieldValue('email', '');
     getUserList();
+  };
+
+  const handleCloseRegisterDialog = () => {
+    setOpenRegisterDialog(false);
+  };
+
+  const handleAddUser = () => {
+    console.log('add user');
+    setOpenRegisterDialog(true);
   }
 
   return (
@@ -117,26 +129,29 @@ export default function UsersPage() {
               return (
                 <Form>
                   <div style={{ padding: '0 0 8px 24px', marginBottom: '1px' }}>
-                    <FlexContainer jc="flex-start">
-                      <span>{t('users_page.filter', { ns: 'admin_main' })}:</span>
-                      <TextFieldStyled
-                        style={{ width: '64px', margin: '0 16px' }}
-                        name="id"
-                        label={t('users_page.id', { ns: 'admin_main' })}
-                        type="text"
-                      />
-                      <TextFieldStyled
-                        name="email"
-                        label={t('users_page.email', { ns: 'admin_main' })}
-                        type="text"
-                      />
-                      <IconButton disabled={disableReset} style={{ marginLeft: '8px' }}>
-                        <Tooltip title={t('users_page.reset_the_filter', { ns: 'admin_main' })}>
-                          <span>
-                            <RestartAltIcon onClick={hanldeResetFilter} style={{ fontSize: '15px', cursor: 'pointer' }} />
-                          </span>
-                        </Tooltip>
-                      </IconButton>
+                    <FlexContainer jc="space-between">
+                      <FlexContainer jc="flex-start">
+                        <span>{t('users_page.filter', { ns: 'admin_main' })}:</span>
+                        <TextFieldStyled
+                          style={{ width: '64px', margin: '0 16px' }}
+                          name="id"
+                          label={t('users_page.id', { ns: 'admin_main' })}
+                          type="text"
+                        />
+                        <TextFieldStyled
+                          name="email"
+                          label={t('users_page.email', { ns: 'admin_main' })}
+                          type="text"
+                        />
+                        <IconButton disabled={disableReset} style={{ marginLeft: '8px' }}>
+                          <Tooltip title={t('users_page.reset_the_filter', { ns: 'admin_main' })}>
+                            <span>
+                              <RestartAltIcon onClick={hanldeResetFilter} style={{ fontSize: '15px', cursor: 'pointer' }} />
+                            </span>
+                          </Tooltip>
+                        </IconButton>
+                      </FlexContainer>
+                      <SmallButton btn="blue" onClick={handleAddUser}>Add User</SmallButton>
                     </FlexContainer>
                   </div>
                 </Form>
@@ -224,6 +239,12 @@ export default function UsersPage() {
           }
         </div>
       </Fade >
-    </div >
+      <RegisterDialog
+        openDialog={openRegisterDialog}
+        //withParams={offerAuthParams}
+        onClose={handleCloseRegisterDialog}
+        onCloseAndOpenAuthDialog={() => { }}
+      />
+    </div>
   );
 };

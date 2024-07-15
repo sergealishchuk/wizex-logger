@@ -6,12 +6,13 @@ import { projectsService } from '~/http/services';
 import { useRouter } from 'next/router';
 import TextField from '~/components/formik/TextField';
 import { FlexContainer } from '~/components/StyledComponents';
-import { ADD_MODE, EDIT_MODE, DIALOG_ACTIONS } from '~/constants';
+import { ADD_MODE, EDIT_MODE, ROLES, DIALOG_ACTIONS } from '~/constants';
 import { getLocalDate, confirmDialog, pushResponseMessages } from '~/utils';
 import { Button } from '@mui/material';
 import SubmitController from '~/components/formik/SubmitController';
 import { useTranslation } from 'next-i18next';
 import guiConfig from "~/gui-config";
+import User from '~/components/User';
 
 const { apiUrl } = guiConfig;
 
@@ -19,6 +20,7 @@ const ProjectForm = (props) => {
   const { mode, data = {} } = props;
   const { project: projectInput = {} } = data;
 
+  const [adminRole, setAdminRole] = useState(false);
   const [project, setProject] = useState(projectInput);
   const [formChanged, setFormChanged] = useState(false);
   const [initialValues, setInitialValues] = useState({
@@ -47,6 +49,15 @@ const ProjectForm = (props) => {
       .min(3, t('At least 3 characters', { ns: 'projects' }))
       .required(t('This field is required', { ns: 'projects' })),
   });
+
+  useEffect(() => {
+    if (User.isLog()) {
+      const { roles } = User.read();
+      if (Array.isArray(roles) && roles.includes(ROLES.ADMIN)) {
+        setAdminRole(true);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     if (mode === EDIT_MODE) {
@@ -117,15 +128,17 @@ const ProjectForm = (props) => {
   const handleFormChanged = (value) => {
     setFormChanged(value);
   };
-
   return (
     <div style={{ fontSize: '14px' }}>
       <div style={{ marginBottom: '28px', borderBottom: '2px #ededed solid' }}>
         {
           mode === EDIT_MODE ? (
-            <FlexContainer jc="space-between">
+            <FlexContainer jc="space-between" ai="flex-start">
               <div>Edit Project: <span><b>{project.name}</b></span></div>
-              <div suppressHydrationWarning>Created: {getLocalDate(project.dateCreate)}</div>
+              <div>
+                <div suppressHydrationWarning>Created: <span style={{whiteSpace: 'nowrap'}}>{getLocalDate(project.dateCreate)}</span></div>
+                <div>By: {project.ownerName}</div>
+              </div>
             </FlexContainer>
           )
             : mode === ADD_MODE && (
@@ -152,6 +165,7 @@ const ProjectForm = (props) => {
                       label="Project Name"
                       type="text"
                       InputLabelProps={{ shrink: true }}
+                      inputProps={{ readOnly: !adminRole }}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -162,6 +176,7 @@ const ProjectForm = (props) => {
                       multiline
                       minRows={2}
                       InputLabelProps={{ shrink: true }}
+                      inputProps={{ readOnly: !adminRole }}
                     />
                   </Grid>
 
@@ -171,6 +186,7 @@ const ProjectForm = (props) => {
                       label="Public Link"
                       type="text"
                       InputLabelProps={{ shrink: true }}
+                      inputProps={{ readOnly: !adminRole }}
                     />
                   </Grid>
 
@@ -182,7 +198,6 @@ const ProjectForm = (props) => {
                         type="text"
                         InputLabelProps={{ shrink: true }}
                         inputProps={{ readOnly: true }}
-                        //disabled
                       />
                     </Grid> : null
                   }
@@ -203,10 +218,14 @@ const ProjectForm = (props) => {
 
                   <Grid item xs={12} style={{ marginTop: '16px', borderTop: '1px #ededed solid' }}>
                     <FlexContainer jc="space-between">
-                      <div>
-                        <Button disabled={!formChanged} type="submit" style={{ marginLeft: '16px', marginBottom: '48px', padding: '2px 12px', fontSize: '12px' }} variant="contained">Save</Button>
-                        {mode === EDIT_MODE ? <Button onClick={handleDeleteProject} style={{ backgroundColor: '#801313', marginLeft: '16px', marginBottom: '48px', padding: '2px 12px', fontSize: '12px' }} variant="contained">Remove</Button> : null}
-                      </div>
+                      {
+                        adminRole
+                          ? <div>
+                            <Button disabled={!formChanged} type="submit" style={{ marginLeft: '16px', marginBottom: '48px', padding: '2px 12px', fontSize: '12px' }} variant="contained">Save</Button>
+                            {mode === EDIT_MODE ? <Button onClick={handleDeleteProject} style={{ backgroundColor: '#801313', marginLeft: '16px', marginBottom: '48px', padding: '2px 12px', fontSize: '12px' }} variant="contained">Remove</Button> : null}
+                          </div>
+                          : <span></span>
+                      }
                       {
                         mode === EDIT_MODE
                           ? <Button onClick={handleGenerateNewKey} type="button" style={{ marginLeft: '16px', marginBottom: '48px', padding: '2px 12px', fontSize: '12px' }} variant="contained" color="success">Generate new Key</Button>
