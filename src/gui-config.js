@@ -18,9 +18,9 @@ const env_config = {
   },
   "wizexlogger": {
     "imagesUrl": storageImg,
-    "apiUrl": `https://logger.wizex.pro${port ? `:${port}` : ''}${baseUrl}`,
-    "socketUrl": `ws://logger.wizex.pro${socketPort ? `:${socketPort}` : ''}`
+    "apiUrl": `https://logger.wizex.pro${baseUrl}`,
+    "socketUrl": 'wss://logger.wizex.pro'
   },
-  };
+};
 
 export default env_config[APP_ENV];

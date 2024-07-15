@@ -28,6 +28,7 @@ module.exports = async (parameters, res) => {
       let projectRequest;
       if (tokenPayload) {
         const { pi, apiKey } = tokenPayload;
+
         projectRequest = await Projects.findOne({
           where: {
             id: pi,
@@ -35,7 +36,7 @@ module.exports = async (parameters, res) => {
           },
           raw: true,
         });
-
+console.log('projectRequest', projectRequest);
         const { active } = projectRequest;
         if (active) {
           const { message = 'empty', level = 'error' } = body;
