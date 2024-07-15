@@ -35,7 +35,8 @@ module.exports = async (req, res) => {
     const str = wizexCode
       .replace('_wToken_', token)
       .replace('_wSessionId_', uuidv4())
-      .replace('_remoteUrl_', 'http://192.168.0.108:4223/rest/loghook');
+     // .replace('_remoteUrl_', 'http://192.168.0.108:4223/rest/loghook');
+     .replace('_remoteUrl_', 'https://logger.wizex.pro/rest/loghook');
 
     res.write(str);
     res.end();
