@@ -36,7 +36,7 @@ module.exports = async (parameters, res) => {
           },
           raw: true,
         });
-console.log('projectRequest', projectRequest);
+
         const { active } = projectRequest;
         if (active) {
           const { message = 'empty', level = 'error' } = body;
