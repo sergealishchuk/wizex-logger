@@ -42,7 +42,7 @@ module.exports = async (req, res) => {
     res.writeHead(200, { "Content-Type": "text/html" });
     let scriptCode;
 
-    if (!active) {
+    if (!projectIsActive) {
       scriptCode = wizexNotActive
     } else if (!TokenIsValid) {
       scriptCode = wizexError
