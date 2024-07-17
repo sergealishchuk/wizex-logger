@@ -13,8 +13,6 @@ module.exports = async (parameters, res) => {
 
   try {
     tokenPayload = jwt.verify(WizexToken, JWT_SECRET_KEY);
-    const { apiKey } = tokenPayload;
-
   } catch (e) {
     console.log(e);
     return {
