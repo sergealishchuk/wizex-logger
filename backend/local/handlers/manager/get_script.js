@@ -29,10 +29,12 @@ module.exports = async (req, res) => {
 
     let TokenIsValid = false;
     let projectIsActive = false;
+    let wToken;
 
     if (result) {
       const { token, active } = result;
       projectIsActive = active;
+      wToken = token;
       try {
         tokenPayload = jwt.verify(token, JWT_SECRET_KEY);
         TokenIsValid = true;
@@ -48,7 +50,7 @@ module.exports = async (req, res) => {
       scriptCode = wizexError
     } else {
       scriptCode = wizexCode
-        .replace('_wToken_', token)
+        .replace('_wToken_', wToken)
         .replace('_wSessionId_', uuidv4())
         .replace('_remoteUrl_', `${host}${baseUrl}/loghook`);
     }
