@@ -10,7 +10,7 @@ module.exports = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'storage.dsshub.net',
+        hostname: 'storage.alioks.com',
         port: '',
         pathname: '**',
       },

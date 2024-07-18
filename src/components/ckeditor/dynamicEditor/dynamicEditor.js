@@ -53,7 +53,7 @@ export default function DynamicEditor(props) {
     <>
       <Script
         id="ckEditor"
-        src="https://storage.dsshub.net/img/aoks2/scripts/ckeditor.js"
+        src="https://storage.alioks.com/img/aoks2/scripts/ckeditor.js"
         onError={(err) => {
           console.error('Error', err)
         }}
