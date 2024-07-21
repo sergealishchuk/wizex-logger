@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Link from "next/link";
 import { Formik, Form } from 'formik';
 import Grid from '@mui/material/Grid';
 import * as yup from 'yup';
@@ -85,11 +86,17 @@ const ProjectForm = (props) => {
   }, [projectInput]);
 
   const handleGenerateNewKey = async () => {
-    const generateKeyRequest = await projectsService.generateApiKeyForProject({
-      projectId: project.id,
+
+    const confirm = await confirmDialog({
+      text: 'Are you sure you want to generate a new key? Please remember to make changes to your code after generation!',
     });
-    router.push(`/projects/edit/${project.id}`);
-  }
+    if (confirm === DIALOG_ACTIONS.CONFIRM) {
+      const generateKeyRequest = await projectsService.generateApiKeyForProject({
+        projectId: project.id,
+      });
+      router.push(`/projects/edit/${project.id}`);
+    }
+  };
 
   const onSubmit = async (values) => {
     if (mode === ADD_MODE) {
@@ -134,7 +141,11 @@ const ProjectForm = (props) => {
         {
           mode === EDIT_MODE ? (
             <FlexContainer jc="space-between" ai="flex-start">
-              <div>Edit Project: <span><b>{project.name}</b></span></div>
+              <div>Edit Project: 
+                <Link href={`/projects/actions/${project.id}`}>
+                <span style={{marginLeft: '8px'}}><b>{project.name}</b></span>
+                </Link>
+              </div>
               <div>
                 <div suppressHydrationWarning>Created: <span style={{whiteSpace: 'nowrap'}}>{getLocalDate(project.dateCreate)}</span></div>
                 <div>By: {project.ownerName}</div>

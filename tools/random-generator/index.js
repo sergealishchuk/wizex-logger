@@ -3,7 +3,7 @@ const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
 
-require('dotenv').config({ path: '../.env' });
+require('dotenv').config({ path: '../../.env' });
 const { APP_ENV, JWT_SECRET_KEY } = process.env;
 global.APP_ENV = APP_ENV || 'development';
 console.log('Environment: ', global.APP_ENV);

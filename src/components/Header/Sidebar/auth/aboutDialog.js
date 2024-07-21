@@ -62,7 +62,7 @@ export default function AboutDialog(props) {
     >
       <Grid container spacing={{ xs: 2, md: 3 }} style={{ padding: '0 20px' }}>
         <Grid item xs={12}>
-          <div style={{ paddingBottom: '24px', textAlign: 'center', fontSize: '20px' }}>ALIOKS Inc.</div>
+          <div style={{ paddingBottom: '24px', textAlign: 'center', fontSize: '20px' }}>Wizex Project</div>
           <FlexContainer column>
             <div>{`${t('branch', { ns: 'sidebar' })}: ${buildInfo[0]}`}</div>
             <div>{`${t('commit', { ns: 'sidebar' })}: ${buildInfo[1]}`}</div>
