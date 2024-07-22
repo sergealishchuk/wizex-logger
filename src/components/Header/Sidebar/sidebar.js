@@ -170,6 +170,7 @@ const Sidebar = (props) => {
 				</DrawerHeader>
 				<Auth
 					openAuthDialog={openAuthDialog}
+					openRegisterDialog={openRegisterDialog}
 					onClose={onClose}
 				/>
 			</div>

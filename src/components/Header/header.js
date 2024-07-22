@@ -126,6 +126,7 @@ export default () => {
 			if (action && action === 'registration') {
 				setOpenRegisterDialog(true);
 			} else {
+				console.log('pointD 1', params);
 				setOpenAuthDialog(true);
 			}
 		});
@@ -182,6 +183,7 @@ export default () => {
 
 	const handleOpenAuthDialog = () => {
 		setTimeout(() => setMenuOpen(false), 300);
+		console.log('pointD 2');
 		setOpenAuthDialog(true);
 	};
 
@@ -243,7 +245,7 @@ export default () => {
 		}
 	};
 
-	return User && User.isLog() ? (
+	return /*User && User.isLog()*/true ? (
 		<>
 			<Sidebar
 				onOpen={menuOpen}

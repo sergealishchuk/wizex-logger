@@ -7,9 +7,9 @@ import { useEffect, useState } from 'react';
 const RouteGuard = (props) => {
   const { children } = props;
 
-  if (!isBrowser()) {
-    return children;
-  }
+  // if (!isBrowser()) {
+  //   return children;
+  // }
 
   const router = useRouter();
   const [authorized, setAuthorized] = useState(false);
@@ -19,9 +19,16 @@ const RouteGuard = (props) => {
       const userLoged = User.isLog();
       const currentRoute = router.asPath.split('?')[0];
 
-      if (!userLoged && currentRoute !== '/login') {
+      // if (!userLoged && currentRoute !== '/login') {
+      //   setAuthorized(false);
+      //   //router.push('/login');
+      //   //Observer.send('OpenSignInDialog');
+      // } else {
+      //   setAuthorized(true);
+      // }
+      if (!userLoged && needsAuthRoute(currentRoute)) {
         setAuthorized(false);
-        router.push('/login');
+        Observer.send('OpenSignInDialog');
       } else {
         setAuthorized(true);
       }

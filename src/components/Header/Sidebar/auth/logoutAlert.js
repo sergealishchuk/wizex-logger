@@ -29,7 +29,7 @@ export default function LogoutAlert(props) {
     } catch (e) { }
     User.clear();
     SocketServer.disconnect();
-    router.push('/login');
+    router.push('/');
   };
 
   useEffect(() => {

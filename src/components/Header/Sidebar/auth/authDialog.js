@@ -1,5 +1,5 @@
-import { _ } from '~/utils';
-import { useState, useEffect } from 'react';
+import { _, getResponseMessage } from '~/utils';
+import { useState, useEffect, useRef } from 'react';
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
 import TextField from '~/components/formik/TextField';
@@ -15,10 +15,12 @@ import {
 	SmallButton,
 	SmallLabel,
 	FlexContainer,
- } from '~/components/StyledComponents';
+} from '~/components/StyledComponents';
 import PasswordField from '~/components/formik/PasswordField';
 import store from '~/utils/store';
 import { useTranslation } from 'next-i18next';
+import { Test1 } from '@lib/wizen';
+import Test2 from '@lib/wizen/es/Test2';
 
 
 export default function AuthDialog(props) {
@@ -33,16 +35,20 @@ export default function AuthDialog(props) {
 	const [closeDialog, setCloseDialog] = useState(false);
 	const [errors, setErrors] = useState([]);
 	const [email, setEmail] = useState('');
+	const [forgetAccount, setForgetAccount] = useState(false);
+
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 	const { t } = useTranslation(['sidebar']);
 	const router = useRouter();
+
+	const refFormik = useRef(null);
 
 	const { openDialog: isOpen } = rest;
 
 	const validationSchema = yup.object().shape({
 		email: yup
-			.string(t('auth.enter_your_email', { ns: 'sidebar'}))
-			.email(t('auth.enter_valid_email', { ns: 'sidebar'}))
+			.string(t('auth.enter_your_email', { ns: 'sidebar' }))
+			.email(t('auth.enter_valid_email', { ns: 'sidebar' }))
 			.required(t('auth.email_is_required', { ns: 'sidebar' })),
 		password: yup
 			.string(t('auth.enter_password', { ns: 'sidebar' }))
@@ -63,6 +69,7 @@ export default function AuthDialog(props) {
 	useEffect(() => {
 		if (isOpen) {
 			setErrors([]);
+			setForgetAccount(false);
 		} else {
 			if (onSuccessSignIn) {
 				onSuccessSignIn.cb = _.noop;
@@ -89,18 +96,29 @@ export default function AuthDialog(props) {
 
 	const handleOpenResetPasswordDialog = () => {
 		if (_.isFunction(onCloseAndOpenResetPasswordDialog)) {
-			onCloseAndOpenResetPasswordDialog();
+			const { email } = refFormik.current.values;
+			onCloseAndOpenResetPasswordDialog(email);
 		}
 	}
 
 	const onSubmit = async (values, { setSubmitting }) => {
-		const { email } = values;
-		const result = await userService.login(values);
+		const { email: emailInput } = values;
+		const email = emailInput.trim();
+		const result = await userService.login({
+			...values,
+			email,
+		});
 		store.set('lastRegisteredEmail', email);
 
 		if (result && result.error) {
-			const { error: { errors } } = result;
-			setErrors(errors);
+			const { error: { errors }, ERROR_CODE } = result;
+			const message = getResponseMessage(result);
+			if (message) {
+				setErrors([{ message }]);
+			}
+			if (ERROR_CODE && ERROR_CODE.name === 'USER_WITH_EMAIL_NOT_EXISTS') {
+				setForgetAccount(true);
+			}
 		} else {
 			const { firstname } = result;
 			enqueueSnackbar(`${t('auth.hello_str1', { ns: 'sidebar' })}${firstname}${t('auth.hello_str2', { ns: 'sidebar' })}`, { variant: 'success' });
@@ -118,40 +136,59 @@ export default function AuthDialog(props) {
 		}
 	};
 
+	const handleForgetAccount = () => {
+		store.set('lastRegisteredEmail', '');
+		store.set('userInfo', {});
+		handleClose();
+		router.push('/');
+	};
+
 	const actions = (
 		<>
-			<FlexContainer jc="space-between" mt8={2}>
-				<FlexContainer column>
+			<FlexContainer column ai="flex-start" mt2={2}>
+				<FlexContainer row style={{ marginBottom: '16px' }}>
 					<SmallLabel>{t('auth.no_account', { ns: 'sidebar' })}</SmallLabel>
 					<SmallButton onClick={handleOpenRegisterDialog}>{t('auth.buttons.registration', { ns: 'sidebar' })}</SmallButton>
 				</FlexContainer>
-				<FlexContainer column>
+				<FlexContainer row>
 					<SmallLabel>{t('auth.forgot_your_password', { ns: 'sidebar' })}</SmallLabel>
-					<SmallButton onClick={handleOpenResetPasswordDialog} style={{marginTop: '13px', whiteSpace: 'nowrap'}}>{t('auth.buttons.reset_password', { ns: 'sidebar' })}</SmallButton>
+					<SmallButton onClick={handleOpenResetPasswordDialog} style={{ whiteSpace: 'nowrap' }}>{t('auth.buttons.reset_password', { ns: 'sidebar' })}</SmallButton>
 				</FlexContainer>
 			</FlexContainer>
 
 			<DialogActions sx={{ borderTop: '1px #e2e2e2 solid', width: '100%', marginTop: '16px' }}>
-				<Button onClick={handleClose}>
-				{t('auth.buttons.cancel', { ns: 'sidebar' })}
-				</Button>
-				<Button type="submit">
-				{t('auth.buttons.sign_in', { ns: 'sidebar' })}
-				</Button>
+				<FlexContainer jc="space-between" style={{ width: '100%', flexWrap: 'wrap' }}>
+					{
+						forgetAccount
+							? <Button onClick={handleForgetAccount}>
+								{t('auth.buttons.forgetAccount', { ns: 'sidebar' })}
+							</Button>
+							: <span></span>
+					}
+					<div>
+						<Button onClick={handleClose}>
+							{t('auth.buttons.cancel', { ns: 'sidebar' })}
+						</Button>
+						<Button type="submit">
+							{t('auth.buttons.sign_in', { ns: 'sidebar' })}
+						</Button>
+					</div>
+				</FlexContainer>
 			</DialogActions>
 		</>
 	);
 
 	return (
 		<Dialog
-			title={t('auth.sign_in', { ns: 'sidebar'})}
+			title={t('auth.sign_in', { ns: 'sidebar' })}
 			forceClose={closeDialog}
 			{...rest}
-			style={{ width: '400px' }}
+			style={{ width: '400px', paddingBottom: 0 }}
 		>
 			<ErrorMessages errors={errors} />
 			<Formik
-				initialValues={{ email, password: '11111q' }}
+				innerRef={refFormik}
+				initialValues={{ email, password: '' }}
 				onSubmit={onSubmit}
 				validationSchema={validationSchema}
 				validateOnBlur={false}
@@ -159,7 +196,9 @@ export default function AuthDialog(props) {
 				{(props) => {
 					return (
 						<Form onChange={handleClearErrors}>
-							<Grid container spacing={{ xs: 2, md: 3 }} style={{ padding: '0 20px' }}>
+							<Test1 />
+							<Test2 />
+							<Grid container spacing={{ xs: 2, md: 3 }} style={{ padding: 0 }}>
 								<Grid item xs={12}>
 									<Grid container spacing={{ xs: 4 }}>
 										<Grid item xs={12}>
@@ -168,14 +207,16 @@ export default function AuthDialog(props) {
 												label={t('auth.email', { ns: 'sidebar' })}
 												type="text"
 												inputProps={{ autoFocus: !Boolean(email) }}
+												InputLabelProps={{ shrink: true }}
 											/>
 										</Grid>
 										<Grid item xs={12}>
 											<PasswordField
-                        name="password"
-                        label={t('auth.password', { ns: 'sidebar' })}
+												name="password"
+												label={t('auth.password', { ns: 'sidebar' })}
 												inputProps={{ autoFocus: Boolean(email) }}
-                      />
+												InputLabelProps={{ shrink: true }}
+											/>
 										</Grid>
 									</Grid>
 								</Grid>

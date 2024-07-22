@@ -58,9 +58,9 @@ export default function Layout({ children, error, ...rest }) {
 
   useEffect(() => {
     const userLogged = User.isLog();
-    if (!userLogged) {
-      router.push('/login', null, {locale: 'en'});
-    }
+    // if (!userLogged) {
+    //   router.push('/login', null, {locale: 'en'});
+    // }
     router.events.on('routeChangeStart', () => setSpinnerShow(true));
     router.events.on('routeChangeComplete', () => setSpinnerShow(false));
     router.events.on('routeChangeError', () => setSpinnerShow(false));
