@@ -1,7 +1,7 @@
 //const refresh = require('../../tools/refreshDb');
 var pg = require('pg');
 var fs = require('fs');
-const { Client } = require('@elastic/elasticsearch');
+//const { Client } = require('@elastic/elasticsearch');
 const path = require('path');
 require('dotenv').config({ path: '../../../.env' });
 const { APP_ENV } = process.env;
@@ -12,25 +12,10 @@ const { ROLES } = require("../../constants");
 const { Users, sequelize } = require('../../models');
 const {
   createErrorMessage,
-  elsClient,
 } = require('../../utils');
 
 
 const config = require('../../config/config');
-
-const client = new Client({
-  node: 'https://192.168.0.108:9200',
-  //node: 'https://workpc:9200',
-  auth: {
-    username: 'elastic',
-    password: 'oaEjYDNfmcFOZ-OIXSbV',
-  },
-  tls: {
-    ca: fs.readFileSync('handlers/search/certs/http_ca.crt'),
-    rejectUnauthorized: false,
-  }
-});
-
 
 const populateData = async () => {
   const filePath = path.resolve(__dirname, '../../data-populate.sql');
@@ -97,21 +82,7 @@ module.exports = async (req, res, tokenPayload) => {
   try {
     await refresh();
     console.log('OK refresh');
-    let indexExists;
-
-    try {
-      indexExists = await elsClient.indexExists({
-        index: 'products',
-      });
-    } catch (e) { console.log('ERROR::', e); }
-
-    if (indexExists) {
-      const deleteIndexResult = elsClient.deleteIndex({
-        index: 'products'
-      });
-      console.log('Index has been deleted');
-    }
-
+  
     res.status(200).json({
       SUCCESS_CODE: "SUCCESS_REFRESH_DATABASE",
     })
