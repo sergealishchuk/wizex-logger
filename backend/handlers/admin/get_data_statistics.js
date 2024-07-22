@@ -9,18 +9,18 @@ const {
   createErrorMessage,
 } = require('../../utils');
 
-const client = new Client({
-  node: 'https://192.168.0.108:9200',
-  //node: 'https://workpc:9200',
-  auth: {
-    username: 'elastic',
-    password: 'oaEjYDNfmcFOZ-OIXSbV',
-  },
-  tls: {
-    ca: fs.readFileSync('handlers/search/certs/http_ca.crt'),
-    rejectUnauthorized: false,
-  }
-});
+// const client = new Client({
+//   node: 'https://192.168.0.108:9200',
+//   //node: 'https://workpc:9200',
+//   auth: {
+//     username: 'elastic',
+//     password: 'oaEjYDNfmcFOZ-OIXSbV',
+//   },
+//   tls: {
+//     ca: fs.readFileSync('handlers/search/certs/http_ca.crt'),
+//     rejectUnauthorized: false,
+//   }
+// });
 
 module.exports = async (req, res, tokenPayload) => {
   const UserID = tokenPayload.id;
@@ -55,6 +55,14 @@ module.exports = async (req, res, tokenPayload) => {
   const { body = {} } = req;
 
   const { currencyCode, digitalCode, rate, symbol, symbolFirst } = body;
+  return {
+    ok: true,
+    created: true,
+    goods: {
+      ProductCount: 0
+    },
+    indexCount: 0,
+  };
 
   try {
     const result = await sequelize.transaction(async (t) => {
