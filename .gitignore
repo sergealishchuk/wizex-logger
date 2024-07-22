@@ -8,3 +8,4 @@ package-lock.json
 /backend/deprecated
 /public/host-sw.js
 /tools/random-generator/node_modules
+/lib
