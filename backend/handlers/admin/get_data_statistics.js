@@ -24,6 +24,7 @@ const {
 
 module.exports = async (req, res, tokenPayload) => {
   const UserID = tokenPayload.id;
+  console.log('tokenPayload', tokenPayload);
   const user = await Users.findOne({
     where: { id: UserID },
     attributes: ['id', 'roles'],
@@ -55,6 +56,7 @@ module.exports = async (req, res, tokenPayload) => {
   const { body = {} } = req;
 
   const { currencyCode, digitalCode, rate, symbol, symbolFirst } = body;
+  console.log('RETURN!!!');
   return {
     ok: true,
     created: true,
