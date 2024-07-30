@@ -8,7 +8,9 @@ export default function UserProfile(props) {
 	);
 };
 
-export async function getStaticProps({locale}) {
+export async function getServerSideProps(props) {
+  const { locale, query = {} } = props;
+
   return {
     props: {
       ...(await serverSideTranslations(locale, [
@@ -24,10 +26,17 @@ export async function getStaticProps({locale}) {
         'profile_remove_account',
         'currency',
         'locale',
+        'errors',
+        'successes',
+        'infos',
+        'warnings',
       ])),
       pageParams: {
         withoutFooter: true,
       },
+      data: {
+        query,
+      }
     },
   };
 };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { _ } from '~/utils';
+import { _, getResponseMessage } from '~/utils';
 import { Formik, Form } from "formik";
 import * as yup from 'yup';
 import Grid from "@mui/material/Grid";
@@ -56,8 +56,12 @@ export default ({ data, icon, expand, expandAction, expandId }) => {
     Observer.send('SpinnerShow', false);
 
     if (result && result.error) {
-      const { error: { errors } } = result;
-      setErrors(errors);
+      const message = getResponseMessage(result);
+      console.log('result', result);
+      console.log('message', message);
+      if (message) {
+        setErrors([{ message }]);
+      }
       setSubmitting(false);
     } else {
       if (result.ok) {
@@ -139,12 +143,14 @@ export default ({ data, icon, expand, expandAction, expandId }) => {
                         name="password"
                         label={t('current_password', { ns: 'profile_change_password' })}
                         inputProps={{ autoFocus: true }}
+                        InputLabelProps={{ shrink: true }}
                       />
                     </Grid>
                     <Grid item xs={12}>
                       <PasswordField
                         name="newpassword"
                         label={t('new_password', { ns: 'profile_change_password' })}
+                        InputLabelProps={{ shrink: true }}
                       />
                     </Grid>
                   </>)}
@@ -171,7 +177,10 @@ export default ({ data, icon, expand, expandAction, expandId }) => {
                   </DialogActions>
                 </Grid>
               </Grid>
-              <SubmitController name="ChangePassword" onFormChanged={handleFormChanged} />
+              <SubmitController
+                name="ChangePassword"
+                onFormChanged={handleFormChanged}
+              />
             </Form>
           </>
         )}

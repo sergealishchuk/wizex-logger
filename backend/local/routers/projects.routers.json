@@ -66,6 +66,26 @@
     "auth": true
   },
   {
+    "method": "POST",
+    "route": "/projects/addpatner",
+    "handlerPath": "./local/handlers/projects/add_partner_to_project",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/projects/getprojectpartners",
+    "handlerPath": "./local/handlers/projects/get_project_partners",
+    "auth": true
+  },
+  
+  {
+    "method": "POST",
+    "route": "/projects/removepartnerfromproject",
+    "handlerPath": "./local/handlers/projects/remove_partner_from_project",
+    "auth": true
+  },
+
+  {
     "method": "GET",
     "route": "/wxmanager",
     "handlerPath": "./local/handlers/manager/get_script"

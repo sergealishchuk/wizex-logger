@@ -10,6 +10,10 @@ const categoryHasParent = require('./categoryHasParent');
 const convertImgToWebp = require('./convert_img_to_webp');
 const runCommand = require('./runCommand');
 const socketConnector = require('./socketConnector');
+const dates = require('./dates');
+const getSystemVariables = require('./getSystemVariables');
+const bankApi = require('./bank_api');
+const bnkService = require('./bnk_service');
 
 module.exports = {
 	handleSequelizeErrors,
@@ -24,4 +28,8 @@ module.exports = {
 	convertImgToWebp,
 	runCommand,
 	socketConnector,
+	dates,
+	getSystemVariables,
+	bankApi,
+	bnkService,
 };

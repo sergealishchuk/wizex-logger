@@ -1,0 +1,13 @@
+[
+  {
+    "method": "POST",
+    "route": "/bankcommand",
+    "handlerPath": "./handlers/bank/bank_command",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/bank/webhook",
+    "handlerPath": "./handlers/bank/bank_webhook"
+  }
+]

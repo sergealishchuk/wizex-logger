@@ -40,18 +40,23 @@ const ButtonsBlock = styled('div')(({ theme }) => ({
 }));
 
 export default function Profile(props) {
+  const { data: { query = {} } } = props;
+  const openChapter = {};
+  if (query?.open) {
+    openChapter[query.open] = true;
+  }
   const [data, setData] = useState({});
   const [errors, setErrors] = useState([]);
   const [openConfirmLogOutAlert, setOpenConfirmLogOutAlert] = useState(false);
   const [disableCollapseAll, setDisableCollapseAll] = useState(false);
   const [disableExpandAll, setDisableExpandAll] = useState(false);
-  const { t } = useTranslation(['buttons', 'sidebar', 'profile_main']);
+  const { t } = useTranslation(['errors', 'buttons', 'sidebar', 'profile_main']);
 
   const [expandSections, setExpandSections] = useState({
     personalData: false,
     contacts: false,
     address: false,
-    chLogin: false,
+    chLogin: openChapter['chLogin'] ? true : false,
     chPassword: false,
     preferences: false,
     removeAccount: false,
@@ -108,10 +113,6 @@ export default function Profile(props) {
     setOpenConfirmLogOutAlert(false);
   }
 
-  const handleOnClickLogOut = () => {
-    setOpenConfirmLogOutAlert(true);
-  }
-
   const handleLogOut = (event) => {
     event.preventDefault();
     logoutRequest();
@@ -147,7 +148,6 @@ export default function Profile(props) {
     <>
       <div style={{ paddingBottom: '0', marginBottom: '24px', borderBottom: '3px #ceceed solid', display: 'flex', alignItems: 'center', flexDirection: 'column', justifyContent: 'center' }}>
         <span style={{ fontSize: '30px' }}>{`${t('my_account', { ns: 'profile_main' })}`}</span>
-        <Link href="/shop/1/1/1"><span style={{ color: '#222', textDecoration: 'underline' }}>{`${t('continue_shopping', { ns: 'profile_main' })}`}</span></Link>
         <div style={{ marginTop: '20px', display: 'flex', alignSelf: 'flex-end' }}>
           <SmallButton disabled={disableCollapseAll} onClick={handleCollapseAll}>{`${t('collapse_all', { ns: 'profile_main' })}`}</SmallButton>
           <SmallButton disabled={disableExpandAll} onClick={handleExpandAll}>{`${t('expand_all', { ns: 'profile_main' })}`}</SmallButton>
@@ -177,6 +177,7 @@ export default function Profile(props) {
         expandAction={handleExpandAction}
         onProfileUpdate={handleUpdateProfile}
         icon={<AlternateEmailIcon />}
+        confirmed={data.emailconfirmed}
         data={_.pick(data, ['email'])}
       />
       <ChangePassword
@@ -195,18 +196,13 @@ export default function Profile(props) {
         icon={<RoomPreferencesIcon />}
         data={_.pick(data, ['currencyCodeBuyer', 'locale', 'currencies', 'locales', 'allownotifications'])}
       />
-
-      <AlertDialog
-        title={`${t('please_confirm', { ns: 'profile_main' })}`}
-        text={`${t('confirm_message_logout', { ns: 'profile_main' })}`}
-        open={openConfirmLogOutAlert}
-        handleClose={handleCloseAlertLogOut}
-      >
-        <Button onClick={handleLogOut}>{`${t('logout', { ns: 'buttons' })}`}</Button>
-        <Button onClick={() => { setOpenConfirmLogOutAlert(false) }} autoFocus>
-          {`${t('cancel', { ns: 'buttons' })}`}
-        </Button>
-      </AlertDialog>
+      <RemoveMyAccount
+        expandId='removeAccount'
+        expand={expandSections.removeAccount}
+        expandAction={handleExpandAction}
+        onProfileUpdate={handleUpdateProfile}
+        icon={<DeleteForeverOutlinedIcon />}
+      />
     </>
   );
 };

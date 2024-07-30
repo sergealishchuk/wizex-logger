@@ -1,5 +1,6 @@
 const _ = require("lodash");
 const { Users, Projects, ProjectActions } = require('../../../models');
+const { Op } = require("sequelize");
 const {
   createErrorMessage,
 } = require('../../../utils');
@@ -45,6 +46,24 @@ module.exports = async (req, res, tokenPayload) => {
       return;
     }
 
+    const { AccessIsAllowed } = projectRequest;
+    const partnersListRequest = await Users.findAll({
+      where: {
+        id: {
+          [Op.in]: AccessIsAllowed,
+        },
+      },
+      attributes: ['id', 'firstname', 'lastname', 'email'],
+      raw: true,
+    });
+
+    const partnersList = _.map(partnersListRequest, item => ({
+      id: item.id,
+      name: `${item.firstname} ${item.lastname}`,
+      email: item.email,
+    }));
+
+
    
     const ownerRequest = await Users.findOne({
       where: {
@@ -61,6 +80,7 @@ module.exports = async (req, res, tokenPayload) => {
       project: {
         ...projectRequest,
         ownerName,
+        partnersList,
       }
     };
 

@@ -46,18 +46,28 @@ export default function Auth(props) {
 	}
 
 	return (
-		<AuthStyled>
-			{user &&
-				<div style={{ display: 'flex', alignItems: 'center', columnGap: '10px', padding: '10px' }}>
-					<div><AccountCircleIcon style={{ fontSize: '30px' }} /></div>
-					<div className="auth-registration-block" style={{ cursor: 'pointer' }}>
-						<div>
-							{user.name}
-						</div>
-						<div style={{ fontSize: '12px' }}>{user.email}</div>
-					</div >
-				</div>
-			}
+		<AuthStyled onClick={handleOpenProfile}>
+			<div style={{ display: 'flex', alignItems: 'center', columnGap: '10px', padding: '10px' }}>
+				<div><AccountCircleIcon style={{ fontSize: '30px' }} /></div>
+				{
+					user ? (
+						<div className="auth-registration-block" style={{ cursor: 'pointer' }}>
+							<div>
+								{user.name}
+							</div>
+							<div style={{ fontSize: '12px' }}>{user.email}</div>
+						</div >
+					)
+						: (
+							<div className="auth-registration-block">
+								<div>
+									<Link href="#" onClick={openAuthDialog}>{t('auth.sign_in', { ns: 'sidebar' })}</Link> | <Link href="#" onClick={openRegisterDialog}>{t('auth.sign_up', { ns: 'sidebar' })}</Link>
+								</div>
+								<div style={{ fontSize: '12px', marginTop: '10px' }}>{t('auth.sign_in_message', { ns: 'sidebar' })}</div>
+							</div >
+						)
+				}
+			</div >
 		</AuthStyled >
 	)
 };

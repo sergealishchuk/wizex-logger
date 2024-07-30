@@ -20,6 +20,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import PasswordField from '~/components/formik/PasswordField';
 import store from '~/utils/store';
 import { useTranslation } from 'next-i18next';
+import { _ } from '~/utils'
 
 const InputCodeStyled = styledEmo.div`
 	display: flex;

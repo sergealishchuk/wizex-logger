@@ -6,6 +6,7 @@ module.exports = {
   experimental: {
     scrollRestoration: true,
   },
+  trailingSlash: true,
   images: {
     remotePatterns: [
       {

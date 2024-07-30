@@ -33,7 +33,17 @@
     "view_article": "View Article",
     "projects": "Projects",
     "project_page": "Project Page",
-    "builds": "Builds"
+    "builds": "Builds",
+    "blocks": "Blocks",
+    "email_templates": "Email Templates",
+    "confirmemail": "Email Confirmation",
+    "usersettings": "User Settings",
+    "customer_rewiews": "Customer Reviews",
+    "seller_card": "Seller's Card",
+    "products_moderation": "Products Moderation",
+    "payments": "Payments & Balance",
+    "promocodes": "Promo Codes",
+    "recently_viewed_list": "Recently Viewed"
   },
   "home": "Home",
   "catalog": "Catalog",
@@ -67,7 +77,9 @@
       "confirm": "Confirm",
       "resend_code_to_email": "Resend Code To Email",
       "save": "Save",
-      "ask_access": "Ask Access"
+      "i_have_pass_code": "I have code",
+      "input_verify_code": "Input Code",
+      "forgetAccount": "Forget account"
     },
     "sign_in": "Sign In",
     "sign_up": "Sign Up",
@@ -80,6 +92,7 @@
     "password_is_required": "Password is required",
     "hello_str1": "Hello, ",
     "hello_str2": "! You are successfully logged in.",
+    "hello_str3": "! You have successfully registered and logged in.",
     "no_account": "Don't have an account yet?",
     "forgot_your_password": "Forgot your password?",
     "email": "Email",
@@ -96,7 +109,8 @@
     "your_name": "Your Name",
     "your_surname": "Your Surname",
     "must_only_digits": "Must be only digits",
-    "must_exatly": "Must be exactly 6 digits",
+    "must_exactly": "Must be exactly 6 digits",
+    "code_required": "Code is required",
     "code_has_been_send": "Code has been sent to your email, enter it below",
     "password_saved": "The password has been successfully saved!",
     "i_remember_password": "I remember my password",
@@ -106,7 +120,11 @@
     "new_password": "New Password",
     "please_confirm": "Please Confirm",
     "confirm_message_logout": "Are you sure you want to log out?",
-    "dear": "Dear, "
+    "dear": "Dear, ",
+    "params_format_password_error": "The password must contain at least one number from 0 to 9, at least one letter, no spaces, and be between 6 and 32 characters long.",
+    "min_max_2_25_length": "The length must be between 6 and 32 characters",
+    "register_and_login": "Sign Up and Log In now",
+    "logout_all_connection": "Close all connections"
   },
   "currencyTitle": "Currency",
   "currency": {

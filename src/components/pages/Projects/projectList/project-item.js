@@ -34,11 +34,11 @@ const ProjectItem = (props) => {
           <div style={{ marginLeft: '16px' }}>
             <SmallButton btn="blue" onClick={() => handleEditProject(item.id)}>Edit</SmallButton>
           </div>
-          <div style={{ minWidth: '40px', fontSize: '11px', textAlign: 'right', padding: '0 4px' }}>
+          <div style={{ minWidth: '70px', fontSize: '11px', textAlign: 'center', padding: '0 4px' }}>
             {
               item.active
-                ? <span style={{ color: 'green' }}>active</span>
-                : <span style={{ color: 'gray' }}>stop</span>
+                ? <span style={{ color: 'green'}}>active</span>
+                : <span style={{ color: 'gray' }}>stopped</span>
             }
           </div>
         </div>

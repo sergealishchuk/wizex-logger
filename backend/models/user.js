@@ -72,16 +72,6 @@ module.exports = (sequelize, DataTypes) => {
         },
       }
     },
-    currencyCodeBuyer: {
-      type: DataTypes.STRING(3),
-      allowNull: false,
-      defaultValue: 'UAH',
-    },
-    currencyCodeSeller: {
-      type: DataTypes.STRING(3),
-      allowNull: false,
-      defaultValue: 'UAH',
-    },
     locale: {
       type: DataTypes.STRING(2),
       allowNull: true,
@@ -94,6 +84,11 @@ module.exports = (sequelize, DataTypes) => {
     passwordrecoverid: DataTypes.STRING,
     passwordrecovertime: DataTypes.BIGINT,
     emailconfirmed: DataTypes.BOOLEAN,
+    trialwasused: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
     allownotifications: {
       type: DataTypes.BOOLEAN,
       allowNull: false,

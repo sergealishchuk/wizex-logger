@@ -7,5 +7,7 @@
   "login_email_is_required": "Login Email обов'язковий",
   "enter_current_password": "Введіть Ваш поточний пароль",
   "current_password_validate": "Пароль має бути не менше 6 символів",
-  "current_password_is_required": "Поточний пароль обов'язковий"
+  "current_password_is_required": "Поточний пароль обов'язковий",
+  "confirm_email": "Підтвердити Email",
+  "login_email_not_confirmed": "Ваша електронна адреса не була підтверджена"
 }

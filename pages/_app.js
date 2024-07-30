@@ -50,7 +50,7 @@ function MyApp(props) {
           autoHideDuration={2000}
         >
           <I18n.Provider value={{ myname: 'serhii' }}>
-            {User.userIsLoggedIn()
+            {/* {User.userIsLoggedIn()
               ?
               <Layout {...pageParams} _i18n={{ locale }}>
                 <RouteGuard>
@@ -62,7 +62,12 @@ function MyApp(props) {
                   <LoginPage {...pageProps} _i18n={{ locale }} />
                 }
               </div>
-            }
+            } */}
+             <Layout {...pageParams} _i18n={{ locale }}>
+                <RouteGuard>
+                  <Component {...pageProps} _i18n={{ locale }} />
+                </RouteGuard>
+              </Layout>
           </I18n.Provider>
         </SnackbarProvider>
       </ThemeProvider>

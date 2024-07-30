@@ -1,0 +1,14 @@
+{
+  "confirm_text": "We have sent a verification code to the email address you provided. Please check your email and enter this code below.",
+  "confirm_email": "Confirm your email address",
+  "email": "Email",
+  "email_format": "Email format error",
+  "email_required": "Email is required",
+  "confirm_code": "Email confirm code",
+  "confirm_code_is_required": "Confirm code is required",
+  "code": "Code",
+  "your_email": "Your current email address",
+  "email_confirmed_before": "All is well! Your email address has been verified before!",
+  "change_email": "If you entered the wrong email address by mistake, you can change it to the correct one",
+  "change": "change"
+}

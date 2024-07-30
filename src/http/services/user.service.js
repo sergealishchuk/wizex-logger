@@ -78,7 +78,7 @@ function getUserProfile() {
     .then((response) => {
       const { user } = response;
       if (!_.isEmpty(user)) {
-        const { email, firstname, lastname, phone, roles, uid, locked } = user;
+        const { email, firstname, lastname, phone, roles, uid, locked, emailconfirmed } = user;
         const userInfo = {
           email,
           firstname,
@@ -88,8 +88,13 @@ function getUserProfile() {
           roles,
           uid,
           locked,
+          emailconfirmed,
         };
         User.updateUserInfo(userInfo);
+        store.set('lastRegisteredEmail', email);
+        if (!emailconfirmed && (Router.pathname !== '/confirmemail' && !Router.pathname.startsWith('/profile'))) {
+          setTimeout(() => Router.pathname !== '/confirmemail' && Router.push(`/confirmemail?e=${email}`), 1000);
+        }
       }
       return response;
     })
@@ -199,6 +204,59 @@ const checkAuthUser = (values, options = {}) => {
     })
 };
 
+const confirmEmailAddress = (values) => {
+  const url = '/users/confirmemail';
+
+  return post(url, values)
+    .then((response) => {
+      return response;
+    })
+    .catch(e => {
+      const error = _.get(e, 'XHRResponse.data', { error: { errors: [{ message: "Connection Error" }] } })
+      return error;
+    })
+};
+
+const resendConfirmEmail = (values = {}) => {
+  const url = '/users/resendconfirmemail';
+
+  return post(url, values)
+    .then((response) => {
+      return response;
+    })
+    .catch(e => {
+      const error = _.get(e, 'XHRResponse.data', { error: { errors: [{ message: "Connection Error" }] } })
+      return error;
+    })
+};
+
+const bankCommand = (values = {}, options = {}) => {
+  const url = '/bankcommand';
+
+  return post(url, values, options)
+    .then((response) => {
+      return response;
+    })
+};
+
+const getPayments = (values = {}, options) => {
+  const url = '/users/getuserpayments';
+
+  return post(url, values, options)
+    .then((response) => {
+      return response;
+    })
+};
+
+const startTrialPeriod = (values = {}, options) => {
+  const url = '/users/starttrialperiod';
+
+  return post(url, values, options)
+    .then((response) => {
+      return response;
+    })
+};
+
 export const userService = {
   userValue: () => User.get(),
   login,
@@ -214,4 +272,9 @@ export const userService = {
   getUsers,
   updateUserStatus,
   checkAuthUser,
+  confirmEmailAddress,
+  resendConfirmEmail,
+  bankCommand,
+  getPayments,
+  startTrialPeriod,
 };

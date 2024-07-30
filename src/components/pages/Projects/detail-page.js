@@ -24,7 +24,7 @@ const DetailPage = (props = {}) => {
   };
 
   return (
-    <div>
+    <div style={{overflow: 'hidden'}}>
       <div style={{ borderBottom: '1px #e2e2e2 solid' }}>
         <table width="100%" style={{ fontSize: '12px' }}>
           <tr style={{ backgroundColor: '#ededed', padding: '4px 8', fontSize: '18px', fontWeight: 'bold' }}>

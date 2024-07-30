@@ -113,6 +113,39 @@ const getBcList = (t, locale) => ({
 			label: params.commitHash,//t('bc.build', { ns: 'sidebar' }),
 		}
 	]),
+	'/confirmemail': (params) => ([
+		{
+			label: t('bc.home', { ns: 'sidebar' }),
+			href: "/",
+			component: "a",
+			icon: <HomeIcon fontSize="small" />,
+		},
+		{
+			label: t('bc.confirmemail', { ns: 'sidebar' }),
+		}
+	]),
+	'/user_settings': (params) => ([
+		{
+			label: t('bc.home', { ns: 'sidebar' }),
+			href: "/",
+			component: "a",
+			icon: <HomeIcon fontSize="small" />,
+		},
+		{
+			label: t('bc.usersettings', { ns: 'sidebar' }),
+		}
+	]),
+	'/payments': (params) => ([
+		{
+			label: t('bc.home', { ns: 'sidebar' }),
+			href: "/",
+			component: "a",
+			icon: <HomeIcon fontSize="small" />,
+		},
+		{
+			label: t('bc.payments', { ns: 'sidebar' }),
+		}
+	]),
 	'/admin': (params) => ([
 		{
 			label: t('bc.home', { ns: 'sidebar' }),

@@ -1,37 +1,79 @@
 const _ = require('lodash');
-const axios = require('axios');
-const { Users } = require('../../models');
+const { Users, sequelize } = require('../../models');
+const { send_mail_by_template: sendTemplateMail } = require('../__controllers');
 const { handleSequelizeErrors, createErrorMessage } = require('../../utils');
-//const nodemailer = require('nodemailer');
-const { v4: uuidv4 } = require('uuid');
+const config = require('../../config/config');
 
-module.exports = async (parameters, res) => {
-  const { body = {} } = parameters;
+const { host, port } = config['frontend'];
+
+module.exports = async (req, res) => {
+  const { body = {} } = req;
   const {
     email: inputEmail,
   } = body;
 
   const email = inputEmail.toLowerCase().trim();
 
-  const user = await Users.findOne({ where: { email } });
-  if (!user) {
-    return {
-      error: createErrorMessage('User does not exist!'),
-      status: 400,
-    }
-  }
-  console.log(user);
+  let result;
+  try {
+    result = await sequelize.transaction(async (transaction) => {
+      const existUser = await Users.findOne({
+        where: { email },
+        attributes: ['id', 'firstname', 'lastname', 'locale'],
+        transaction,
+        raw: true,
+      });
 
-  const { firstname } = user;
-  const uuid = Math.floor(100000 + Math.random() * 900000);
-  await Users.update({
-    passwordrecoverid: uuid,
-    passwordrecovertime: new Date().getTime(),
-  }, {where: {email}});
-  const local = 'http://localhost:3000';
-  const response = await axios.get(`http://alioks.com/sendemail.php?name=${firstname}&email=${email}&uuid=${uuid}`);
-  console.log('response', response);
-  return {
-    test: 'ok'
+      if (!existUser) {
+        return {
+          error: createErrorMessage(`User with email address ${email} does not exist`),
+          ERROR_CODE: {
+            name: 'USER_WITH_EMAIL_NOT_EXISTS',
+            params: {
+              email,
+            }
+          }
+        };
+      }
+
+      const { id: UserID, firstname, lastname, locale } = existUser;
+      const uuid = Math.floor(100000 + Math.random() * 900000);
+      const updateUser = await Users.update({
+        passwordrecoverid: uuid,
+        passwordrecovertime: new Date().getTime(),
+      }, {
+        where: { email },
+        transaction,
+      });
+
+      if (updateUser && updateUser.length === 1) {
+        await sendTemplateMail({
+          toUserId: UserID,
+          template: `RecoveryPassword_${locale}`,
+          params: {
+            username: `${firstname} ${lastname}`,
+            code: uuid,
+            url: `${host}:${port}`
+          }
+        })
+      }
+
+      return {
+        ok: true,
+      }
+    });
+
+    return {
+      ...result,
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(
+      {
+        error: createErrorMessage("Error recover password"),
+        ERROR_CODE: "ERROR_RECOWER_PASSWORD",
+        serror: handleSequelizeErrors(error),
+      }
+    );
   }
-}
+};

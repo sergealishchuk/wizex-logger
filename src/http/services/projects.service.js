@@ -123,6 +123,39 @@ const generateApiKeyForProject = async (values = {}, options = {}) => {
     })
 };
 
+const addPartner = async (values = {}, options = {}) => {
+  return post('/projects/addpatner', values, options)
+    .then((response) => {
+      return response;
+    })
+    .catch(e => {
+      const error = _.get(e, 'XHRResponse.data', { error: { errors: [{ message: "Connection Error" }] } })
+      return error;
+    })
+};
+
+const getProjectPartners = async (values = {}, options = {}) => {
+  return post('/projects/getprojectpartners', values, options)
+    .then((response) => {
+      return response;
+    })
+    .catch(e => {
+      const error = _.get(e, 'XHRResponse.data', { error: { errors: [{ message: "Connection Error" }] } })
+      return error;
+    })
+};
+
+const removePartnerFromProject = async (values = {}, options = {}) => {
+  return post('/projects/removepartnerfromproject', values, options)
+    .then((response) => {
+      return response;
+    })
+    .catch(e => {
+      const error = _.get(e, 'XHRResponse.data', { error: { errors: [{ message: "Connection Error" }] } })
+      return error;
+    })
+};
+
 export const projectsService = {
   getProjects,
   getActiveProjects,
@@ -135,4 +168,7 @@ export const projectsService = {
   deleteProject,
   generateApiKeyForProject,
   removeAllLogs,
+  addPartner,
+  getProjectPartners,
+  removePartnerFromProject,
 };

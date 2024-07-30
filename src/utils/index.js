@@ -24,6 +24,9 @@ import searchCatalogFilter from './searchCatalogFilter';
 import ukToTranslit from './uk_to_translit';
 import getTimeBySec from './getTimeBySec';
 import getDiffWithcurrentStr from './getDiffWithCurrentStr';
+import getResponseMessage from './getResponseMessage';
+import handleStringWithParams from './handleStringWithParams';
+import copyToClipboard from './copyToClipboard';
 
 if (typeof(window) !== 'undefined') {
   window.store = store;
@@ -58,4 +61,7 @@ export {
   ukToTranslit,
   getTimeBySec,
   getDiffWithcurrentStr,
+  getResponseMessage,
+  handleStringWithParams,
+  copyToClipboard,
 };
