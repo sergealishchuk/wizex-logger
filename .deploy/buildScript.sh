@@ -13,7 +13,6 @@ do
        b) branch=${OPTARG};;
        l) path=${OPTARG};;
        p) pm2name=${OPTARG};;
-       #e) env=${OPTARG};;
    esac
 done
 
@@ -22,8 +21,6 @@ echo "Start"
 echo "# path $path"
 cd "$path"
 source .env
-
-#cd /home/alioks/Projects/alioks-cds-develop
 
 echo "# checkout $branch"
 git checkout $branch
@@ -55,4 +52,36 @@ cd ..
 echo "# APP_ENV=$APP_ENV npm run build"
 npm run build
 
-#--env.APP_ENV=aliokscds_develop_global
+echo " - start or restart servers - "
+name="$pm2name-frontend"
+if [ "$(pm2 id $name)" = "[]" ]; then
+  echo "not found, so we start"
+  pm2 --name "$name" start 'npm run server'
+else
+  echo "need restart"
+  pm2 restart "$name"
+fi;
+
+cd backend
+name="$pm2name-backend"
+if [ "$(pm2 id $name)" = "[]" ]; then
+  echo "not found, so we start"
+  pm2 --name "$name" start 'npm run server'
+else
+  echo "need restart"
+  pm2 restart "$name"
+fi;
+
+cd ..
+cd backendSocket
+name="$pm2name-backendSocket"
+if [ "$(pm2 id $name)" = "[]" ]; then
+  echo "not found, so we start"
+  pm2 --name "$name" start 'npm run server'
+else
+  echo "need restart"
+  pm2 restart "$name"
+fi;
+
+cd ..
+echo "Finished."
