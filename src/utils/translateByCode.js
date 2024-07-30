@@ -19,8 +19,7 @@ export default (code, options = {}) => {
     return code;
   }
 
-  const { params = {}, ns = 'errors', t = i18n.t, locale = 'en'} = options;
-  i18n && i18n.changeLanguage(locale)
+  const { params = {}, ns = 'errors', t = i18n.t} = options;
   let message = t(code, { ns });
 
   const keys = Object.keys(params);

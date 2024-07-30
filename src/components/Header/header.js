@@ -19,9 +19,12 @@ import Tooltip from '@mui/material/Tooltip';
 import { useTranslation } from 'next-i18next';
 import Link from "../Link";
 import Sidebar from "./Sidebar";
-import AuthDialog from "./Sidebar/auth/authDialog";
-import RegisterDialog from "./Sidebar/auth/registerDialog";
-import ResetPasswordDialog from "./Sidebar/auth/resetPasswordDialog";
+//import AuthDialog from "./Sidebar/auth/authDialog";
+import { AuthDialog } from "@lib/wizen";
+import RegisterDialog from '@lib/wizen/es/RegisterDialog'
+//import RegisterDialog from "./Sidebar/auth/registerDialog";
+//import ResetPasswordDialog from "./Sidebar/auth/resetPasswordDialog";
+import ResetPasswordDialog from "@lib/wizen/es/ResetPasswordDialog";
 import OfferAuthDialog from "./Sidebar/auth/offerAuthDialog";
 import AlertLogOutConfirmDialog from './Sidebar/auth/logoutAlert';
 import AboutDialog from "./Sidebar/auth/aboutDialog";
@@ -32,6 +35,7 @@ import { useRouter } from 'next/router';
 import SocketServer from "~/socket";
 import Search from './components/search';
 import KeyManager from "../KeyManager";
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const focusChange = _.debounce((state, cb = _.noop) => {
 	if (!document.hidden) {
@@ -65,7 +69,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 const IconButtonStyled = styled(IconButton)(() => ({
-	marginRight: '24px'
+	marginRight: '2px'
 }));
 
 export default () => {
@@ -85,8 +89,11 @@ export default () => {
 	const [openAboutDialog, setOpenAboutDialog] = useState(false);
 	const [windowFocus, setWindowFocus] = useState(true);
 	const [showSearchIcon, setShowSearchIcon] = useState(false);
+	const [resetEmail, setResetEmail] = useState();
 
 	const { t } = useTranslation(['sidebar']);
+
+	const Mobile = !useMediaQuery('(min-width:600px)');
 
 	const isAdminSection = /^\/admin/.test(router.route);
 
@@ -205,7 +212,8 @@ export default () => {
 		handleOpenRegisterDialog();
 	};
 
-	const handleCloseAndOpenResetPasswordDialog = () => {
+	const handleCloseAndOpenResetPasswordDialog = (email) => {
+		setResetEmail(email);
 		setOpenAuthDialog(false);
 		setOpenResetPasswordDialog(true)
 	}
@@ -267,6 +275,7 @@ export default () => {
 				onCloseAndOpenAuthDialog={handleCloseAndOpenAuthDialog}
 			/>
 			<ResetPasswordDialog
+				resetEmail={resetEmail}
 				openDialog={openResetPasswordDialog}
 				onClose={handleCloseResetPasswordDialog}
 				onCloseAndOpenAuthDialog={handleCloseAndOpenAuthDialog}
@@ -290,24 +299,30 @@ export default () => {
 					transition: 'background-color 300ms',
 					zIndex: 9999999,
 				}}>
+
+
 					<Toolbar className="toolbar-header-root">
-						<Tooltip title={t('open_menu', { ns: 'sidebar' })}>
-							<span>
-								<IconButton
-									size="large"
-									edge="start"
-									color="inherit"
-									aria-label="menu"
-									onClick={handleSideMenu}
-								>
-									<MenuIcon />
-								</IconButton>
-							</span>
-						</Tooltip>
-						<div style={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
-							{/* <img style={{ height: '23px', marginTop: '-7px' }} src="https://storage.alioks.com/img/aoks/logo_alioks6.png" /> */}
-							<span style={{fontSize: '42px', fontWeight: 'bold'}}>WIZEX</span>
-							<div style={{whiteSpace: 'nowrap', fontSize: '20px', color: '#e1efff', fontStyle: 'italic',  margin: '0px 14px'}}>WEB LOG RECORDER</div>
+						{userLogginded
+							? <Tooltip title={t('open_menu', { ns: 'sidebar' })}>
+								<span>
+									<IconButton
+										size="large"
+										edge="start"
+										color="inherit"
+										aria-label="menu"
+										onClick={handleSideMenu}
+									>
+										<MenuIcon />
+									</IconButton>
+								</span>
+							</Tooltip>
+							: null
+						}
+						<div style={{ flexGrow: 1, display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+							<Link href="/">
+								<span style={{ fontSize: Mobile && !userLogginded ? '24px' : '32px', fontWeight: 'bold', marginRight: '12px', lineHeight: Mobile && !userLogginded ? '25px' : '32px' }}>WIZEX</span>
+							</Link>
+							<div style={{ whiteSpace: 'nowrap', fontSize: Mobile && !userLogginded ? '16px' : '26px', color: '#e1efff', fontStyle: 'italic', margin: '0' }}>CodeMonitor</div>
 						</div>
 						{userLogginded}
 						{!userLogginded && (
@@ -347,12 +362,12 @@ export default () => {
 							<Tooltip title={t('auth.buttons.sign_in', { ns: 'sidebar' })}>
 								<span>
 									<IconButtonStyled onClick={() => setOpenAuthDialog(true)}>
-										<PersonOutlineIcon style={{color: '#b8b8b8'}}/>
+										<PersonOutlineIcon style={{ color: '#b8b8b8' }} />
 									</IconButtonStyled>
 								</span>
 							</Tooltip>
 						)}
-						
+
 
 						{showSearchIcon && (
 							<Tooltip title={t('search', { ns: 'sidebar' })}>

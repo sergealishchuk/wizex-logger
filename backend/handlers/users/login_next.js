@@ -2,7 +2,7 @@ const _ = require('lodash');
 const jwt = require('jsonwebtoken');
 const { v4: uuidv4 } = require('uuid');
 const md5 = require('md5');
-const { handleSequelizeErrors } = require('../../utils');
+const { createErrorMessage, handleSequelizeErrors } = require('../../utils');
 const { Users, Sids, sequelize } = require('../../models');
 const { tokens } = require('../../jwt-config');
 require('dotenv').config({ path: '../.env' });
@@ -16,7 +16,15 @@ module.exports = async (parameters, res) => {
   const user = await Users.findOne({ where: { email } });
 
   if (!user) {
-    res.status(400).json({ error: { errors: [{ message: 'User does not exist!' }] } });
+    res.status(400).json({
+      error: createErrorMessage(`User with email address ${email} does not exist`),
+      ERROR_CODE: {
+        name: 'USER_WITH_EMAIL_NOT_EXISTS',
+        params: {
+          email,
+        }
+      }
+    });
     return;
   }
 
@@ -60,7 +68,11 @@ module.exports = async (parameters, res) => {
 
       });
     } catch (error) {
-      res.status(400).json(handleSequelizeErrors(error));
+      res.status(400).json({
+        error: handleSequelizeErrors(error),
+        ERROR_CODE: 'LOGIN_ERROR',
+      });
+      return;
     }
 
     return ({
@@ -75,6 +87,9 @@ module.exports = async (parameters, res) => {
       }
     })
   } else {
-    res.status(400).json({ error: { errors: [{ message: 'Invalid credentials!' }] } });
+    res.status(400).json({
+      error: { errors: [{ message: 'Invalid credentials!' }] },
+      ERROR_CODE: 'INVALID_CREDENTIALS'
+    });
   }
 };

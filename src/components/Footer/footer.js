@@ -14,7 +14,7 @@ export default function Footer(props) {
 	
 	return (
 		<>
-			<FooterStyled>&copy; Copyright 2023 alioks.com</FooterStyled>
+			<FooterStyled>&copy; Copyright 2024 wizex.pro</FooterStyled>
 		</>
 	)
 };

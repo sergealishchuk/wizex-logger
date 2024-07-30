@@ -36,6 +36,9 @@ export default function Layout({ children, error, ...rest }) {
   const [offSellerLocked, setOffSellerLocked] = useState(false);
   const [currentLocale, setCurrentLocale] = useState(router.locale);
   const [scrolledUp, setScrolledUp] = useState(false);
+  const [windowFocused, setWindowFocused] = useState(true);
+  const [needUpToBalance, setNeedUpToBalance] = useState(false);
+  const [trialWasUsed, setTrialWasUsed] = useState(false);
 
   const { t } = useTranslation(['sidebar', 'buttons', 'errors', 'warnings']);
 
@@ -74,6 +77,10 @@ export default function Layout({ children, error, ...rest }) {
       setScreenShadowShow(up);
     });
 
+    const windowFocus = Observer.addListener('onWindowFocus', (focus) => {
+      setWindowFocused(focus);
+    });
+
     setUserIsLogged(userLogged);
 
     if (userLogged) {
@@ -81,7 +88,7 @@ export default function Layout({ children, error, ...rest }) {
         .then(response => {
           const { user } = response;
           if (!_.isEmpty(user)) {
-            const { email, firstname, lastname, phone, locked, currencyCodeBuyer, roles, locale } = user;
+            const { email, firstname, lastname, phone, locked, currencyCodeBuyer, roles, locale, trialwasused, userPaiedAtLeastOneTime, tariffValid  } = user;
             const userInfo = {
               email,
               firstname,
@@ -91,11 +98,16 @@ export default function Layout({ children, error, ...rest }) {
               locked,
               roles,
               locale,
+              trialwasused,
+              userPaiedAtLeastOneTime,
+              tariffValid,
             };
             User.updateUserInfo(userInfo);
             setUserProfileLoaded(true);
             setSellerLocked(locked);
             setCurrentLocale(locale);
+            setTrialWasUsed(trialwasused);
+            setNeedUpToBalance(!trialwasused && !tariffValid);
             Observer.send('onUserProfileLoaded', userInfo)
           }
         });
@@ -133,6 +145,7 @@ export default function Layout({ children, error, ...rest }) {
     return () => {
       Observer.removeListener(upSpinnerShow);
       Observer.removeListener(upScreenShadowShow);
+      Observer.removeListener(windowFocus);
       if (typeof (window) !== 'undefined') {
         window.removeEventListener("scroll", handleScroll);
       }
@@ -162,6 +175,12 @@ export default function Layout({ children, error, ...rest }) {
     setOffSellerLocked(true);
   };
 
+  console.log('router.route', router.route);
+
+  useEffect(() => {
+    //setNeedUpToBalance();
+  }, [router.route]);
+
   return readyToUse && ( // TODO: need to remove, ONLY FOR DEV MODE !!!!!!!!!!!!
     <>
       {!withoutHeader && <Header />}
@@ -181,6 +200,22 @@ export default function Layout({ children, error, ...rest }) {
             }
           )}
         >
+          {
+            needUpToBalance
+              ? <div style={{
+                paddingTop: '16px',
+                backgroundColor: windowFocused ? '#a55353' : 'gray',
+                transition: '200ms',
+                color: 'white',
+                fontSize: '12px',
+                padding: '2px 8px',
+                margin: '-10px -8px 0 -8px'
+              }}
+              >
+                Top up your balance to add and debug your projects
+              </div>
+              : null
+          }
           {
             userIsLogged && sellerLocked && !offSellerLocked && (
               <div style={{ backgroundColor: '#b70000', color: 'white', padding: '6px', fontSize: '10px', marginBottom: '4px' }}>

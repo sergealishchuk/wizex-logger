@@ -54,11 +54,6 @@
     "handlerPath": "./handlers/users/recoverpassword"
   },
   {
-    "method": "PUT",
-    "route": "/users/confirmemail",
-    "handlerPath": "./handlers/users/confirmemail"
-  },
-  {
     "method": "GET",
     "route": "/users/retryconfirmemail",
     "handlerPath": "./handlers/users/retryconfirmemail",
@@ -90,6 +85,29 @@
     "method": "POST",
     "route": "/users/checkauthuser",
     "handlerPath": "./handlers/users/check_auth_user",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/users/confirmemail",
+    "handlerPath": "./handlers/users/confirmemail"
+  },
+  {
+    "method": "POST",
+    "route": "/users/resendconfirmemail",
+    "handlerPath": "./handlers/users/resend_confirm_email",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/users/getuserpayments",
+    "handlerPath": "./handlers/users/get_user_payments",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/users/starttrialperiod",
+    "handlerPath": "./handlers/users/start_trial_period",
     "auth": true
   }
 ]

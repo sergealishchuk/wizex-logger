@@ -1,5 +1,8 @@
+'use client';
+
 import { enqueueSnackbar } from 'notistack';
 import { translateByCode } from '~/utils';
+
 /*
 
     pushResponseMessages({
@@ -13,7 +16,7 @@ import { translateByCode } from '~/utils';
 */
 
 
-export default (response) => {
+export default (response, snackbar = true) => {
   const {
     ERROR_CODE,
     SUCCESS_CODE,
@@ -25,36 +28,60 @@ export default (response) => {
     let { name, params } = ERROR_CODE;
     name = name || ERROR_CODE;
 
-    enqueueSnackbar(translateByCode(
+    const translateResult = translateByCode(
       name,
-      { ns: 'errors', params, }
-    ), { variant: 'error', });
+      { ns: 'errors', params }
+    );
+
+    if (snackbar) {
+      enqueueSnackbar(translateResult, { variant: 'error' });
+    } else {
+      return translateResult;
+    }
 
   } else if (SUCCESS_CODE) {
     let { name, params } = SUCCESS_CODE;
     name = name || SUCCESS_CODE;
 
-    enqueueSnackbar(translateByCode(
+    const translateResult = translateByCode(
       name,
-      { ns: 'successes', params, }
-    ), { variant: 'success', });
+      { ns: 'successes', params }
+    );
+    
+    if (snackbar) {
+      enqueueSnackbar(translateResult, { variant: 'success' });
+    } else {
+      return translateResult;
+    }
 
   } else if (INFO_CODE) {
     let { name, params } = INFO_CODE;
     name = name || INFO_CODE;
 
-    enqueueSnackbar(translateByCode(
+    const translateResult = translateByCode(
       name,
-      { ns: 'infos', params, }
-    ), { variant: 'info', });
+      { ns: 'infos', params }
+    );
+
+    if (snackbar) {
+      enqueueSnackbar(translateResult, { variant: 'info' });
+    } else {
+      return translateResult;
+    }
 
   } else if (WARNING_CODE) {
     let { name, params } = WARNING_CODE;
     name = name || WARNING_CODE;
 
-    enqueueSnackbar(translateByCode(
+    const translateResult = translateByCode(
       name,
-      { ns: 'warnings', params, }
-    ), { variant: 'warning', });
+      { ns: 'warnings', params }
+    );
+
+    if (snackbar) {
+      enqueueSnackbar(translateResult, { variant: 'warning' });
+    } else {
+      return translateResult;
+    }
   }
 };

@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { _ } from '~/utils';
+import { _, pushResponseMessages, getResponseMessage } from '~/utils';
 import { Formik, Form } from "formik";
 import * as yup from 'yup';
 import Grid from "@mui/material/Grid";
 import { useSnackbar } from 'notistack';
 import EditForm from "~/components/EditForm";
+import { IconButton, Tooltip } from '@mui/material';
 import TextField from '~/components/formik/TextField';
 import DialogActions from '@mui/material/DialogActions';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
+import ReadMoreIcon from '@mui/icons-material/ReadMore';
 import Button from '@mui/material/Button';
 import Observer from "~/utils/observer";
 import { userService } from '~/http/services';
@@ -14,20 +17,26 @@ import { ErrorMessages } from '~/components/ErrorMessages';
 import PasswordField from '~/components/formik/PasswordField';
 import SubmitController from '~/components/formik/SubmitController';
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
+import { FlexContainer } from '~/components/StyledComponents';
 
-export default ({ data, icon, expand, onProfileUpdate, expandAction, expandId }) => {
+export default ({ data, confirmed, icon, expand, onProfileUpdate, expandAction, expandId }) => {
   const refFormik = useRef(null);
   const focusRef = useRef();
-  const [editMode, setEditMode] = useState(false);
+  const [editMode, setEditMode] = useState(true);
   const [errors, setErrors] = useState([]);
-  const [shortScenario,  setShortScenario] = useState(false);
+  const [shortScenario, setShortScenario] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const [formChanged, setFormChanged] = useState(false);
   const [initialFormState, setInitialFormState] = useState({
     email: '',
     password: '',
   });
+  const [emailConfirmed, setEmailConfirmed] = useState(true);
+
   const { t } = useTranslation(['buttons', 'profile_main', 'profile_change_login']);
+
+  const router = useRouter();
 
   const validationSchema = yup.object().shape({
     email: yup
@@ -55,8 +64,9 @@ export default ({ data, icon, expand, onProfileUpdate, expandAction, expandId })
         ...data,
         password: ''
       });
+      setEmailConfirmed(confirmed);
     }
-  }, [data]);
+  }, [data, confirmed]);
 
   useEffect(() => {
     if (editMode) {
@@ -75,8 +85,10 @@ export default ({ data, icon, expand, onProfileUpdate, expandAction, expandId })
     Observer.send('SpinnerShow', false);
 
     if (result && result.error) {
-      const { error: { errors } } = result;
-      setErrors(errors);
+      const message = getResponseMessage(result);
+      if (message) {
+        setErrors([{ message }]);
+      }
       setSubmitting(false);
     } else {
       if (result.ok) {
@@ -85,6 +97,10 @@ export default ({ data, icon, expand, onProfileUpdate, expandAction, expandId })
         setEditMode(false);
         onCancel();
         enqueueSnackbar(t('profile_success_updated', { ns: 'profile_main' }), { variant: 'success' });
+        const { email, emailconfirmed } = data;
+        if (!emailconfirmed) {
+          router.push(`/confirmemail?e=${email}&s=no`);
+        }
       }
     }
   };
@@ -133,9 +149,13 @@ export default ({ data, icon, expand, onProfileUpdate, expandAction, expandId })
     setFormChanged(value);
   };
 
+  const handleConfirmEmail = () => {
+    router.push(`/confirmemail?e=${data.email}`);
+  };
+
   return (
     <EditForm
-      title={`${t('title', { ns: 'profile_change_login' })}`}
+      title={<span style={{ color: emailConfirmed ? 'rgba(0, 0, 0, 0.87)' : 'brown' }}>{`${t('title', { ns: 'profile_change_login' })}`}</span>}
       onCollapse={handleOnCollapse}
       icon={icon}
       expand={expand}
@@ -157,20 +177,49 @@ export default ({ data, icon, expand, onProfileUpdate, expandAction, expandId })
               <Grid container spacing={2}>
                 {editMode && (
                   <>
+                    {!confirmed &&
+                      <Grid item xs={12} md={12} style={{
+                        marginTop: '-15px',
+                        marginLeft: '15px',
+                        color: 'brown',
+                        fontSize: '12px',
+                      }}>
+                        {t('login_email_not_confirmed', { ns: 'profile_change_login' })}
+                      </Grid>
+                    }
                     <Grid item xs={12} md={12}>
-                      <TextField
-                        name="email"
-                        label={t('login_email', { ns: 'profile_change_login' })}
-                        type="text"
-                        disabled={!editMode}
-                        required
-                        inputRef={focusRef}
-                      />
+                      <FlexContainer jc="flex-start" style={{ width: '100%' }}>
+                        <div style={{ width: '100%' }}>
+                          <TextField
+                            name="email"
+                            label={t('login_email', { ns: 'profile_change_login' })}
+                            type="text"
+                            disabled={!editMode}
+                            required
+                            inputRef={focusRef}
+                            InputLabelProps={{ shrink: true }}
+                          />
+                        </div>
+                        {
+                          confirmed ?
+                            <div style={{ marginLeft: '16px' }}>
+                              <DoneAllIcon style={{ color: 'green' }} />
+                            </div>
+                            : <div style={{ marginLeft: '16px' }}>
+                              <Tooltip title={t('confirm_email', { ns: 'profile_change_login' })}>
+                                <IconButton style={{ marginTop: '-4px' }} onClick={handleConfirmEmail}>
+                                  <ReadMoreIcon style={{ color: 'gray' }} />
+                                </IconButton>
+                              </Tooltip>
+                            </div>
+                        }
+                      </FlexContainer>
                     </Grid>
                     <Grid item xs={12}>
                       <PasswordField
                         name="password"
                         label={t('current_password', { ns: 'profile_change_login' })}
+                        InputLabelProps={{ shrink: true }}
                       />
                     </Grid>
                   </>)}
@@ -181,10 +230,10 @@ export default ({ data, icon, expand, onProfileUpdate, expandAction, expandId })
                         ? (
                           <>
                             <Button type="submit" disabled={!dirty || isSubmitting}>
-                            {t('save', { ns: 'buttons' })}
+                              {t('save', { ns: 'buttons' })}
                             </Button>
                             <Button onClick={onCancel}>
-                            {t('cancel', { ns: 'buttons' })}
+                              {t('cancel', { ns: 'buttons' })}
                             </Button>
                           </>
                         )
@@ -197,7 +246,10 @@ export default ({ data, icon, expand, onProfileUpdate, expandAction, expandId })
                   </DialogActions>
                 </Grid>
               </Grid>
-              <SubmitController name="changeLogin" onFormChanged={handleFormChanged} />
+              <SubmitController
+                name="changeLogin"
+                onFormChanged={handleFormChanged}
+              />
             </Form>
           </>
         )}

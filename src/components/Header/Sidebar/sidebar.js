@@ -19,6 +19,7 @@ import ListIcon from '@mui/icons-material/List';
 import IconButton from '@mui/material/IconButton';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import SettingsIcon from '@mui/icons-material/Settings';
 import InfoIcon from '@mui/icons-material/Info';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -57,7 +58,7 @@ const Sidebar = (props) => {
 	const [userRoles, setUserRoles] = useState([]);
 
 	const router = useRouter();
-	const { t: translate } = useTranslation('sidebar');
+	const { t: translate } = useTranslation(['sidebar']);
 
 	const menu = [
 		{
@@ -80,6 +81,16 @@ const Sidebar = (props) => {
 		{
 			divider: true,
 			marginTop: true,
+		},
+		{
+			title: translate('bc.payments', { ns: 'sidebar' }),
+			path: '/payments',
+			icon: <LocalAtmIcon />,
+			roles: [ROLES.USER],
+		},
+		{
+			divider: true,
+			roles: [ROLES.SELLER],
 		},
 		{
 			title: translate('shop_admin', { ns: 'sidebar' }),
@@ -159,7 +170,7 @@ const Sidebar = (props) => {
 		}} open={onOpen} onClose={onClose}>
 			<div style={{ backgroundColor: '#580518' }}>
 				<DrawerHeader>
-					<span className="alioks-logo" style={{color: '#d2ecff', fontSize: '25px'}}>logger.wizex.pro</span>
+					<span className="alioks-logo" style={{color: '#d2ecff', fontSize: '19px'}}>codemonitor.wizex.pro</span>
 					<Tooltip title={translate('close_menu', { ns: 'sidebar' })}>
 						<span>
 							<IconButton onClick={onClose} style={{ color: 'azure' }}>
