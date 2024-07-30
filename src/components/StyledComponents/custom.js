@@ -14,7 +14,7 @@ export const IconViewStyled = styled(VisibilityIcon)`
 export const SmallButton = styled(Button)`
 	text-transform: capitalize;
 	white-space: nowrap;
-	font-size: 13px;
+	font-size: 15px;
 	height: 21px;
 	margin: 2px 4px;
 	color: #204a96;
