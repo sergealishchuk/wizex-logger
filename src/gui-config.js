@@ -18,8 +18,8 @@ const env_config = {
   },
   "wizexlogger": {
     "imagesUrl": storageImg,
-    "apiUrl": `https://logger.wizex.pro${baseUrl}`,
-    "socketUrl": 'wss://logger.wizex.pro'
+    "apiUrl": `https://codemonitor.wizex.pro${baseUrl}`,
+    "socketUrl": 'wss://codemonitor.wizex.pro'
   },
 };
 
