@@ -90,7 +90,7 @@ const getBcList = (t, locale) => ({
 			label: t('bc.new_project', { ns: 'sidebar' }),
 		}
 	]),
-	'/projects/action-detail/[actionId]': (params) => ([
+	'/projects/action-detail/[actionId]': (params = {}) => ([
 		{
 			label: t('bc.home', { ns: 'sidebar' }),
 			href: "/",
