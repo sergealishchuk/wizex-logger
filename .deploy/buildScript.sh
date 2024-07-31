@@ -18,6 +18,22 @@ done
 
 echo "Start"
 
+echo "Clone WIZEN lib"
+if [ ! -d "lib" ]
+then
+    mkdir lib
+fi;
+
+cd lib
+if [! -d "wizen"]
+then
+    git clone git@github.com:sergealishchuk/wizen.git
+fi;
+cd wizen
+git pull
+cd ../..
+
+
 echo "# path $path"
 cd "$path"
 source .env

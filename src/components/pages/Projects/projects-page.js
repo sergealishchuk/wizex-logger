@@ -20,19 +20,18 @@ const Projects = (props) => {
         setAdminRole(true);
       }
     }
-
   }, []);
 
   return (
     <div>
       <FlexContainer jc="space-between" style={{flexWrap: 'wrap'}}>
-        {tariffIsValid
+        {!tariffIsValid
           ? <div style={{ dispaly: 'flex', alignItems: 'center', marginLeft: '12px', fontSize: '12px', lineHeight: '15px', marginBottom: '6px'}}>Ви не можете добавляти нові проекти, так як для цього необхідно <Link style={{ textDecoration: 'underline', cursor: 'pointer', color: '#0048c2' }} href="/payments">оплатити тариф</Link><div></div></div>
           : <span></span>
         }
         <div style={{ textAlign: 'right', marginRight: '22px' }}>
-          <Link href="/projects/new" disabled={true}>
-            <SmallButton disabled={true} btn="blue">New Project</SmallButton>
+          <Link href="/projects/new" disabled={!tariffIsValid}>
+            <SmallButton disabled={!tariffIsValid} btn="blue">New Project</SmallButton>
           </Link>
         </div>
       </FlexContainer>

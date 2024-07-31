@@ -17,6 +17,8 @@ const CodeMonitor = <span><b>CodeMonitor</b></span>;
 const getPromotionContent = (props) => {
   const { locale, freeTrial } = props;
 
+  const router = useRouter();
+
   const handleGotoRegistration = () => {
     Observer.send('OpenSignInDialog', { action: 'registration' }, () => {
       // const { cb } = offerAuthParams;
@@ -33,6 +35,11 @@ const getPromotionContent = (props) => {
     console.log('try free');
     const startTrialPeriodRequest = await userService.startTrialPeriod();
     console.log('startTrialPeriodRequest', startTrialPeriodRequest);
+    if (startTrialPeriodRequest.ok) {
+      const resultUserProfile = await userService.getUserProfile();
+      router.push('/projects');
+    }
+
   };
 
   return (
