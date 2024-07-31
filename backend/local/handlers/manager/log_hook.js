@@ -61,9 +61,12 @@ module.exports = async (parameters, res) => {
             lastRecordTheSame = true;
           }
 
+console.log('lastRecordTheSame', lastRecordTheSame);
+console.log('counter', counter);
+
           if (lastRecordTheSame) {
             // update count and createdAt
-            await ProjectActions.update({
+            const updateRecord = await ProjectActions.update({
               count: counter + 1,
               startedAt: new Date(),
             }, {
@@ -72,6 +75,8 @@ module.exports = async (parameters, res) => {
               },
               transaction,
             });
+            console.log('lastRecord.id', lastRecord.id);
+            console.log('updateRecord', updateRecord);
 
           } else {
             let content = '{}';
