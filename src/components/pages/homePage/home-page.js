@@ -43,7 +43,8 @@ const getPromotionContent = (props) => {
   };
 
   return (
-    <div>{
+    <div>!!! {
+      
       locale === 'en'
         ? <div>
           <p>
