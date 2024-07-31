@@ -78,7 +78,7 @@ function getUserProfile() {
     .then((response) => {
       const { user } = response;
       if (!_.isEmpty(user)) {
-        const { email, firstname, lastname, phone, roles, uid, locked, emailconfirmed } = user;
+        const { email, firstname, lastname, phone, roles, uid, locked, emailconfirmed, tariffValid } = user;
         const userInfo = {
           email,
           firstname,
@@ -89,6 +89,7 @@ function getUserProfile() {
           uid,
           locked,
           emailconfirmed,
+          tariffValid,
         };
         User.updateUserInfo(userInfo);
         store.set('lastRegisteredEmail', email);
