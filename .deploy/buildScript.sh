@@ -18,6 +18,11 @@ done
 
 echo "Start"
 
+echo "# path $path"
+cd "$path"
+source .env
+
+
 echo "Clone WIZEN lib"
 if [ ! -d "lib" ]
 then
@@ -25,7 +30,7 @@ then
 fi;
 
 cd lib
-if [! -d "wizen"]
+if [ ! -d "wizen" ]
 then
     git clone git@github.com:sergealishchuk/wizen.git
 fi;
@@ -34,9 +39,7 @@ git pull
 cd ../..
 
 
-echo "# path $path"
-cd "$path"
-source .env
+
 
 echo "# checkout $branch"
 git checkout $branch
