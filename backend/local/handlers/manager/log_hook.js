@@ -66,18 +66,19 @@ console.log('counter', counter);
 
           if (lastRecordTheSame) {
             // update count and createdAt
+            console.log('lastRecord', lastRecord[0]);
+            
             const updateRecord = await ProjectActions.update({
               count: counter + 1,
               startedAt: new Date(),
             }, {
               where: {
-                id: lastRecord.id
+                id: lastRecord[0].id
               },
               transaction,
             });
-            console.log('lastRecord.id', lastRecord.id);
+           
             console.log('updateRecord', updateRecord);
-
           } else {
             let content = '{}';
             try {
