@@ -175,11 +175,7 @@ export default function Layout({ children, error, ...rest }) {
     setOffSellerLocked(true);
   };
 
-  console.log('router.route', router.route);
-
-  useEffect(() => {
-    //setNeedUpToBalance();
-  }, [router.route]);
+  //console.log('router.route', router.route);
 
   return readyToUse && ( // TODO: need to remove, ONLY FOR DEV MODE !!!!!!!!!!!!
     <>
