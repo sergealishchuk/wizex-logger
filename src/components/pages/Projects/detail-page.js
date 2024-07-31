@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const DetailPage = (props = {}) => {
+  console.log('detail page Props:', props);
   const { item, last } = props;
   const { t } = useTranslation(['buttons', 'articles']);
 
