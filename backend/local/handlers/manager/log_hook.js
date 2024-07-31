@@ -39,21 +39,57 @@ module.exports = async (parameters, res) => {
         if (active) {
           const { message = 'empty', level = 'error' } = body;
 
-          let content = '{}';
-          try {
-            content = JSON.stringify({ body, headers });
-          } catch (e) { }
+          const lastRecord = await ProjectActions.findAll({
+            transaction,
+            where: {
+              projectId: pi,
+              level,
+              message,
+            },
+            attributes: ['id', 'projectId', 'message', 'level', 'count'],
+            order: [['id', 'DESC']],
+            limit: 1,
+            raw: true,
+          });
 
-          await ProjectActions.create({
-            projectId: pi,
-            level,
-            message,
-            sessionId,
-            content,
-          },
-            {
+          let lastRecordTheSame = false;
+          let counter;
+
+          if (lastRecord && lastRecord.length > 0) {
+            const { count } = lastRecord[0];
+            counter = count;
+            lastRecordTheSame = true;
+          }
+
+          if (lastRecordTheSame) {
+            // update count and createdAt
+            await ProjectActions.update({
+              count: counter + 1,
+              startedAt: new Date(),
+            }, {
+              where: {
+                id: lastRecord.id
+              },
               transaction,
-            })
+            });
+
+          } else {
+            let content = '{}';
+            try {
+              content = JSON.stringify({ body, headers });
+            } catch (e) { }
+
+            await ProjectActions.create({
+              projectId: pi,
+              level,
+              message,
+              sessionId,
+              content,
+            },
+              {
+                transaction,
+              });
+          }
         } else {
           return {
             ok: false,
