@@ -30,6 +30,11 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: '{}',
       allowNull: false,
     },
+    count: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1,
+      allowNull: false,
+    },
     startedAt: {
       type: DataTypes.DATE,
       defaultValue: sequelize.fn('NOW'),
