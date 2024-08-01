@@ -5,7 +5,6 @@ import { _ } from '~/utils';
 
 const ProjectList = (props) => {
   const { projectList = []} = props;
-  console.log('projectList', projectList);
 
   return (
     <ProjectListStyled>

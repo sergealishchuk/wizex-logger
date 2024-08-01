@@ -59,7 +59,6 @@ const ProjectForm = (props) => {
       const { roles, uid } = User.read();
       const user = User.read();
       setUserId(uid);
-      console.log('user', user)
       // // Check if user payed his account
       // if (Array.isArray(roles) && roles.includes(ROLES.ADMIN)) {
       //   setAdminRole(true);

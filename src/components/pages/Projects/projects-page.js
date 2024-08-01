@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { FlexContainer, SmallButton } from '~/components/StyledComponents';
 import Link from "~/components/Link";
@@ -14,7 +13,6 @@ const Projects = (props) => {
   useEffect(() => {
     if (User.isLog()) {
       const { roles, tariffValid } = User.read();
-      console.log('User.read();', User.read());
       setTariffIsValid(tariffValid);
       if (roles.includes(ROLES.ADMIN)) {
         setAdminRole(true);

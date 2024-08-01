@@ -16,7 +16,6 @@ import User from '~/components/User';
 let ticks = [];
 
 const ProjectActions = (props) => {
-  console.log('props:', props);
   const { project: projectInput, actions: actionsInput, query: { f: filterInput } } = props.data;
   const [project, setProject] = useState(projectInput || {});
   const [actions, setActions] = useState(actionsInput || []);
@@ -65,12 +64,10 @@ const ProjectActions = (props) => {
   }, []);
 
   const handleChangeActive = async (event) => {
-    console.log('active event', event.target.checked);
     const setActiveProjectRequest = await projectsService.setActiveProject({
       projectId: project.id,
       active: !active,
     });
-    console.log('setActiveProjectRequest', setActiveProjectRequest)
     setActive(!active);
   };
 
@@ -84,7 +81,6 @@ const ProjectActions = (props) => {
       text: `Do you want to delete all logs for the "${project.name}" project?`,
     });
     if (confirm === DIALOG_ACTIONS.CONFIRM) {
-      console.log('handleRemoveLogs');
       const setActiveProjectRequest = await projectsService.removeAllLogs({
         projectId: project.id,
       });

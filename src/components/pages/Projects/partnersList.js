@@ -12,7 +12,6 @@ import { DIALOG_ACTIONS } from '~/constants';
 import { projectsService } from '~/http/services';
 
 const PartnersList = (props) => {
-  console.log('PartnersList props:', props);
   const { project = {}} = props;
   const refFormik = useRef(null);
   const [partners, setPartners] = useState(project.partnersList || []);
@@ -35,7 +34,6 @@ const PartnersList = (props) => {
     const getPartnersListRequest = await projectsService.getProjectPartners({
       projectId: project.id,
     });
-    console.log('getPartnersListRequest', getPartnersListRequest);
     if (getPartnersListRequest.ok) {
       const { partnersList } = getPartnersListRequest;
       setPartners(partnersList);
@@ -44,7 +42,6 @@ const PartnersList = (props) => {
   }
 
   const onSubmit = async (values) => {
-    console.log('onSumbit', values);
     const { email } = values;
     const exist = _.find(partners, item => item.email === email);
     if (exist) {
@@ -63,7 +60,6 @@ const PartnersList = (props) => {
       projectId: project.id,
     });
     pushResponseMessages(addPartnerRequest);
-    console.log('addPartnerRequest', addPartnerRequest);
     if (addPartnerRequest.ok) {
       getPartnersList();
     }
@@ -85,7 +81,6 @@ const PartnersList = (props) => {
         projectId: project.id, 
       });
       pushResponseMessages(removePartnerFromProjectRequest);
-      console.log('removePartnerFromProjectRequest', removePartnerFromProjectRequest);
       if (removePartnerFromProjectRequest.ok) {
         getPartnersList();
       }
