@@ -16,6 +16,7 @@ import User from '~/components/User';
 let ticks = [];
 
 const ProjectActions = (props) => {
+  console.log('props:', props);
   const { project: projectInput, actions: actionsInput, query: { f: filterInput } } = props.data;
   const [project, setProject] = useState(projectInput || {});
   const [actions, setActions] = useState(actionsInput || []);
@@ -152,6 +153,7 @@ const ProjectActions = (props) => {
                               </td>
                               <td><span style={{ whiteSpace: 'nowrap', padding: '0 8px', fontSize: '11px' }}>{getLocalDate(row.startedAt)}</span></td>
                               <td style={{ padding: '2px 12px', whiteSpace: 'nowrap', textAlign: 'right', fontWeight: row.status === 0 ? 'normal' : 'bold' }}>{row.status === 0 ? (tickCounter ? getDiffWithcurrentStr(row.startedAt) : '') : getTimeBySec(row.longTimeSec)}</td>
+                              <td><span style={{ fontSize: '11px', padding: '0 4px' }}>{row.count}</span></td>
                             </tr>
                           )
                         })

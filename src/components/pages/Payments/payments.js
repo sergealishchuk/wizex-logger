@@ -289,7 +289,7 @@ console.log('findTariff', findTariff, tariffType);
         </Grid>
 
         <Grid xs={12} style={{ marginTop: '16px' }}>
-          <FlexContainer jc="space-between">
+          <FlexContainer jc="space-between" style={{flexWrap: 'wrap'}}>
             {!tariffIsActual
               ? <span style={{ padding: '0 8px' }}>{t("up_to_balance", { ns: "payments" })}</span>
               : <span></span>
