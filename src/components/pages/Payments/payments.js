@@ -19,7 +19,7 @@ import {
   pushResponseMessages,
 } from '~/utils';
 import { DIALOG_ACTIONS } from '~/constants';
-import { FlexContainer } from '~/components/StyledComponents';
+import { FlexContainer, SmallButton } from '~/components/StyledComponents';
 import TariffsGroup from './tariffs';
 import guiConfig from "~/gui-config";
 import { TextField } from '@mui/material';
@@ -294,14 +294,13 @@ console.log('findTariff', findTariff, tariffType);
               ? <span style={{ padding: '0 8px' }}>{t("up_to_balance", { ns: "payments" })}</span>
               : <span></span>
             }
-            <Button
-              variant="contained"
-              color="success"
-              style={{ fontSize: '11px', height: '26px', marginRight: '6px' }}
+            <SmallButton
+              btn="green"
+              style={{ marginRight: '6px' }}
               onClick={handleMakeAddBalance}
             >
               {t('top_up_balance', { ns: 'buttons' })}
-            </Button>
+            </SmallButton>
           </FlexContainer>
         </Grid>
       </Grid>
