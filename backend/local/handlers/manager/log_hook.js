@@ -61,13 +61,7 @@ module.exports = async (parameters, res) => {
             lastRecordTheSame = true;
           }
 
-console.log('lastRecordTheSame', lastRecordTheSame);
-console.log('counter', counter);
-
           if (lastRecordTheSame) {
-            // update count and createdAt
-            console.log('lastRecord', lastRecord[0]);
-            
             const updateRecord = await ProjectActions.update({
               count: counter + 1,
               startedAt: new Date(),
@@ -77,8 +71,6 @@ console.log('counter', counter);
               },
               transaction,
             });
-           
-            console.log('updateRecord', updateRecord);
           } else {
             let content = '{}';
             try {
@@ -136,4 +128,4 @@ console.log('counter', counter);
       error: e,
     }
   }
-}
+};
