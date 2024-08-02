@@ -29,15 +29,15 @@ module.exports = async (req, res, tokenPayload) => {
 
   const { roles } = user;
 
-  if (!roles.includes(ROLES.ADMIN)) {
-    res.status(400).json(
-      {
-        error: createErrorMessage("No permisions"),
-        ERROR_CODE: "NO_PERMISSIONS"
-      }
-    );
-    return;
-  }
+  // if (!roles.includes(ROLES.ADMIN)) {
+  //   res.status(400).json(
+  //     {
+  //       error: createErrorMessage("No permisions"),
+  //       ERROR_CODE: "NO_PERMISSIONS"
+  //     }
+  //   );
+  //   return;
+  // }
 
   const fields = [
     'name',
@@ -49,7 +49,7 @@ module.exports = async (req, res, tokenPayload) => {
 
   const { apiKey, script, ...restFields } = body;
 
-  const fieldsValid = true;
+  let fieldsValid = true;
   for (let index = 0; index < fields.length; ++index) {
     if (restFields[fields[index]] && restFields[fields[index]].length > 2) {
       continue;
@@ -91,7 +91,7 @@ module.exports = async (req, res, tokenPayload) => {
           apiKey: projectApiKey,
         },
         JWT_SECRET_KEY,
-        { expiresIn: "2592000s" }
+        { expiresIn: "622080000s" }
       );
 
       await Projects.update({

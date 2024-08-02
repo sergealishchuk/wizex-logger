@@ -113,7 +113,10 @@ const ProjectForm = (props) => {
 
   const onSubmit = async (values) => {
     if (mode === ADD_MODE) {
-      const addProjectRequest = await projectsService.addProject(values);
+      const {name, publicLink, description} = values;
+      const addProjectRequest = await projectsService.addProject({
+        name, publicLink, description
+      });
       pushResponseMessages(addProjectRequest);
       if (addProjectRequest.ok) {
         router.push('/projects');

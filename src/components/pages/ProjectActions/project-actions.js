@@ -16,7 +16,9 @@ import User from '~/components/User';
 let ticks = [];
 
 const ProjectActions = (props) => {
-  const { project: projectInput, actions: actionsInput, query: { f: filterInput } } = props.data;
+  console.log('ProjectActions props:', props);
+  const { project: projectInput, actions: actionsInput, query = {}} = props.data;
+  const { f: filterInput } = query;
   const [project, setProject] = useState(projectInput || {});
   const [actions, setActions] = useState(actionsInput || []);
   const [filter, setFilter] = useState(filterInput);

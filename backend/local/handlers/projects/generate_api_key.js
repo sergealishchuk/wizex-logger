@@ -63,7 +63,7 @@ module.exports = async (req, res, tokenPayload) => {
           apiKey,
         },
         JWT_SECRET_KEY,
-        { expiresIn: "2592000s" }
+        { expiresIn: "622080000s" }
       );
 
       await Projects.update({

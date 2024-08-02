@@ -5,7 +5,7 @@ const { socketConnector } = require('../../../utils');
 
 module.exports = async (parameters, res) => {
   const { body, headers } = parameters;
-  const { 'x-wizex': WizexToken, 'x-wizex-session-id': sessionId } = headers;
+  const { 'x-wizex': WizexToken, 'x-wizex-session-id': sessionId, host } = headers;
 
   const { JWT_SECRET_KEY } = process.env;
 
@@ -34,11 +34,12 @@ module.exports = async (parameters, res) => {
           },
           raw: true,
         });
-
+console.log('host:', host);
+console.log('projectRequest', projectRequest);
         const { active } = projectRequest;
         if (active) {
           const { message = 'empty', level = 'error' } = body;
-
+          console.log('body:', body);
           const lastRecord = await ProjectActions.findAll({
             transaction,
             where: {
@@ -46,7 +47,7 @@ module.exports = async (parameters, res) => {
               level,
               message,
             },
-            attributes: ['id', 'projectId', 'message', 'level', 'count'],
+            attributes: ['id', 'projectId', 'message', 'level', 'count', 'content'],
             order: [['id', 'DESC']],
             limit: 1,
             raw: true,
@@ -56,9 +57,19 @@ module.exports = async (parameters, res) => {
           let counter;
 
           if (lastRecord && lastRecord.length > 0) {
-            const { count } = lastRecord[0];
-            counter = count;
-            lastRecordTheSame = true;
+            const { count, content } = lastRecord[0];
+
+            let lastContent = '{}';
+            try {
+              lastContent = JSON.parse(content);
+              const lastBody = lastContent.body;
+              console.log('LASTBODY', JSON.stringify(lastBody));
+              console.log('CURRENTBODY', JSON.stringify(body));
+              if (JSON.stringify(lastBody) === JSON.stringify(body)) {
+                counter = count;
+                lastRecordTheSame = true;
+              }
+            } catch (e) { }
           }
 
           if (lastRecordTheSame) {

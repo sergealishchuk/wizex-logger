@@ -34,7 +34,7 @@ module.exports = async (req, res, tokenPayload) => {
       },
       raw: true,
     });
-
+console.log('actionRequest', actionRequest);
     if (!actionRequest) {
       res.status(400).json(
         {
@@ -54,7 +54,7 @@ module.exports = async (req, res, tokenPayload) => {
       attributes: ['name', 'description', 'publicLink'],
       raw: true,
     });
-
+console.log('projectRequest', projectRequest);
     if (!projectRequest) {
       res.status(400).json(
         {
@@ -71,7 +71,7 @@ module.exports = async (req, res, tokenPayload) => {
     } catch (e) { console.log(e) };
 
     const { name: projectName } = projectRequest;
-
+console.log('content', content);
 
     return {
       ok: true,
