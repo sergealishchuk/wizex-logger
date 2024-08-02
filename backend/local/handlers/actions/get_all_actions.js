@@ -91,7 +91,7 @@ module.exports = async (req, res, tokenPayload) => {
       }
       const actionsRequest = await ProjectActions.findAll({
         where,
-        order: [['id', 'DESC']],
+        order: [['startedAt', 'DESC']],
         raw: true,
       });
 

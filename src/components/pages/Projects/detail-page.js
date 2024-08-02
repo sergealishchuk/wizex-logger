@@ -1,10 +1,14 @@
+import { useEffect } from "react";
 import Link from "next/link";
-import { _, getLocalDate } from '~/utils';
+import { _, getLocalDate, copyToClipboard } from '~/utils';
 import { useTranslation } from 'next-i18next';
 import { FlexContainer } from "~/components/StyledComponents";
 import { SmallButton } from "~/components/StyledComponents";
 import { useRouter } from "next/router";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import hljs from 'highlight.js';
+import json from 'highlight.js/lib/languages/json';
+hljs.registerLanguage('json', json);
 
 const DetailPage = (props = {}) => {
   const { item, last } = props;
@@ -14,6 +18,13 @@ const DetailPage = (props = {}) => {
 
   const { actionId, actionRecord, body = {}, headers = {}, project, projectId, projectName } = props.data;
 
+  useEffect(() => {
+    document.querySelectorAll('pre.json').forEach((el) => {
+      console.log('wow el:', el);
+      hljs.highlightElement(el);
+    });
+  }, []);
+
   const handleFilterBySession = () => {
     const sessionId = headers['x-wizex-session-id'];
     router.push(`/projects/actions/${projectId}/?f=${sessionId}`);
@@ -22,9 +33,9 @@ const DetailPage = (props = {}) => {
   const handleBack = () => {
     router.back();
   };
-
+  console.log('!!! body:', body);
   return (
-    <div style={{overflow: 'hidden'}}>
+    <div>
       <div style={{ borderBottom: '1px #e2e2e2 solid' }}>
         <table width="100%" style={{ fontSize: '12px' }}>
           <tr style={{ backgroundColor: '#ededed', padding: '4px 8', fontSize: '18px', fontWeight: 'bold' }}>
@@ -67,13 +78,29 @@ const DetailPage = (props = {}) => {
           <tr>
             <td colSpan={2}>
               <div>
-                <table width="100%" style={{ fontSize: '12px' }}>
+                <table width="100%" style={{ fontSize: '12px', overflowX: 'auto' }}>
                   {Object.keys(body).map(parameterName => {
                     return (
                       <tr>
-                        <td style={{ minWidth: '100px', whiteSpace: 'nowrap', fontWeight: '600' }}>{parameterName}:</td>
+                        <td style={{ verticalAlign: 'top', minWidth: '100px', whiteSpace: 'nowrap', fontWeight: '600' }}>
+                          <span>{parameterName}:</span>
+                        </td>
                         <td style={{ width: '100%' }}>
-                          <span>{body[parameterName]}</span>
+                          <span>
+                            {
+                              typeof (body[parameterName]) === 'object'
+                                ? <div>
+                                  <div>
+                                    <span>Object Type: </span>
+                                    <SmallButton onClick={() => copyToClipboard(JSON.stringify(body[parameterName], null, 2))} style={{ fontSize: '11px' }}>Copy To Clipboard</SmallButton>
+                                  </div>
+                                  <pre style={{ marginTop: 0 }} className="json">{JSON.stringify(body[parameterName], null, 2)}
+                                  </pre>
+                                </div>
+                                : body[parameterName]
+                            }
+                          </span>
+
                         </td>
                       </tr>)
                   })}
