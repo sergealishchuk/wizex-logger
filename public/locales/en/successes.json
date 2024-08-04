@@ -51,5 +51,6 @@
   "TARIFF_PLAN_ACTIVATED": "Tariff plan «Up to ${tariff} product items per month» is activated. Valid until - ${date}.",
   "SENT_SUCCESSFULLY": "Email sent successfully",
   "RESENT_SUCCESSFULLY": "Email resend successful",
-  "QUESTION_SUCCESSFULLY_SUBMITTED": "Question sent successfully"
+  "QUESTION_SUCCESSFULLY_SUBMITTED": "Question sent successfully",
+  "TRIAL_TARIFF_ACTIVATED": "The trial period is activated"
 }

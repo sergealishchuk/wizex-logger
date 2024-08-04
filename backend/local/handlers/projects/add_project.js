@@ -106,6 +106,7 @@ module.exports = async (req, res, tokenPayload) => {
 
       return {
         ok: true,
+        projectId: id,
       }
     });
 

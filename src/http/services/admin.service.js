@@ -534,6 +534,90 @@ const searchArticle = async (values) => {
     })
 };
 
+const addEmailTemplate = async (value) => {
+  return post('/admin/addemailtemplate', value)
+    .then((response) => {
+      return response;
+    })
+    .catch(e => {
+      const error = _.get(e, 'XHRResponse.data', { error: { errors: [{ message: "Connection Error" }] } })
+      return error;
+    })
+};
+
+const getEmailTemplates = async () => {
+  return get('/admin/getemailtemplates')
+    .then((response) => {
+      return response;
+    })
+    .catch(e => {
+      const error = _.get(e, 'XHRResponse.data', { error: { errors: [{ message: "Connection Error" }] } })
+      return error;
+    })
+};
+
+const getEmailTemplate = async ({ id }) => {
+  const url = `/admin/getemailtemplate/${id}`;
+
+  return get(url)
+    .then((response) => {
+      return response;
+    })
+    .catch(e => {
+      const error = _.get(e, 'XHRResponse.data', { error: { errors: [{ message: "Connection Error" }] } })
+      return error;
+    })
+};
+
+const updateEmailTemplate = async (value) => {
+  return put('/admin/updateemailtemplate', value)
+    .then((response) => {
+      return response;
+    })
+    .catch(e => {
+      const error = _.get(e, 'XHRResponse.data', { error: { errors: [{ message: "Connection Error" }] } })
+      return error;
+    })
+};
+
+const arrangeEmailTemplates = async (values) => {
+  const url = '/admin/arrangeemailtemplates';
+  return post(url, values)
+    .then((response) => {
+      return response;
+    })
+    .catch(e => {
+      const error = _.get(e, 'XHRResponse.data', { error: { errors: [{ message: "Connection Error" }] } })
+      return error;
+    })
+};
+
+const deleteEmailTemplate = async (values) => {
+  const { id } = values;
+  const url = `/admin/deleteemailtemplate/${id}`;
+  return _delete(url)
+    .then((response) => {
+      return response;
+    })
+    .catch(e => {
+      const error = _.get(e, 'XHRResponse.data', { error: { errors: [{ message: "Connection Error" }] } })
+      return error;
+    })
+};
+
+const compileEmailTemplate = async (values) => {
+  const url = '/admin/compileemailtemplate';
+  return post(url, values)
+    .then((response) => {
+      return response;
+    })
+    .catch(e => {
+      const error = _.get(e, 'XHRResponse.data', { error: { errors: [{ message: "Connection Error" }] } })
+      return error;
+    })
+};
+
+
 
 export const adminService = {
   populateDummyData,
@@ -583,4 +667,12 @@ export const adminService = {
   refuseArticleChanges,
   makeArticleActual,
   searchArticle,
+
+  addEmailTemplate,
+  getEmailTemplates,
+  getEmailTemplate,
+  updateEmailTemplate,
+  arrangeEmailTemplates,
+  deleteEmailTemplate,
+  compileEmailTemplate,
 };

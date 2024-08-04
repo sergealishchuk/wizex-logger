@@ -4,6 +4,7 @@ const { Users, Projects, ProjectActions, sequelize } = require('../../../models'
 const {
   createErrorMessage,
 } = require('../../../utils');
+const { check_access_to_project } = require('../__controllers');
 
 module.exports = async (req, res, tokenPayload) => {
   const UserID = tokenPayload.id;
@@ -23,9 +24,16 @@ module.exports = async (req, res, tokenPayload) => {
     return;
   }
 
-  const { roles } = user;
+  const { body = {} } = req;
 
-  if (!roles.includes(ROLES.ADMIN)) {
+  const { projectId } = body;
+
+  const ProjectAccess = await check_access_to_project({
+    projectId,
+    userId: UserID
+  });
+  const { access } = ProjectAccess;
+  if (!access) {
     res.status(400).json(
       {
         error: createErrorMessage("No permisions"),
@@ -34,10 +42,6 @@ module.exports = async (req, res, tokenPayload) => {
     );
     return;
   }
-
-  const { body = {} } = req;
-
-  const { projectId } = body;
 
   try {
     const result = await sequelize.transaction(async (transaction) => {

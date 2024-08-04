@@ -1,5 +1,6 @@
 const _ = require("lodash");
 // const { ROLES } = require("../../../constants");
+const { Op } = require("sequelize");
 const { Users, Projects } = require('../../../models');
 const {
   createErrorMessage,
@@ -26,14 +27,27 @@ module.exports = async (req, res, tokenPayload) => {
   try {
 
     const projectsListRequest = await Projects.findAll({
+      where: {
+        [Op.or]: {
+          ownerId: UserID,
+          AccessIsAllowed: {
+            [Op.contains]: [UserID],
+          }
+        }
+      },
       order: [['name', 'ASC']],
       raw: true,
     });
 
+    const projectsList = _.map(projectsListRequest, item => ({
+      ..._.pick(item, ['id', 'name', 'ownerId', 'publicLink']),
+      mine: item.ownerId === UserID,
+    }))
+
     return {
       ok: true,
       data: {
-        projects: projectsListRequest,
+        projects: projectsList,
       },
     }
   } catch (e) {

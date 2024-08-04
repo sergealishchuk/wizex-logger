@@ -32,6 +32,7 @@
     "formik": "^2.2.9",
     "framer-motion": "^8.0.2",
     "highlight.js": "^11.10.0",
+    "html-format": "^1.1.7",
     "i18next": "^22.4.9",
     "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.21",

@@ -1,0 +1,44 @@
+[
+  {
+    "method": "POST",
+    "route": "/admin/addemailtemplate",
+    "handlerPath": "./handlers/admin/email_templates/add_email_template",
+    "auth": true
+  },
+  {
+    "method": "GET",
+    "route": "/admin/getemailtemplates",
+    "handlerPath": "./handlers/admin/email_templates/get_email_templates",
+    "auth": true
+  },
+  {
+    "method": "GET",
+    "route": "/admin/getemailtemplate/:id",
+    "handlerPath": "./handlers/admin/email_templates/get_email_template",
+    "auth": true
+  },
+  {
+    "method": "PUT",
+    "route": "/admin/updateemailtemplate",
+    "handlerPath": "./handlers/admin/email_templates/update_email_template",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/admin/arrangeemailtemplates",
+    "handlerPath": "./handlers/admin/email_templates/arrange_email_template",
+    "auth": true
+  },
+  {
+    "method": "DELETE",
+    "route": "/admin/deleteemailtemplate/:id",
+    "handlerPath": "./handlers/admin/email_templates/delete_email_template",
+    "auth": true
+  },
+  {
+    "method": "POST",
+    "route": "/admin/compileemailtemplate",
+    "handlerPath": "./handlers/admin/email_templates/compile_email_template",
+    "auth": true
+  }
+]

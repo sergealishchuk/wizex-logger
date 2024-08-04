@@ -57,7 +57,7 @@ module.exports = async (parameters = {}) => {
   const templateEmail = handlebars.compile(body);
   const htmlToSend = templateEmail(params);
   const mailOptions = {
-    from: '"Alioks Mailer <no-replay@alioks.com>" <no-reply@alioks.com>',
+    from: '"Wizex Mailer <no-replay@alioks.com>" <no-reply@alioks.com>',
     to: to || email,
     subject: `${customSubject || subject} | ${new Date().getTime()}`,
     text: 'body is empty',

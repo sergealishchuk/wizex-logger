@@ -4,6 +4,7 @@ const { Op } = require("sequelize");
 const {
   createErrorMessage,
 } = require('../../../utils');
+const { check_access_to_project } = require('../__controllers');
 
 module.exports = async (req, res, tokenPayload) => {
   const UserID = tokenPayload.id;
@@ -28,7 +29,8 @@ module.exports = async (req, res, tokenPayload) => {
   const { projectId, f, includeBuilds = true } = body;
 
   try {
-
+    console.log('wow');
+    
     const projectRequest = await Projects.findOne({
       where: {
         id: projectId,
@@ -37,14 +39,24 @@ module.exports = async (req, res, tokenPayload) => {
     });
 
     if (!projectRequest) {
-      res.status(400).json(
+      console.log('not found');
+      res.status(404).json(
         {
-          error: createErrorMessage("Project not found"),
+          //code: 404,
+          //status: 400,
+          error: createErrorMessage("Project not found!!"),
           ERROR_CODE: "PROJECT_NOT_FOUND"
         }
       );
-      return;
+      return
     }
+
+    const ProjectAccess = await check_access_to_project({
+      projectId,
+      userId: UserID
+    });
+    
+    console.log('ProjectAccess', ProjectAccess);
 
     const { AccessIsAllowed } = projectRequest;
     const partnersListRequest = await Users.findAll({
@@ -110,7 +122,7 @@ module.exports = async (req, res, tokenPayload) => {
 
       data['actions'] = actions;
     }
-
+console.log('end');
     return {
       ok: true,
       data,

@@ -25,13 +25,13 @@ const getActiveProjects = async (options = {}) => {
 
 const getProjectInfo = async (values = {}, options = {}) => {
   return post('/actions/getallactions', values, options)
-    .then((response) => {
-      return response;
-    })
-    .catch(e => {
-      const error = _.get(e, 'XHRResponse.data', { error: { errors: [{ message: "Connection Error" }] } })
-      return error;
-    })
+    // .then((response) => {
+    //   return response;
+    // })
+    // .catch(e => {
+    //   const error = _.get(e, 'XHRResponse.data', { error: { errors: [{ message: "Connection Error" }] } })
+    //   return error;
+    // })
 };
 
 const getActionDetail = async (values = {}, options = {}) => {

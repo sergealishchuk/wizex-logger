@@ -62,7 +62,8 @@ export default (error, locale) => {
   const responseData = error.typeOfError ? _.get(error, 'XHRResponse.data') : _.get(error, 'response.data');
   code = _.get(error, 'code');
   const originalMessage = _.get(error, 'message', errorText);
-
+console.log('error::', error);
+console.log('responseData', responseData);
 
   let errorList;
 

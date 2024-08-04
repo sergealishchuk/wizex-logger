@@ -60,6 +60,7 @@ module.exports = async (req, res, tokenPayload) => {
     if (result) {
       return {
         ...result,
+        SUCCESS_CODE: 'TRIAL_TARIFF_ACTIVATED'
       }
     }
   } catch (error) {
@@ -70,58 +71,3 @@ module.exports = async (req, res, tokenPayload) => {
     });
   };
 };
-
-//   const PaymentsListRequest = await UserPayments.findAll({
-//     where: {
-//       userId: UserID
-//     },
-//     //attributes: ['date', 'payment', 'debit', 'operationType', 'params'],
-//     order: [
-//       ['date', 'DESC']
-//     ],
-//     raw: true,
-//   });
-
-//   const PaymentsList = PaymentsListRequest.map(item => {
-//     let params = {};
-
-//     try {
-//       params = JSON.parse(item.params);
-//     } catch (e) { };
-
-//     return ({
-//       ...item,
-//       params,
-//     })
-//   })
-
-//   const PaymentAccountsResult = await PaymentAccounts.findOne({
-//     where: {
-//       userId: UserID
-//     },
-//     attributes: ['tariff', 'next_tariff', 'tariff_valid_until', 'balance'],
-//     raw: true,
-//   });
-
-//   let tariffList = {};
-
-//   const { tariffs_standart } = await getSystemVariables('tariffs_standart');
-  
-//   tariffList = Object.keys(tariffs_standart).map(item => ({
-//     tariff: item,
-//     price: tariffs_standart[item],
-//   }))
-
-//   return {
-//     ok: true,
-//     data: {
-//       userId: UserID,
-//       tariffList,
-//       tariffs_standart,
-//       payments: PaymentsList,
-//       accounts: {
-//         paymentAccount: PaymentAccountsResult,
-//       }
-//     },
-//   }
-// };

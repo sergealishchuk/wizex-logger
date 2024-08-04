@@ -37,7 +37,7 @@ module.exports = async (parameters = {}) => {
   const { email } = userRequest;
 
   const mailOptions = {
-    from: '"Alioks Mailer <no-replay@alioks.com>" <no-reply@alioks.com>',
+    from: '"Wizex Mailer <no-replay@alioks.com>" <no-reply@alioks.com>',
     to: email,
     subject,
     text: 'body is empty',
