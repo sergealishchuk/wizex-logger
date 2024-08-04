@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import User from '~/components/User';
 import { ProjectDescriptionStyled } from './home-page.styled'
 import { userService } from '~/http/services';
-import { Observer } from '~/utils';
+import { Observer, pushResponseMessages } from '~/utils';
 import hljs from 'highlight.js';
 import javascript from 'highlight.js/lib/languages/javascript';
 import { FlexContainer, SmallButton } from '~/components/StyledComponents';
@@ -35,6 +35,7 @@ const getPromotionContent = (props) => {
     console.log('try free');
     const startTrialPeriodRequest = await userService.startTrialPeriod();
     console.log('startTrialPeriodRequest', startTrialPeriodRequest);
+    pushResponseMessages(startTrialPeriodRequest);
     if (startTrialPeriodRequest.ok) {
       const resultUserProfile = await userService.getUserProfile();
       router.push('/projects');

@@ -51,5 +51,6 @@
   "TARIFF_PLAN_ACTIVATED": "Тарифний план «До ${tariff} товарів на місяць» активовано. Діє до - ${date}.",
   "SENT_SUCCESSFULLY": "Електронна пошта успішно надіслана",
   "RESENT_SUCCESSFULLY": "Повторне надсилання електронної пошти успішне",
-  "QUESTION_SUCCESSFULLY_SUBMITTED": "Питання успішно надіслано"
+  "QUESTION_SUCCESSFULLY_SUBMITTED": "Питання успішно надіслано",
+  "TRIAL_TARIFF_ACTIVATED": "Пробний період активовано"
 }

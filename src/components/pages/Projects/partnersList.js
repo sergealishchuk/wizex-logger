@@ -13,17 +13,18 @@ import { projectsService } from '~/http/services';
 
 const PartnersList = (props) => {
   const { project = {}} = props;
+  console.log('PartenrsList project:', project);
   const refFormik = useRef(null);
   const [partners, setPartners] = useState(project.partnersList || []);
   const [initialFormState, setInitialFormState] = useState({ email: '' });
 
-  const { t } = useTranslation(['buttons', 'profile_main', 'profile_contacts']);
+  const { t } = useTranslation(['sidebar', 'buttons', 'profile_main', 'profile_contacts']);
 
   const validationSchema = yup.object().shape({
     email: yup
       .string(t('enter_contact_email', { ns: 'profile_contacts' }))
       .email(t('contact_email_validate', { ns: 'profile_contacts' }))
-      .required(t('contact_email_is_required', { ns: 'profile_contacts' })),
+      .required(t('email_is_required', { ns: 'sidebar' })),
   });
 
   // useEffect(() => {

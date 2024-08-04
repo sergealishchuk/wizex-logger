@@ -112,19 +112,23 @@ const ProjectForm = (props) => {
   };
 
   const onSubmit = async (values) => {
+    const {name, publicLink, description} = values;
     if (mode === ADD_MODE) {
-      const {name, publicLink, description} = values;
       const addProjectRequest = await projectsService.addProject({
         name, publicLink, description
       });
       pushResponseMessages(addProjectRequest);
       if (addProjectRequest.ok) {
-        router.push('/projects');
+        console.log('addProjectRequest:', addProjectRequest);
+        const { projectId } = addProjectRequest;
+        router.push(`/projects/edit/${projectId}/`);
       }
     } else if (mode === EDIT_MODE) {
       const updateProjectRequest = await projectsService.updateProject({
         projectId: project.id,
-        ...values,
+        name,
+        publicLink,
+        description,
       });
       pushResponseMessages(updateProjectRequest);
       if (updateProjectRequest.ok) {

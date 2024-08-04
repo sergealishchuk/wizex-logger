@@ -6,6 +6,7 @@ import SectionTitle from "./SectionTitle";
 import MenuSelector from "./MenuSelector";
 import ArticleSection from "./ArticleSection";
 import BlinkingDot from "./BlinkingDot";
+import BottomDrawer from "./BottomDrawer";
 
 export {
   LabelSelector,
@@ -18,4 +19,5 @@ export {
   ArticleDrawer,
   ArticleSection,
   BlinkingDot,
+  BottomDrawer,
 };

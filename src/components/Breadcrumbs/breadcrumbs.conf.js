@@ -157,7 +157,101 @@ const getBcList = (t, locale) => ({
 			label: t('bc.admin', { ns: 'sidebar' }),
 		}
 	]),
-	
+	'/admin/manage_data': (params) => ([
+		{
+			label: t('bc.home', { ns: 'sidebar' }),
+			href: "/",
+			component: "a",
+			icon: <HomeIcon fontSize="small" />,
+		},
+		{
+			label: t('bc.admin', { ns: 'sidebar' }),
+			href: "/admin",
+			component: "a",
+			icon: <ManageAccountsIcon fontSize="small" />,
+		},
+		{
+			label: t('bc.managedata', { ns: 'sidebar' }),
+		}
+	]),
+	'/admin/manage_data/dummy': (params) => ([
+		{
+			label: t('bc.home', { ns: 'sidebar' }),
+			href: "/",
+			component: "a",
+			icon: <HomeIcon fontSize="small" />,
+		},
+		{
+			label: t('bc.admin', { ns: 'sidebar' }),
+			href: "/admin",
+			component: "a",
+			icon: <ManageAccountsIcon fontSize="small" />,
+		},
+		{
+			label: t('bc.managedata', { ns: 'sidebar' }),
+			href: "/admin/manage_data",
+			component: "a",
+			icon: <ManageHistoryIcon style={{ fontSize: '16px' }} />,
+		},
+		{
+			label: t('bc.dummydata', { ns: 'sidebar' }),
+		}
+	]),
+	'/admin/manage_data/system': (params) => ([
+		{
+			label: t('bc.home', { ns: 'sidebar' }),
+			href: "/",
+			component: "a",
+			icon: <HomeIcon fontSize="small" />,
+		},
+		{
+			label: t('bc.admin', { ns: 'sidebar' }),
+			href: "/admin",
+			component: "a",
+			icon: <ManageAccountsIcon fontSize="small" />,
+		},
+		{
+			label: t('bc.managedata', { ns: 'sidebar' }),
+			href: "/admin/manage_data",
+			component: "a",
+			icon: <ManageHistoryIcon style={{ fontSize: '16px' }} />,
+		},
+		{
+			label: t('bc.system', { ns: 'sidebar' }),
+		},
+	]),
+
+
+	'/admin/manage_data/system/environments': (params) => ([
+		{
+			label: t('bc.home', { ns: 'sidebar' }),
+			href: "/",
+			component: "a",
+			icon: <HomeIcon fontSize="small" />,
+		},
+		{
+			label: t('bc.admin', { ns: 'sidebar' }),
+			href: "/admin",
+			component: "a",
+			icon: <ManageAccountsIcon fontSize="small" />,
+		},
+		{
+			label: t('bc.managedata', { ns: 'sidebar' }),
+			href: "/admin/manage_data",
+			component: "a",
+			icon: <ManageHistoryIcon style={{ fontSize: '16px' }} />,
+		},
+		{
+			label: t('bc.system', { ns: 'sidebar' }),
+			href: "/admin/manage_data/system",
+			component: "a",
+			icon: <SettingsSuggestIcon style={{ fontSize: '16px' }} />,
+		},
+		{
+			label: t('bc.environment', { ns: 'sidebar' }),
+		}
+	]),
+
 	'/admin/users': (params) => ([
 		{
 			label: t('bc.home', { ns: 'sidebar' }),
@@ -283,6 +377,23 @@ const getBcList = (t, locale) => ({
 		},
 		{
 			label: t('bc.view_article', { ns: 'sidebar' }),
+		}
+	]),
+	'/admin/email_templates_panel': (params) => ([
+		{
+			label: t('bc.home', { ns: 'sidebar' }),
+			href: "/",
+			component: "a",
+			icon: <HomeIcon fontSize="small" />,
+		},
+		{
+			label: t('bc.admin', { ns: 'sidebar' }),
+			href: "/admin",
+			component: "a",
+			icon: <ManageAccountsIcon fontSize="small" />,
+		},
+		{
+			label: t('bc.email_templates', { ns: 'sidebar' }),
 		}
 	]),
 });

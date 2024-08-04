@@ -196,7 +196,7 @@ export default function Layout({ children, error, ...rest }) {
             }
           )}
         >
-          {
+          {/* {
             needUpToBalance
               ? <div style={{
                 paddingTop: '16px',
@@ -211,7 +211,7 @@ export default function Layout({ children, error, ...rest }) {
                 Top up your balance to add and debug your projects
               </div>
               : null
-          }
+          } */}
           {
             userIsLogged && sellerLocked && !offSellerLocked && (
               <div style={{ backgroundColor: '#b70000', color: 'white', padding: '6px', fontSize: '10px', marginBottom: '4px' }}>

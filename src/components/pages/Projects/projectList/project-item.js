@@ -32,7 +32,7 @@ const ProjectItem = (props) => {
             </Tooltip>
           </Link>
           <div style={{ marginLeft: '16px' }}>
-            <SmallButton btn="blue" onClick={() => handleEditProject(item.id)}>Edit</SmallButton>
+            <SmallButton btn="blue" onClick={() => handleEditProject(item.id)}>{item.mine ? 'Edit' : 'Detail'}</SmallButton>
           </div>
           <div style={{ minWidth: '70px', fontSize: '11px', textAlign: 'center', padding: '0 4px' }}>
             {
