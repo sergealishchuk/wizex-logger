@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 
 const ProjectItem = (props) => {
   const { item, last } = props;
-  const { t } = useTranslation(['buttons', 'articles']);
+  const { t } = useTranslation(['buttons', 'projects', 'articles']);
 
   const router = useRouter();
 
@@ -37,8 +37,8 @@ const ProjectItem = (props) => {
           <div style={{ minWidth: '70px', fontSize: '11px', textAlign: 'center', padding: '0 4px' }}>
             {
               item.active
-                ? <span style={{ color: 'green'}}>active</span>
-                : <span style={{ color: 'gray' }}>stopped</span>
+                ? <span style={{ color: 'green' }}>{t('active', { ns: 'projects' })}</span>
+                : <span style={{ color: 'gray' }}>{t('stopped', { ns: 'projects' })}</span>
             }
           </div>
         </div>

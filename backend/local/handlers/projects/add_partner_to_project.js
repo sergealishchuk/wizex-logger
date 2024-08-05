@@ -63,7 +63,7 @@ module.exports = async (req, res, tokenPayload) => {
         res.status(400).json(
           {
             error: createErrorMessage("Partner not found"),
-            ERROR_CODE: "PARTNER_NOT_FOUND"
+            ERROR_CODE: "PARTNER_NOT_FOUND_IN_THE_LIST"
           }
         );
         return;

@@ -12,24 +12,20 @@ import { DIALOG_ACTIONS } from '~/constants';
 import { projectsService } from '~/http/services';
 
 const PartnersList = (props) => {
-  const { project = {}} = props;
+  const { project = {} } = props;
   console.log('PartenrsList project:', project);
   const refFormik = useRef(null);
   const [partners, setPartners] = useState(project.partnersList || []);
   const [initialFormState, setInitialFormState] = useState({ email: '' });
 
-  const { t } = useTranslation(['sidebar', 'buttons', 'profile_main', 'profile_contacts']);
+  const { t } = useTranslation(['sidebar', 'buttons', 'projects']);
 
   const validationSchema = yup.object().shape({
     email: yup
-      .string(t('enter_contact_email', { ns: 'profile_contacts' }))
-      .email(t('contact_email_validate', { ns: 'profile_contacts' }))
-      .required(t('email_is_required', { ns: 'sidebar' })),
+      .string(t('enter_email', { ns: 'projects' }))
+      .email(t('email_validate', { ns: 'projects' }))
+      .required(t('email_is_required', { ns: 'projects' })),
   });
-
-  // useEffect(() => {
-  //   getPartnersList();
-  // }, []);
 
   const getPartnersList = async () => {
     const getPartnersListRequest = await projectsService.getProjectPartners({
@@ -44,17 +40,6 @@ const PartnersList = (props) => {
 
   const onSubmit = async (values) => {
     const { email } = values;
-    const exist = _.find(partners, item => item.email === email);
-    if (exist) {
-      alert('partner exist');
-      return;
-    }
-    const maxId = Math.max.apply(null, partners.map(item => item.id));
-    setPartners([...partners, {
-      id: maxId + 1,
-      name: 'user name',
-      email,
-    }]);
 
     const addPartnerRequest = await projectsService.addPartner({
       ...values,
@@ -71,15 +56,12 @@ const PartnersList = (props) => {
 
   const handleRemovePartner = async (partner) => {
     const confirm = await confirmDialog({
-      text: `Do you want to delete "${partner.name}" as your partners list?`,
+      text: `${'remove_partner', { ns: 'projects' }} "${partner.name}" ?`,
     });
     if (confirm === DIALOG_ACTIONS.CONFIRM) {
-      // const nextPartners = [...partners];
-      // _.remove(nextPartners, item => item.id === partner.id);
-      // setPartners(nextPartners);
       const removePartnerFromProjectRequest = await projectsService.removePartnerFromProject({
         partnerId: partner.id,
-        projectId: project.id, 
+        projectId: project.id,
       });
       pushResponseMessages(removePartnerFromProjectRequest);
       if (removePartnerFromProjectRequest.ok) {
@@ -91,7 +73,7 @@ const PartnersList = (props) => {
 
   return (
     <div>
-      <div style={{ fontSize: '18px', fontWeight: 'bold' }}>Partners List</div>
+      <div style={{ fontSize: '18px', fontWeight: 'bold' }}>{t('partners_list', { ns: 'projects' })}</div>
       {partners.length > 0
         ? <div style={{ borderTop: '1px #eee solid', marginTop: '8px', padding: '8px' }}>
           {
@@ -137,7 +119,7 @@ const PartnersList = (props) => {
                 </Grid>
 
                 <Grid item xs={2}>
-                  <SmallButton style={{ marginTop: '7px' }} btn="blue" type="submit">Add Partner</SmallButton>
+                  <SmallButton style={{ marginTop: '7px' }} btn="blue" type="submit">{t('add_partners', { ns: 'projects' })}</SmallButton>
                 </Grid>
               </Grid>
             </Form>

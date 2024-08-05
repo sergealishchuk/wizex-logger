@@ -52,5 +52,6 @@
   "SENT_SUCCESSFULLY": "Email sent successfully",
   "RESENT_SUCCESSFULLY": "Email resend successful",
   "QUESTION_SUCCESSFULLY_SUBMITTED": "Question sent successfully",
-  "TRIAL_TARIFF_ACTIVATED": "The trial period is activated"
+  "TRIAL_TARIFF_ACTIVATED": "The trial period is activated",
+  "SUCCESS_PARTNER_REMOVED": "Partner successfully deleted"
 }
