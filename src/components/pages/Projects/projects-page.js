@@ -27,7 +27,7 @@ const Projects = (props) => {
     <div>
       <FlexContainer jc="space-between" style={{ flexWrap: 'wrap' }}>
         {!tariffIsValid
-          ? <div style={{ dispaly: 'flex', alignItems: 'center', marginLeft: '12px', fontSize: '12px', lineHeight: '15px', marginBottom: '6px' }}>Ви не можете добавляти нові проекти, так як для цього необхідно <Link style={{ textDecoration: 'underline', cursor: 'pointer', color: '#0048c2' }} href="/payments">оплатити тариф</Link><div></div></div>
+          ? <div style={{ dispaly: 'flex', alignItems: 'center', marginLeft: '12px', fontSize: '12px', lineHeight: '15px', marginBottom: '6px' }}>{t('need_to_pay', {ns: 'projects'})} <Link style={{ textDecoration: 'underline', cursor: 'pointer', color: '#0048c2' }} href="/payments">{t('pay_tariff', {ns: 'projects'})}</Link><div></div></div>
           : <span></span>
         }
         <div style={{ textAlign: 'right', marginRight: '22px' }}>

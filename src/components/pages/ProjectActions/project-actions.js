@@ -114,13 +114,13 @@ const ProjectActions = (props) => {
                   </Link>
                   {
                     actions.length > 0
-                      ? <SmallButton style={{ marginRight: '16px' }} btn="red" onClick={handleRemoveLogs}>{t('delete_logs_btn', { ns: 'buttons' })}</SmallButton>
+                      ? <SmallButton style={{ marginRight: '16px' }} btn="red" onClick={handleRemoveLogs}>{t('delete_logs_btn', { ns: 'projects' })}</SmallButton>
                       : <span></span>
                   }
                 </div>
                 {
                   filter
-                    ? <SmallButton style={{ marginRight: '16px' }} btn="red" onClick={handleClearFilter}>{t('clear_filter_btn', { ns: 'buttons' })}</SmallButton>
+                    ? <SmallButton style={{ marginRight: '16px' }} btn="red" onClick={handleClearFilter}>{t('clear_filter_btn', { ns: 'projects' })}</SmallButton>
                     : <span></span>
                 }
               </FlexContainer>
