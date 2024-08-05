@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Grid } from "@mui/material";
 import { projectsService } from '~/http/services';
+import { useTranslation } from 'next-i18next';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
@@ -16,8 +17,7 @@ import User from '~/components/User';
 let ticks = [];
 
 const ProjectActions = (props) => {
-  console.log('ProjectActions props:', props);
-  const { project: projectInput, actions: actionsInput, query = {}} = props.data;
+  const { project: projectInput, actions: actionsInput, query = {} } = props.data;
   const { f: filterInput } = query;
   const [project, setProject] = useState(projectInput || {});
   const [actions, setActions] = useState(actionsInput || []);
@@ -25,6 +25,8 @@ const ProjectActions = (props) => {
   const [tickCounter, setTickCounter] = useState(1);
   const [active, setActive] = useState(projectInput?.active);
   const [adminRole, setAdminRole] = useState(false);
+
+  const { t } = useTranslation(['buttons', 'projects', 'articles']);
 
   const router = useRouter();
 
@@ -80,7 +82,7 @@ const ProjectActions = (props) => {
 
   const handleRemoveLogs = async () => {
     const confirm = await confirmDialog({
-      text: `Do you want to delete all logs for the "${project.name}" project?`,
+      text: `${'delete_logs', { ns: 'projects' }} "${project.name}" ?`,
     });
     if (confirm === DIALOG_ACTIONS.CONFIRM) {
       const setActiveProjectRequest = await projectsService.removeAllLogs({
@@ -99,7 +101,7 @@ const ProjectActions = (props) => {
               <FlexContainer jc="space-between">
                 <span style={{ marginLeft: '8px' }}>{project.name}</span>
                 <FormGroup style={{ marginRight: '4px' }}>
-                  <FormControlLabel control={<Switch checked={active} onChange={handleChangeActive} size="small" />} label={<span className="unselect" style={{ marginLeft: '4px', fontSize: '14px' }}>Active</span>} />
+                  <FormControlLabel control={<Switch checked={active} onChange={handleChangeActive} size="small" />} label={<span className="unselect" style={{ marginLeft: '4px', fontSize: '14px' }}>{t('project_active', { ns: 'projects' })}</span>} />
                 </FormGroup>
               </FlexContainer>
             </div>
@@ -108,22 +110,22 @@ const ProjectActions = (props) => {
               <FlexContainer jc="space-between">
                 <div>
                   <Link href={`/projects/edit/${project.id}`}>
-                    <SmallButton btn="blue">Edit Project</SmallButton>
+                    <SmallButton btn="blue">{t(project.mine ? 'edit_project' : 'project_details', { ns: 'projects' })}</SmallButton>
                   </Link>
                   {
                     actions.length > 0
-                      ? <SmallButton style={{ marginRight: '16px' }} btn="red" onClick={handleRemoveLogs}>Delete Logs</SmallButton>
+                      ? <SmallButton style={{ marginRight: '16px' }} btn="red" onClick={handleRemoveLogs}>{t('delete_logs_btn', { ns: 'buttons' })}</SmallButton>
                       : <span></span>
                   }
                 </div>
                 {
                   filter
-                    ? <SmallButton style={{ marginRight: '16px' }} btn="red" onClick={handleClearFilter}>Clear Filter</SmallButton>
+                    ? <SmallButton style={{ marginRight: '16px' }} btn="red" onClick={handleClearFilter}>{t('clear_filter_btn', { ns: 'buttons' })}</SmallButton>
                     : <span></span>
                 }
               </FlexContainer>
             </div>
-            <div><span style={{ marginLeft: '6px' }}><b>Resource Link:</b> </span><span><Link href={`${project.publicLink}`} style={{ color: '#0053f5', textDecoration: 'underline' }}>{project.publicLink}</Link></span></div>
+            <div><span style={{ marginLeft: '6px' }}><b>{t('resource_link', { ns: 'projects' })}:</b> </span><span><Link href={`${project.publicLink}`} style={{ color: '#0053f5', textDecoration: 'underline' }}>{project.publicLink}</Link></span></div>
           </div>
 
         </Grid>
@@ -160,7 +162,7 @@ const ProjectActions = (props) => {
                   </div>
                 )
                 : (
-                  <div>no actions</div>
+                  <div>{t('no_actions', { ns: 'projects' })}</div>
                 )
             }
           </div>

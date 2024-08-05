@@ -22,6 +22,7 @@ export async function getServerSideProps(props) {
     'infos',
     'warnings',
     'locale',
+    'projects',
   ]);
 
   let result;

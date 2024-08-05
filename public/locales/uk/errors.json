@@ -99,5 +99,12 @@
   "ERROR_UPDATE_DELIVERED_PROMOCODES": "Під час зміни статусу доставки сталася помилка",
   "ERROR_GET_PROMOCODES": "Помилка отримання промокодів",
   "PAGE_NOT_FOUND": "Сторінка не знайдена",
-  "MESSAGE_IS_EMPTY": "Повідомлення пусте"
+  "MESSAGE_IS_EMPTY": "Повідомлення пусте",
+  "PROJECT_NOT_FOUND": "Проект не знайдено",
+  "PARTNER_NOT_FOUND_IN_THE_LIST": "Партнера не знайдено",
+  "ERROR_ADD_PARTNER": "Помилка додавання партнера",
+  "VALIDATION_ERROR": "Помилка даних",
+  "ERROR_SET_PROJECT_ACTIVE": "Помилка під час активації проекту",
+  "ERROR_UPDATE_PROJECT": "Помилка редагування проекту",
+  "YOURSALF_AS_PARTNER": "Намагаюся додати себе"
 }

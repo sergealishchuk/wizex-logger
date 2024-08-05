@@ -37,6 +37,7 @@ export async function getServerSideProps(props) {
         'infos',
         'warnings',
         'locale',
+        'projects',
       ])),
       data,
       pageParams: {

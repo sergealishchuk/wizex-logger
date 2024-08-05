@@ -42,16 +42,16 @@ const ProjectForm = (props) => {
   const validationSchema = yup.object().shape({
     name: yup
       .string()
-      .min(2, t('At least 2 characters', { ns: 'projects' }))
-      .required(t('This field is required', { ns: 'projects' })),
+      .min(2, t('min_2_chars', { ns: 'projects' }))
+      .required(t('field_is_required', { ns: 'projects' })),
     description: yup
       .string()
-      .min(3, t('At least 3 characters', { ns: 'projects' }))
-      .required(t('This field is required', { ns: 'projects' })),
+      .min(3, t('min_3_chars', { ns: 'projects' }))
+      .required(t('field_is_required', { ns: 'projects' })),
     publicLink: yup
       .string()
       .min(3, t('At least 3 characters', { ns: 'projects' }))
-      .required(t('This field is required', { ns: 'projects' })),
+      .required(t('field_is_required', { ns: 'projects' })),
   });
 
   useEffect(() => {
@@ -119,7 +119,6 @@ const ProjectForm = (props) => {
       });
       pushResponseMessages(addProjectRequest);
       if (addProjectRequest.ok) {
-        console.log('addProjectRequest:', addProjectRequest);
         const { projectId } = addProjectRequest;
         router.push(`/projects/edit/${projectId}/`);
       }
@@ -139,7 +138,7 @@ const ProjectForm = (props) => {
 
   const handleDeleteProject = async () => {
     const confirm = await confirmDialog({
-      text: `Delete project "${project.name}"?`,
+      text: `${t('delete_project', {ns: 'projects'})} "${project.name}"?`,
     });
     if (confirm === DIALOG_ACTIONS.CONFIRM) {
       const deleteProjectRequest = await projectsService.deleteProject({
@@ -161,19 +160,19 @@ const ProjectForm = (props) => {
         {
           mode === EDIT_MODE ? (
             <FlexContainer jc="space-between" ai="flex-start" style={{flexWrap: 'wrap'}}>
-              <div><span style={{ marginLeft: '4px', fontSize: '19px', fontWeight: 'bold' }}>Edit Project:</span>
+              <div><span style={{ marginLeft: '4px', fontSize: '19px', fontWeight: 'bold' }}>{t('edit_project', {ns: 'projects'})}:</span>
                 <Link href={`/projects/actions/${project.id}`}>
                   <span style={{ marginLeft: '14px', fontSize: '19px' }}><b>{project.name}</b></span>
                 </Link>
               </div>
               <div style={{marginLeft: '4px'}}>
-                <div suppressHydrationWarning>Created at: <span style={{ whiteSpace: 'nowrap' }}>{getLocalDate(project.dateCreate)}</span></div>
+                <div suppressHydrationWarning>{t('created_at', {ns: 'projects'})}: <span style={{ whiteSpace: 'nowrap' }}>{getLocalDate(project.dateCreate)}</span></div>
                 <div>By: {project.ownerName}</div>
               </div>
             </FlexContainer>
           )
             : mode === ADD_MODE && (
-              <div>Add New Project</div>
+              <div>{t('add_new_project', {ns: 'projects'})}</div>
             )
         }
       </div>
@@ -225,7 +224,7 @@ const ProjectForm = (props) => {
 
                       {
                         mode === EDIT_MODE ? <Grid item xs={12}>
-                          <div style={{textAlign: 'right'}}><SmallButton onClick={() => copyToClipboard(values.apiKey)} style={{fontSize: '11px'}}>Copy To Clipboard</SmallButton></div>
+                          <div style={{textAlign: 'right'}}><SmallButton onClick={() => copyToClipboard(values.apiKey)} style={{fontSize: '11px'}}>{t('copy_to_clipboard', {ns: 'projects'})}</SmallButton></div>
                           <TextField
                             name="apiKey"
                             label="apiKey"
@@ -238,7 +237,7 @@ const ProjectForm = (props) => {
 
                       {
                         mode === EDIT_MODE ? <Grid item xs={12}>
-                          <div style={{textAlign: 'right'}}><SmallButton onClick={() => copyToClipboard(values.token)} style={{fontSize: '11px'}}>Copy To Clipboard</SmallButton></div>
+                          <div style={{textAlign: 'right'}}><SmallButton onClick={() => copyToClipboard(values.token)} style={{fontSize: '11px'}}>{t('copy_to_clipboard', {ns: 'projects'})}</SmallButton></div>
                           <TextField
                             name="token"
                             label="Token"
@@ -253,7 +252,7 @@ const ProjectForm = (props) => {
 
                       {
                         mode === EDIT_MODE ? <Grid item xs={12}>
-                          <div style={{textAlign: 'right'}}><SmallButton onClick={() => copyToClipboard(values.script)}  style={{fontSize: '11px'}}>Copy To Clipboard</SmallButton></div>
+                          <div style={{textAlign: 'right'}}><SmallButton onClick={() => copyToClipboard(values.script)}  style={{fontSize: '11px'}}>{t('copy_to_clipboard', {ns: 'projects'})}</SmallButton></div>
                           <TextField
                             name="script"
                             label="Embedding Script"
@@ -271,8 +270,8 @@ const ProjectForm = (props) => {
                           {
                             adminRole
                               ? <div>
-                                <Button disabled={!formChanged} type="submit" style={{ marginLeft: '16px', marginBottom: '48px', padding: '2px 12px', fontSize: '12px' }} variant="contained">Save</Button>
-                                {mode === EDIT_MODE ? <Button onClick={handleDeleteProject} style={{ backgroundColor: '#801313', marginLeft: '16px', marginBottom: '48px', padding: '2px 12px', fontSize: '12px' }} variant="contained">Remove</Button> : null}
+                                <Button disabled={!formChanged} type="submit" style={{ marginLeft: '16px', marginBottom: '48px', padding: '2px 12px', fontSize: '12px' }} variant="contained">{t('save', {ns: 'buttons'})}</Button>
+                                {mode === EDIT_MODE ? <Button onClick={handleDeleteProject} style={{ backgroundColor: '#801313', marginLeft: '16px', marginBottom: '48px', padding: '2px 12px', fontSize: '12px' }} variant="contained">{t('remove', {ns: 'buttons'})}</Button> : null}
                               </div>
                               : <span></span>
                           }

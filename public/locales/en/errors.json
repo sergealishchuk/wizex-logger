@@ -99,5 +99,12 @@
   "ERROR_UPDATE_DELIVERED_PROMOCODES": "An error occurred while changing the delivery status",
   "ERROR_GET_PROMOCODES": "Error getting promo codes",
   "PAGE_NOT_FOUND": "Page not found",
-  "MESSAGE_IS_EMPTY": "Message is empty"
+  "MESSAGE_IS_EMPTY": "Message is empty",
+  "PROJECT_NOT_FOUND": "Project not found",
+  "PARTNER_NOT_FOUND_IN_THE_LIST": "Partner not found",
+  "ERROR_ADD_PARTNER": "Error adding partner",
+  "VALIDATION_ERROR": "Data error",
+  "ERROR_SET_PROJECT_ACTIVE": "Error activating project",
+  "ERROR_UPDATE_PROJECT": "Error editing project",
+  "YOURSALF_AS_PARTNER": "Trying to add myself"
 }

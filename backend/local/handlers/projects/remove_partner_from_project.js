@@ -121,6 +121,7 @@ module.exports = async (req, res, tokenPayload) => {
         ok: true,
         partnerId,
         updateList,
+        SUCCESS_CODE: "SUCCESS_PARTNER_REMOVED"
       }
     });
 

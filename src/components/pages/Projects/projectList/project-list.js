@@ -1,10 +1,13 @@
 import ProjectItem from "./project-item";
 import { ProjectListStyled } from "./project-list.styled";
+import { useTranslation } from 'next-i18next';
 import { _ } from '~/utils';
 
 
 const ProjectList = (props) => {
-  const { projectList = []} = props;
+  const { projectList = [] } = props;
+
+  const { t } = useTranslation(['projects', 'sidebar']);
 
   return (
     <ProjectListStyled>
@@ -19,7 +22,7 @@ const ProjectList = (props) => {
       }
       {
         projectList.length === 0 && (
-          <div style={{ fontSize: '14px', padding: '16px' }}>Not Found</div>
+          <div style={{ fontSize: '14px', padding: '16px' }}>{t('no_actions', { ns: 'projects' })}</div>
         )
       }
     </ProjectListStyled>
