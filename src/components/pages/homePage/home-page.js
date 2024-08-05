@@ -1,5 +1,5 @@
+import { connect } from '~/utils/shed';
 import { useState, useEffect } from 'react';
-import { ActiveProjects } from "./components";
 import { useRouter } from 'next/router';
 import User from '~/components/User';
 import { ProjectDescriptionStyled } from './home-page.styled'
@@ -10,7 +10,6 @@ import javascript from 'highlight.js/lib/languages/javascript';
 import { FlexContainer, SmallButton } from '~/components/StyledComponents';
 hljs.registerLanguage('javascript', javascript);
 
-
 const CodeMonitorTitle = <span><b>Wizex CodeMonitor</b></span>;
 const CodeMonitor = <span><b>CodeMonitor</b></span>;
 
@@ -20,27 +19,18 @@ const getPromotionContent = (props) => {
   const router = useRouter();
 
   const handleGotoRegistration = () => {
-    Observer.send('OpenSignInDialog', { action: 'registration' }, () => {
-      // const { cb } = offerAuthParams;
-      console.log('wow');
-      // if (cb && _.isFunction(cb)) {
-      //   //cb({ action: 'signin' });
-
-      // }
-      // handleClose();
-    });
+    Observer.send('OpenSignInDialog', { action: 'registration' }, () => {});
   };
 
   const handleGotoFree = async () => {
-    console.log('try free');
     const startTrialPeriodRequest = await userService.startTrialPeriod();
-    console.log('startTrialPeriodRequest', startTrialPeriodRequest);
     pushResponseMessages(startTrialPeriodRequest);
     if (startTrialPeriodRequest.ok) {
       const resultUserProfile = await userService.getUserProfile();
+      const { trialwasused } = resultUserProfile.user;
+      console.log('trialwasused:', trialwasused, resultUserProfile);
       router.push('/projects');
     }
-
   };
 
   return (
@@ -359,6 +349,9 @@ const getPromotionContent = (props) => {
 
 const HomePage = (props = {}) => {
   const { projects = [] } = props.data;
+  const { store } = props;
+  const { updateUserInfo } = store;
+
   const [freeTrial, setFreeTrial] = useState(false);
   console.log('home-page props:', props);
 
@@ -371,14 +364,25 @@ const HomePage = (props = {}) => {
       hljs.highlightElement(el);
     });
     //});
+    // if (User.userIsLoggedIn()) {
+    //   const { trialwasused, userPaiedAtLeastOneTime } = User.read();
+    //   console.log('trialwasused, userPaiedAtLeastOneTime', trialwasused, userPaiedAtLeastOneTime);
+    //   if (!trialwasused && !userPaiedAtLeastOneTime) {
+    //     setFreeTrial(true);
+    //   }
+    // }
+  }, []);
+
+  useEffect(() => {
+    console.log('CHANGE updateUserInfo');
     if (User.userIsLoggedIn()) {
       const { trialwasused, userPaiedAtLeastOneTime } = User.read();
-      console.log('trialwasused, userPaiedAtLeastOneTime', trialwasused, userPaiedAtLeastOneTime);
+      console.log('!!!!!!trialwasused, userPaiedAtLeastOneTime', trialwasused, userPaiedAtLeastOneTime);
       if (!trialwasused && !userPaiedAtLeastOneTime) {
         setFreeTrial(true);
       }
     }
-  }, []);
+  }, [updateUserInfo]);
 
   return (
     <div>
@@ -393,7 +397,8 @@ const HomePage = (props = {}) => {
   )
 };
 
-export default HomePage;
+//export default HomePage;
+export default connect(['updateUserInfo'])(HomePage)
 
 
 //curl -X POST http://localhost:4223/rest/loghook -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'X-WIZEX: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwicGkiOjMsImFwaUtleSI6IjA3ODQzNDM2LTU1YTMtNDZkZi04MTg1LTljM2NlZDYyYTJjNyIsImlhdCI6MTcyMjE3MzYxNiwiZXhwIjoxNzI0NzY1NjE2fQ.OO8bUK_rE_R73L0zfcXFUgFqQHupZungd95jAuhcAqQ' -d '{"message": "test curl message", "id": "12345"}'

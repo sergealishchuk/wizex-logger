@@ -167,7 +167,7 @@ const ProjectForm = (props) => {
               </div>
               <div style={{marginLeft: '4px'}}>
                 <div suppressHydrationWarning>{t('created_at', {ns: 'projects'})}: <span style={{ whiteSpace: 'nowrap' }}>{getLocalDate(project.dateCreate)}</span></div>
-                <div>By: {project.ownerName}</div>
+                <div>{t('by_author', {ns: 'projects'})}: {project.ownerName}</div>
               </div>
             </FlexContainer>
           )

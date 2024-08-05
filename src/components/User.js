@@ -1,5 +1,5 @@
 import { store, _ } from '~/utils';
-
+import { dispatch } from '~/utils/shed';
 export const UserStorePath = 'userInfo';
 
 export default {
@@ -35,12 +35,15 @@ export default {
   },
 
   updateUserInfo(value, force = false) {
+    console.log('UPDATE USER INFO:', value);
     const user = this.read();
-    this.save({
+    const userInfo = {
       ...user,
       ...value,
-    }, force);
-    this.profileLoaded = true;
+    };
+    this.save(userInfo, force);
+    //this.profileLoaded = true;
+    dispatch('updateUserInfo', userInfo);
   },
 
   updateUserTokens(value, force = false) {
