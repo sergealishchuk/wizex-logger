@@ -112,7 +112,7 @@ const ProjectForm = (props) => {
   };
 
   const onSubmit = async (values) => {
-    const {name, publicLink, description} = values;
+    const { name, publicLink, description } = values;
     if (mode === ADD_MODE) {
       const addProjectRequest = await projectsService.addProject({
         name, publicLink, description
@@ -138,7 +138,7 @@ const ProjectForm = (props) => {
 
   const handleDeleteProject = async () => {
     const confirm = await confirmDialog({
-      text: `${t('delete_project', {ns: 'projects'})} "${project.name}"?`,
+      text: `${t('delete_project', { ns: 'projects' })} "${project.name}"?`,
     });
     if (confirm === DIALOG_ACTIONS.CONFIRM) {
       const deleteProjectRequest = await projectsService.deleteProject({
@@ -159,20 +159,20 @@ const ProjectForm = (props) => {
       <div style={{ marginBottom: '28px', borderBottom: '2px #ededed solid' }}>
         {
           mode === EDIT_MODE ? (
-            <FlexContainer jc="space-between" ai="flex-start" style={{flexWrap: 'wrap'}}>
-              <div><span style={{ marginLeft: '4px', fontSize: '19px', fontWeight: 'bold' }}>{t('edit_project', {ns: 'projects'})}:</span>
+            <FlexContainer jc="space-between" ai="flex-start" style={{ flexWrap: 'wrap' }}>
+              <div><span style={{ marginLeft: '4px', fontSize: '19px', fontWeight: 'bold' }}>{t('edit_project', { ns: 'projects' })}:</span>
                 <Link href={`/projects/actions/${project.id}`}>
                   <span style={{ marginLeft: '14px', fontSize: '19px' }}><b>{project.name}</b></span>
                 </Link>
               </div>
-              <div style={{marginLeft: '4px'}}>
-                <div suppressHydrationWarning>{t('created_at', {ns: 'projects'})}: <span style={{ whiteSpace: 'nowrap' }}>{getLocalDate(project.dateCreate)}</span></div>
-                <div>{t('by_author', {ns: 'projects'})}: {project.ownerName}</div>
+              <div style={{ marginLeft: '4px' }}>
+                <div suppressHydrationWarning>{t('created_at', { ns: 'projects' })}: <span style={{ whiteSpace: 'nowrap' }}>{getLocalDate(project.dateCreate)}</span></div>
+                <div>{t('by_author', { ns: 'projects' })}: {project.ownerName}</div>
               </div>
             </FlexContainer>
           )
             : mode === ADD_MODE && (
-              <div>{t('add_new_project', {ns: 'projects'})}</div>
+              <div>{t('add_new_project', { ns: 'projects' })}</div>
             )
         }
       </div>
@@ -194,7 +194,7 @@ const ProjectForm = (props) => {
                       <Grid item xs={12}>
                         <TextField
                           name="name"
-                          label="Project Name"
+                          label={t('project_name', { ns: 'projects' })}
                           type="text"
                           InputLabelProps={{ shrink: true }}
                           inputProps={{ readOnly: !adminRole }}
@@ -203,7 +203,7 @@ const ProjectForm = (props) => {
                       <Grid item xs={12}>
                         <TextField
                           name="description"
-                          label="Description"
+                          label={t('description', { ns: 'projects' })}
                           type="text"
                           multiline
                           minRows={2}
@@ -215,7 +215,7 @@ const ProjectForm = (props) => {
                       <Grid item xs={12}>
                         <TextField
                           name="publicLink"
-                          label="Public Link"
+                          label={t('public_link', { ns: 'projects' })}
                           type="text"
                           InputLabelProps={{ shrink: true }}
                           inputProps={{ readOnly: !adminRole }}
@@ -224,7 +224,7 @@ const ProjectForm = (props) => {
 
                       {
                         mode === EDIT_MODE ? <Grid item xs={12}>
-                          <div style={{textAlign: 'right'}}><SmallButton onClick={() => copyToClipboard(values.apiKey)} style={{fontSize: '11px'}}>{t('copy_to_clipboard', {ns: 'projects'})}</SmallButton></div>
+                          <div style={{ textAlign: 'right' }}><SmallButton onClick={() => copyToClipboard(values.apiKey)} style={{ fontSize: '11px' }}>{t('copy_to_clipboard', { ns: 'projects' })}</SmallButton></div>
                           <TextField
                             name="apiKey"
                             label="apiKey"
@@ -237,7 +237,7 @@ const ProjectForm = (props) => {
 
                       {
                         mode === EDIT_MODE ? <Grid item xs={12}>
-                          <div style={{textAlign: 'right'}}><SmallButton onClick={() => copyToClipboard(values.token)} style={{fontSize: '11px'}}>{t('copy_to_clipboard', {ns: 'projects'})}</SmallButton></div>
+                          <div style={{ textAlign: 'right' }}><SmallButton onClick={() => copyToClipboard(values.token)} style={{ fontSize: '11px' }}>{t('copy_to_clipboard', { ns: 'projects' })}</SmallButton></div>
                           <TextField
                             name="token"
                             label="Token"
@@ -252,7 +252,7 @@ const ProjectForm = (props) => {
 
                       {
                         mode === EDIT_MODE ? <Grid item xs={12}>
-                          <div style={{textAlign: 'right'}}><SmallButton onClick={() => copyToClipboard(values.script)}  style={{fontSize: '11px'}}>{t('copy_to_clipboard', {ns: 'projects'})}</SmallButton></div>
+                          <div style={{ textAlign: 'right' }}><SmallButton onClick={() => copyToClipboard(values.script)} style={{ fontSize: '11px' }}>{t('copy_to_clipboard', { ns: 'projects' })}</SmallButton></div>
                           <TextField
                             name="script"
                             label="Embedding Script"
@@ -270,8 +270,8 @@ const ProjectForm = (props) => {
                           {
                             adminRole
                               ? <div>
-                                <Button disabled={!formChanged} type="submit" style={{ marginLeft: '16px', marginBottom: '48px', padding: '2px 12px', fontSize: '12px' }} variant="contained">{t('save', {ns: 'buttons'})}</Button>
-                                {mode === EDIT_MODE ? <Button onClick={handleDeleteProject} style={{ backgroundColor: '#801313', marginLeft: '16px', marginBottom: '48px', padding: '2px 12px', fontSize: '12px' }} variant="contained">{t('remove', {ns: 'buttons'})}</Button> : null}
+                                <Button disabled={!formChanged} type="submit" style={{ marginLeft: '16px', marginBottom: '48px', padding: '2px 12px', fontSize: '12px' }} variant="contained">{t('save', { ns: 'buttons' })}</Button>
+                                {mode === EDIT_MODE ? <Button onClick={handleDeleteProject} style={{ backgroundColor: '#801313', marginLeft: '16px', marginBottom: '48px', padding: '2px 12px', fontSize: '12px' }} variant="contained">{t('remove', { ns: 'buttons' })}</Button> : null}
                               </div>
                               : <span></span>
                           }
