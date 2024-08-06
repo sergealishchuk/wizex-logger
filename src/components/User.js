@@ -35,7 +35,6 @@ export default {
   },
 
   updateUserInfo(value, force = false) {
-    console.log('UPDATE USER INFO:', value);
     const user = this.read();
     const userInfo = {
       ...user,

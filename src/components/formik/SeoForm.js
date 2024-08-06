@@ -123,7 +123,6 @@ const SeoForm = (props) => {
         {(props) => {
           const { values } = props;
           setValues(values);
-          console.log('values:', values);
           return (
             <Form>
               <Grid container>

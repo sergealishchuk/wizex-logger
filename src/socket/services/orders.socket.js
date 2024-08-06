@@ -26,7 +26,6 @@ async function getOnlineUsersMonitor(values) {
 async function getPushNotifications(values) {
   try {
     const response = await SocketServer.run('getPushNotifications', values);
-    console.log('res', response);
     return response;
   } catch (e) {
     console.log(e);

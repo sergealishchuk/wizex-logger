@@ -57,7 +57,6 @@ const socketServer = class {
           const { command, params } = props;
 
           const procedureName = backendCommandList[command];
-          console.log('from server:', command, params, backendCommandList, changesBackendSocketService, procedureName);
           if (procedureName && changesBackendSocketService[procedureName]) {
             changesBackendSocketService[procedureName](params, callback);
           }

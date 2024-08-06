@@ -20,7 +20,6 @@ const DetailPage = (props = {}) => {
 
   useEffect(() => {
     document.querySelectorAll('pre.json').forEach((el) => {
-      console.log('wow el:', el);
       hljs.highlightElement(el);
     });
   }, []);
@@ -33,26 +32,26 @@ const DetailPage = (props = {}) => {
   const handleBack = () => {
     router.back();
   };
-  console.log('!!! body:', body);
+
   return (
     <div>
       <div style={{ borderBottom: '1px #e2e2e2 solid' }}>
         <table width="100%" style={{ fontSize: '12px' }}>
           <tr style={{ backgroundColor: '#ededed', padding: '4px 8', fontSize: '18px', fontWeight: 'bold' }}>
-            <td colSpan={2}><div style={{ paddingLeft: '6px' }}>{t('project', {ns: 'project'})}</div></td>
+            <td colSpan={2}><div style={{ paddingLeft: '6px' }}>{t('project', { ns: 'project' })}</div></td>
           </tr>
           <tr>
-            <td style={{ minWidth: '100px', whiteSpace: 'nowrap', fontWeight: '600' }}>{t('name', {ns: 'projects'})}:</td>
+            <td style={{ minWidth: '100px', whiteSpace: 'nowrap', fontWeight: '600' }}>{t('name', { ns: 'projects' })}:</td>
             <td style={{ width: '100%' }}>
               <span>{project.name}</span>
             </td>
           </tr>
           <tr>
-            <td style={{ whiteSpace: 'nowrap', fontWeight: '600' }}>{t('description', {ns: 'projects'})}:</td>
+            <td style={{ whiteSpace: 'nowrap', fontWeight: '600' }}>{t('description', { ns: 'projects' })}:</td>
             <td>{project.description}</td>
           </tr>
           <tr>
-            <td style={{ whiteSpace: 'nowrap', fontWeight: '600' }}>{t('public_link', {ns: 'projects'})}:</td>
+            <td style={{ whiteSpace: 'nowrap', fontWeight: '600' }}>{t('public_link', { ns: 'projects' })}:</td>
             <td>
               <Link href={project.publicLink}>{project.publicLink}</Link>
             </td>
@@ -60,8 +59,8 @@ const DetailPage = (props = {}) => {
         </table>
       </div>
       <FlexContainer jc="space-between" style={{ marginTop: '12px' }}>
-        <SmallButton startIcon={<ArrowBackIcon />} btn="gray" onClick={handleBack}>{t('back', {ns: 'projects'})}</SmallButton>
-        <SmallButton btn="green" onClick={handleFilterBySession}>{t('filter_this_session', {ns: 'projects'})}</SmallButton>
+        <SmallButton startIcon={<ArrowBackIcon />} btn="gray" onClick={handleBack}>{t('back', { ns: 'projects' })}</SmallButton>
+        <SmallButton btn="green" onClick={handleFilterBySession}>{t('filter_this_session', { ns: 'projects' })}</SmallButton>
       </FlexContainer>
 
       <div style={{ borderBottom: '1px #e2e2e2 solid', marginTop: '12px' }}>
@@ -70,7 +69,7 @@ const DetailPage = (props = {}) => {
             <td colSpan={2}>
               <div style={{ paddingLeft: '6px' }}>
                 <FlexContainer jc="flex-start">
-                  <span>{t('content', {ns: 'projects'})}</span>
+                  <span>{t('content', { ns: 'projects' })}</span>
                 </FlexContainer>
               </div>
             </td>

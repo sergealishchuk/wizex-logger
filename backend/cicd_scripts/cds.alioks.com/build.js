@@ -25,22 +25,12 @@ module.exports = async (params, options) => {
     const pushData = (string) => stringOut.push(string);
 
     const onScriptStart = (params) => {
-
       const { pid } = params;
-      console.log('onScriptStart: pid =', pid, buffer);
       buffer.push(pid);
-
-      // setTimeout(() => {
-      //   console.log('KILL!!!!!!!');
-      //   kill(pid);
-      //   console.log('Killed');
-      // }, 30000);
     };
 
     const onScriptFinish = async (code) => {
-      console.log('onScriptFinish :', code);
       const scriptFile = path.resolve(__dirname, 'restartScript.sh');
-      console.log('scriptFile:', scriptFile);
       const options = [
         '-p',
         pm2Name

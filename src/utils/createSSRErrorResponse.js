@@ -38,14 +38,10 @@ export default (error, locale) => {
     }
   }
 
-  // Local error
-  //console.log('EEEERRRROR type', typeof(error));
-
   let errorText = '';
   if (errorCode) {
     errorText = translateByCode(errorCode, { locale });
   }
-  //console.log('errorText: ', errorText);
 
   let status;
 
@@ -62,8 +58,6 @@ export default (error, locale) => {
   const responseData = error.typeOfError ? _.get(error, 'XHRResponse.data') : _.get(error, 'response.data');
   code = _.get(error, 'code');
   const originalMessage = _.get(error, 'message', errorText);
-console.log('error::', error);
-console.log('responseData', responseData);
 
   let errorList;
 

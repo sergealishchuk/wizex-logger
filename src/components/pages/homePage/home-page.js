@@ -28,7 +28,6 @@ const getPromotionContent = (props) => {
     if (startTrialPeriodRequest.ok) {
       const resultUserProfile = await userService.getUserProfile();
       const { trialwasused } = resultUserProfile.user;
-      console.log('trialwasused:', trialwasused, resultUserProfile);
       router.push('/projects');
     }
   };
@@ -353,31 +352,17 @@ const HomePage = (props = {}) => {
   const { updateUserInfo } = store;
 
   const [freeTrial, setFreeTrial] = useState(false);
-  console.log('home-page props:', props);
-
   const { locale } = useRouter();
 
   useEffect(() => {
-    //document.addEventListener('DOMContentLoaded', (event) => {
     document.querySelectorAll('div.code').forEach((el) => {
-      console.log('wow el:', el);
       hljs.highlightElement(el);
     });
-    //});
-    // if (User.userIsLoggedIn()) {
-    //   const { trialwasused, userPaiedAtLeastOneTime } = User.read();
-    //   console.log('trialwasused, userPaiedAtLeastOneTime', trialwasused, userPaiedAtLeastOneTime);
-    //   if (!trialwasused && !userPaiedAtLeastOneTime) {
-    //     setFreeTrial(true);
-    //   }
-    // }
   }, []);
 
   useEffect(() => {
-    console.log('CHANGE updateUserInfo');
     if (User.userIsLoggedIn()) {
       const { trialwasused, userPaiedAtLeastOneTime } = User.read();
-      console.log('!!!!!!trialwasused, userPaiedAtLeastOneTime', trialwasused, userPaiedAtLeastOneTime);
       if (!trialwasused && !userPaiedAtLeastOneTime) {
         setFreeTrial(true);
       }
@@ -386,7 +371,6 @@ const HomePage = (props = {}) => {
 
   return (
     <div>
-      {/* <ActiveProjects projectList={projects} {...props}/> */}
       <ProjectDescriptionStyled>
         {getPromotionContent({ locale, freeTrial })}
       </ProjectDescriptionStyled>

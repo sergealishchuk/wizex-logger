@@ -40,7 +40,6 @@ const Payments = (props) => {
   const [programName, setProgramName] = useState('');
   const [tariffIsActual, setTariffIsActual] = useState(true);
 
-  console.log('props!!!:', props);
   const {
     shopnameFull,
     shopLogo,
@@ -64,7 +63,6 @@ const Payments = (props) => {
   const getTariffPrice = () => {
     const findTariff = _.find(tariffList, item => item.tariff === String(paymentAccount.tariff));
     const { price } = findTariff;
-    console.log('!!! price:', price);
     return price;
   }
 

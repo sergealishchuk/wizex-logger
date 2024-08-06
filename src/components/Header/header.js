@@ -122,7 +122,6 @@ export default () => {
 		const userInformation = store.addListener(
 			UserStorePath,
 			(value) => {
-				console.log('userInformation', userInformation);
 				setUserLoggined(Boolean(value && value.email));
 			}
 		);
@@ -133,7 +132,6 @@ export default () => {
 			if (action && action === 'registration') {
 				setOpenRegisterDialog(true);
 			} else {
-				console.log('pointD 1', params);
 				setOpenAuthDialog(true);
 			}
 		});
@@ -190,7 +188,6 @@ export default () => {
 
 	const handleOpenAuthDialog = () => {
 		setTimeout(() => setMenuOpen(false), 300);
-		console.log('pointD 2');
 		setOpenAuthDialog(true);
 	};
 

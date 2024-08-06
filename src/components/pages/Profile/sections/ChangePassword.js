@@ -57,8 +57,6 @@ export default ({ data, icon, expand, expandAction, expandId }) => {
 
     if (result && result.error) {
       const message = getResponseMessage(result);
-      console.log('result', result);
-      console.log('message', message);
       if (message) {
         setErrors([{ message }]);
       }

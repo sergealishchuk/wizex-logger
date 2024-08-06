@@ -114,7 +114,6 @@ export default ({ data, icon, expand, onProfileUpdate, expandAction, expandId })
   };
 
   const handleOnKeyUp = (event) => {
-    console.log('up');
     const { code } = event;
     if (code === 'Escape') {
       onCancel();
@@ -163,12 +162,12 @@ export default ({ data, icon, expand, onProfileUpdate, expandAction, expandId })
                 <Grid item xs={12} md={6}>
 
                 </Grid>
-                <Grid item xs={12} md={12}>
+                {/* <Grid item xs={12} md={12}>
                   <Switch
                     name="allowNotifications"
                     label={t('allow_notifications', { ns: 'profile_preferences' })}
                   />
-                </Grid>
+                </Grid> */}
                 <Grid item xs={12} md={12}>
                   <DialogActions sx={{ borderTop: '1px #e2e2e2 solid', width: '100%', marginTop: 0, justifyContent: 'start' }}>
                     {

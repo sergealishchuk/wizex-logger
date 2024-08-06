@@ -33,7 +33,6 @@ export default function DummyDataPage(props) {
     } else {
 
       const { goods, indexCount } = dataStatisticsResult;
-      console.log('dataStatisticsResult', dataStatisticsResult);
       setIndexCount(indexCount);
       setCountProducts(goods.ProductCount);
     }
