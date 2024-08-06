@@ -19,8 +19,6 @@ import {
 import PasswordField from '~/components/formik/PasswordField';
 import store from '~/utils/store';
 import { useTranslation } from 'next-i18next';
-import { Test1 } from '@lib/wizen';
-import Test2 from '@lib/wizen/es/Test2';
 
 
 export default function AuthDialog(props) {
@@ -196,8 +194,6 @@ export default function AuthDialog(props) {
 				{(props) => {
 					return (
 						<Form onChange={handleClearErrors}>
-							<Test1 />
-							<Test2 />
 							<Grid container spacing={{ xs: 2, md: 3 }} style={{ padding: 0 }}>
 								<Grid item xs={12}>
 									<Grid container spacing={{ xs: 4 }}>
