@@ -18,7 +18,6 @@ const ActiveProjects = (props) => {
     const activeProjectsRequest = await projectsService.getActiveProjects();
     if (activeProjectsRequest.ok) {
       const { projects } = activeProjectsRequest.data;
-      console.log('wow project:', projects);
       setProjectList(projects);
     }
   };

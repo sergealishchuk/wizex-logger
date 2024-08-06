@@ -15,7 +15,6 @@ const System = (props) => {
   
   const [roles, setRoles] = useState([]);
   const { t } = useTranslation('sidebar', 'admin_main');
-  console.log('systemConfig', systemConfig(t));
   useEffect(() => {
     const userInfo = User.read();
     if (userInfo) {

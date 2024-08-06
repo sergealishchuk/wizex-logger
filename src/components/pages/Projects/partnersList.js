@@ -13,7 +13,6 @@ import { projectsService } from '~/http/services';
 
 const PartnersList = (props) => {
   const { project = {} } = props;
-  console.log('PartenrsList project:', project);
   const refFormik = useRef(null);
   const [partners, setPartners] = useState(project.partnersList || []);
   const [initialFormState, setInitialFormState] = useState({ email: '' });

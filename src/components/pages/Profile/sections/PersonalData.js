@@ -104,7 +104,6 @@ export default ({ data, icon, expand, onProfileUpdate, expandAction, expandId })
   };
 
   const handleOnKeyUp = (event) => {
-    console.log('up');
     const { code } = event;
     if (code === 'Escape') {
       onCancel();

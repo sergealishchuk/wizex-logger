@@ -30,11 +30,8 @@ export async function getServerSideProps(props) {
   let projectInfoRequest;
   try {
     projectInfoRequest = await projectsService.getProjectInfo({ projectId, builds: false }, createHttpRequestOptions(props));
-    console.log('projectInfoRequest', projectInfoRequest);
   } catch (e) {
-    console.log('error:::::::::', e);
     const handleError = createSSRErrorResponse(e);
-    console.log('handleError:', handleError);
     return {
      // notFound: true,
       ...handleError,
@@ -45,12 +42,8 @@ export async function getServerSideProps(props) {
         ...translations,
       }};
   }
-  console.log('projectId:', projectId);
-  console.log('projectInfoRequest', projectInfoRequest, JSON.stringify(projectInfoRequest));
 
   let data = {};
-
-  
 
   if (projectInfoRequest.ok) {
     const { project } = projectInfoRequest.data;
@@ -67,7 +60,6 @@ export async function getServerSideProps(props) {
   } else {
 
     const withErrors = createSSRErrorResponse(projectInfoRequest);
-    console.log('withErrors -> ', JSON.stringify(withErrors));
     result = {
       //...withErrors,
 
@@ -79,7 +71,5 @@ export async function getServerSideProps(props) {
 
   }
 
-  //console.log('result::::', JSON.stringify(result));
-  //result = {props: {}};
   return result;
 };

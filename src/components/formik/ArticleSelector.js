@@ -27,7 +27,6 @@ const ArticleSelectorFieldWrapper = ({ name, ...otherProps }) => {
   }
 
   const handleArticleSelect = (articleId) => {
-    console.log('handleArticleSelect!:', articleId);
     setValue(articleId);
   };
 

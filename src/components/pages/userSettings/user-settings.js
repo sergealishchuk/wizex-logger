@@ -91,7 +91,6 @@ export default function UserSettings(props) {
 
 
   const onSubmit = async (values, { setSubmitting }) => {
-console.log('onSubmit', values);
     if (_.isEqual(values, initialValues)) {
       router.push('/');
       return;

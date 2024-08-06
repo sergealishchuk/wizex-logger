@@ -48,7 +48,6 @@ export default function ElasticSearchPage(props) {
 
   const handleRefrashTemplates = () => {
     refreshTemplatesRequest();
-    console.log('handleRefrashTemplates');
   };
 
   const handleRefrash = () => {

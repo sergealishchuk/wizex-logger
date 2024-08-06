@@ -118,8 +118,6 @@ export default function Layout({ children, error, ...rest }) {
             .then(token => {
               userService.updateNotifyToken({ token })
                 .then(response => {
-                  //const { user } = response;
-                  //console.log('notify response: ', response);
                 })
                 .catch(error => console.log('err1:', error));
             })
@@ -175,9 +173,8 @@ export default function Layout({ children, error, ...rest }) {
     setOffSellerLocked(true);
   };
 
-  //console.log('router.route', router.route);
 
-  return readyToUse && ( // TODO: need to remove, ONLY FOR DEV MODE !!!!!!!!!!!!
+  return readyToUse && (
     <>
       {!withoutHeader && <Header />}
       <motion.div key={router.route} style={{ maxWidth: '1195px', margin: 'auto' }} initial="pageInitial" animate="pageAnimate" variants={{

@@ -106,7 +106,6 @@ export default function UsersPage() {
   };
 
   const handleAddUser = () => {
-    console.log('add user');
     setOpenRegisterDialog(true);
   }
 
