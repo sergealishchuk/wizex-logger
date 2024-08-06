@@ -31,5 +31,6 @@
   "resource_link": "Resource Link",
   "no_actions": "List is empty",
   "need_to_pay": "You cannot add new projects, as for this you need to",
-  "pay_tariff": "pay a tariff"
+  "pay_tariff": "pay a tariff",
+  "project_name": "Project Name"
 }
