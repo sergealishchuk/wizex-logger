@@ -9,6 +9,7 @@ import hljs from 'highlight.js';
 import javascript from 'highlight.js/lib/languages/javascript';
 import { FlexContainer, SmallButton } from '~/components/StyledComponents';
 hljs.registerLanguage('javascript', javascript);
+import Mutex from '~/components/Mutex';
 
 const CodeMonitorTitle = <span><b>Wizex CodeMonitor</b></span>;
 const CodeMonitor = <span><b>CodeMonitor</b></span>;
@@ -371,6 +372,7 @@ const HomePage = (props = {}) => {
 
   return (
     <div>
+      <Mutex />
       <ProjectDescriptionStyled>
         {getPromotionContent({ locale, freeTrial })}
       </ProjectDescriptionStyled>
