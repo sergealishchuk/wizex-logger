@@ -34,8 +34,17 @@ module.exports = async (parameters, res) => {
           },
           raw: true,
         });
-console.log('host:', host);
-console.log('projectRequest', projectRequest);
+        console.log('host:', host);
+        console.log('projectRequest', projectRequest);
+
+        if (projectRequest === null) {
+          return {
+            ok: false,
+            error: "The project not found",
+            ERROR_CODE: "PROJECT_NOT_FOUND"
+          }
+        }
+
         const { active } = projectRequest;
         if (active) {
           const { message = 'empty', level = 'error' } = body;
