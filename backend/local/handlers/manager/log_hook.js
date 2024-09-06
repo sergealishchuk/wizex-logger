@@ -4,9 +4,28 @@ const jwt = require('jsonwebtoken');
 const { socketConnector } = require('../../../utils');
 const { v4: uuidv4 } = require('uuid');
 
+function parseCookies (request) {
+  const list = {};
+  const cookieHeader = request.headers?.cookie;
+  if (!cookieHeader) return list;
+
+  cookieHeader.split(`;`).forEach(function(cookie) {
+      let [ name, ...rest] = cookie.split(`=`);
+      name = name?.trim();
+      if (!name) return;
+      const value = rest.join(`=`).trim();
+      if (!value) return;
+      list[name] = decodeURIComponent(value);
+  });
+
+  return list;
+}
+
 module.exports = async (parameters, res) => {
   const { body, headers } = parameters;
   const { 'x-wizex': WizexToken, 'x-wizex-session-id': sessionId, host } = headers;
+  const cookies = parseCookies(parameters);
+  console.log('cookies:', cookies);
 
   const { JWT_SECRET_KEY } = process.env;
 
@@ -137,7 +156,7 @@ module.exports = async (parameters, res) => {
         }
       });
 
-      res.status(204).json({ ok: true });
+      res.status(200).json({ ok: true, cookies });
       return;
 
       // return {
