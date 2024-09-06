@@ -2,12 +2,17 @@
 const { Projects, ProjectActions, sequelize } = require('../../../models');
 const jwt = require('jsonwebtoken');
 const { socketConnector } = require('../../../utils');
+const { v4: uuidv4 } = require('uuid');
 
 module.exports = async (parameters, res) => {
   const { body, headers } = parameters;
   const { 'x-wizex': WizexToken, 'x-wizex-session-id': sessionId, host } = headers;
 
   const { JWT_SECRET_KEY } = process.env;
+
+  if (!sessionId) {
+    res.cookie('x-wizex-session-id', uuidv4(), { maxAge: 1000 * 60 * 60 * 24, httpOnly: true, signed: true});
+  }
 
   let tokenPayload;
 
@@ -132,9 +137,12 @@ module.exports = async (parameters, res) => {
         }
       });
 
-      return {
-        ...result,
-      }
+      res.status(204).json({ ok: true });
+      return;
+
+      // return {
+      //   ...result,
+      // }
     } else if (result.error) {
       res.status(400).json(
         { ...result }
