@@ -156,7 +156,7 @@ module.exports = async (parameters, res) => {
         }
       });
 
-      res.status(200).json({ ok: true, cookies });
+      res.status(200).json({ ok: true, cookies, headers });
       return;
 
       // return {
