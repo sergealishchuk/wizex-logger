@@ -11,7 +11,7 @@ module.exports = async (parameters, res) => {
   const { JWT_SECRET_KEY } = process.env;
 
   if (!sessionId) {
-    res.cookie('x-wizex-session-id', uuidv4(), { maxAge: 1000 * 60 * 60 * 24, httpOnly: true, signed: true});
+    res.cookie('x-wizex-session-id', uuidv4(), { maxAge: 1000 * 60 * 60 * 24, httpOnly: true, signed: false});
   }
 
   let tokenPayload;
